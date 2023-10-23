@@ -1,1 +1,99 @@
-# festival78-tickets
+# 文化祭抽選券システム
+
+## やることリスト
+
+- [x] 連打対策
+- [x] PWA 化
+- [x] 通知
+
+## api
+
+初めにクッキーから token を取得する。
+
+JWT でデコードすることより uuid を確認してからデータベースにあることを確認する。
+
+JWT で署名が確認できない、もしくは token がない場合は uuid は無視する。
+
+### /login
+
+ユーザーが存在することを確認したのち、クッキーに token を保存。
+
+| parameter | type   |
+| --------- | ------ |
+| email     | string |
+
+返り値
+
+| parameter | type    |
+| --------- | ------- |
+| ok        | boolean |
+
+ステータスコード
+
+| コード | エラー内容         |
+| ------ | ------------------ |
+| 400    | email の内容が不正 |
+
+### /register
+
+secret は登録用リンクから来たことを確認するために必要。
+
+email を用いてユーザーを作成し、クッキーに token を保存。
+
+uuid が指定された場合は、email を更新。
+
+| parameter | type    |
+| --------- | ------- |
+| email     | string  |
+| secret    | string  |
+| uuid      | string? |
+
+返り値
+
+| parameter | type    |
+| --------- | ------- |
+| ok        | boolean |
+
+ステータスコード
+
+| コード | エラー内容         |
+| ------ | ------------------ |
+| 400    | email の内容が不正 |
+| 401    | secret が不正      |
+| 409    | email が衝突       |
+
+### user
+
+ユーザーの情報を取得する。
+
+パラメータなし
+
+返り値
+
+| parameter | type   |
+| --------- | ------ |
+| email     | string |
+
+ステータスコード
+
+| コード | エラー内容           |
+| ------ | -------------------- |
+| 401    | token が不正         |
+| 404    | ユーザーが存在しない |
+
+### /raffle
+
+抽選を行う。
+
+| parameter    | type   |
+| ------------ | ------ |
+| eventId      | number |
+| timeId       | number |
+| participants | number |
+
+
+返り値
+
+| parameter | type   |
+| --------- | ------ |
+| ok        | boolean |
