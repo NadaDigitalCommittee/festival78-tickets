@@ -1,6 +1,8 @@
-FROM node:slim
-RUN apt-get update -y && apt-get install -y openssl
+FROM  node:21-slim
+ENV NEXT_TELEMETRY_DISABLED 1
 WORKDIR /app
 COPY . .
-RUN npm i && npm run build
-CMD ["npm", "start"]
+RUN apt update && apt install openssl -y 
+RUN npm i && npm run build && npm prune --production
+EXPOSE 3000
+CMD ["node","./node_modules/next/dist/bin/next", "start"]
