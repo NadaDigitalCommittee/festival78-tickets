@@ -7,13 +7,9 @@ type Props = {
 };
 
 const base = tv({
-  base: "flex justify-center items-center w-full h-full",
+  base: "flex justify-center items-center w-full",
 });
 
 export const Center: FC<Props> = ({ children, className }) => {
-  return (
-    <div className={base({ className })} >
-      {children}
-    </div>
-  );
+  return <div className={base({ className })}>{children}</div>;
 };

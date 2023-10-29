@@ -3,12 +3,13 @@ import { Api, ApiLoginResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { validateHandler } from "../handler";
 import { generateUUID } from "@/lib/session";
+import z from "zod";
 
 export const POST = validateHandler<Api<ApiLoginResponse>>(async (request) => {
   const res = await request.json();
-  const email = res.email as string;
+  const email = z.string().min(1).safeParse(res.email);
 
-  if (email === "") {
+  if (!email.success) {
     return NextResponse.json(
       {
         ok: false,
@@ -19,20 +20,20 @@ export const POST = validateHandler<Api<ApiLoginResponse>>(async (request) => {
 
   const user = await prisma.user.findUnique({
     where: {
-      email: email,
+      email: email.data,
     },
   });
 
-  if (user) {
-    generateUUID(user.uuid);
+  if (!user) {
     return NextResponse.json(
       {
-        ok: true,
+        ok: false,
       },
       { status: 400 }
     );
   }
 
+  generateUUID(user.uuid);
   return NextResponse.json(
     {
       ok: true,

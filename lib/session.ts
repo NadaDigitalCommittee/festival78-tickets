@@ -44,6 +44,6 @@ export async function generateUUID(uuid: string) {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
-    }
+    },
   );
 }

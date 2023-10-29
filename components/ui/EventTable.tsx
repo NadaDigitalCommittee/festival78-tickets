@@ -25,7 +25,7 @@ export const EventBox: FC<EventBoxProps> = ({ time, eventId, timeId }) => {
   const [result, setResult] = useState<Result | undefined>(undefined);
   useEffect(() => {
     setResult(
-      ctx?.find((e) => e.eventId === eventId && e.timeId === timeId)?.result
+      ctx?.find((e) => e.eventId === eventId && e.timeId === timeId)?.result,
     );
   }, [ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -159,9 +159,8 @@ export const RaffleDialog: FC<RaffleDialogProps> = ({
       return EVENTS[e.eventId].time[e.timeId];
     })
     .filter(() => {
-      const r = ctx.find(
-        (e) => e.eventId === eventId && e.timeId === timeId
-      )?.result;
+      const r = ctx.find((e) => e.eventId === eventId && e.timeId === timeId)
+        ?.result;
       if (!r) return true;
       return r !== Result.WIN;
     });

@@ -6,7 +6,6 @@ import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 //import { EventTable } from "./ui/EventTable";
 import { Menu } from "./app/Menu";
-import { Button } from "./ui/Button";
 
 type Props = {};
 
@@ -15,6 +14,8 @@ export const RaffleResultContext = createContext<Raffle[] | undefined>(
 );
 
 export type State = "Home" | "Settings" | "Ticket";
+
+type A=ReturnType<typeof setTimeout>
 
 export const App: FC<Props> = () => {
   const { data: user } = useSWRImmutable<ApiUserResponse>(`/user`);
@@ -27,21 +28,17 @@ export const App: FC<Props> = () => {
   const [state, setState] = useState<State>("Home");
 
   return (
-    <div className={"mt-3"}>
-      <h1>{user ? user.email : ""}さんようこそ</h1>
-      <Menu state={state} setState={setState} />
-      {/* <RaffleResultContext.Provider value={result?.raffle}>
+    <div className={"w-full h-screen"}>
+      <><h1>{user ? user.email : ""}さんようこそ</h1>
+
+        {/* <RaffleResultContext.Provider value={result?.raffle}>
         <div className={result ? "" : " pointer-events-none"}>
           <EventTable />
         </div>
       </RaffleResultContext.Provider> */}
-      <Button
-          onClick={() => {
-            setState("Ticket");
-          }}
-        >
-          <p>チケット</p>
-        </Button>
+        <div className=" h-[1800px]">a</div>
+      </>
+      <Menu state={state} setState={setState} className="fixed inset-x-0 bottom-0" />
     </div>
   );
 };

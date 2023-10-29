@@ -6,7 +6,7 @@ export class Time {
     startHour: number,
     startMinute: number,
     endHour: number,
-    endMinute: number
+    endMinute: number,
   ) {
     const now = Time.nowJST();
     this.start = new Date(
@@ -14,14 +14,14 @@ export class Time {
       now.getMonth(),
       now.getDate(),
       startHour,
-      startMinute
+      startMinute,
     );
     this.end = new Date(
       now.getFullYear(),
       now.getMonth(),
       now.getDate(),
       endHour,
-      endMinute
+      endMinute,
     );
     this.periodMinutes =
       (this.end.getTime() - this.start.getTime()) / 1000 / 60;
@@ -45,17 +45,17 @@ export class Time {
   }
   public toStartString() {
     return `${this.to2Digits(this.start.getHours())}:${this.to2Digits(
-      this.start.getMinutes()
+      this.start.getMinutes(),
     )}`;
   }
   public toEndString() {
     return `${this.to2Digits(this.end.getHours())}:${this.to2Digits(
-      this.end.getMinutes()
+      this.end.getMinutes(),
     )}`;
   }
   static nowJST() {
     return new Date(
-      Date.now() + (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000
+      Date.now() + (new Date().getTimezoneOffset() + 9 * 60) * 60 * 1000,
     );
   }
   public isTimeOut() {

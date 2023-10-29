@@ -11,7 +11,7 @@ type Props = {
 
 export async function fetcher<T>(
   input: string,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<T> {
   const res = await fetch(`${apiBase}${input}`, init);
   const data = (await res.json()) as Api<{}>;

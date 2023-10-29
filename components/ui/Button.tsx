@@ -8,7 +8,7 @@ type Props = {
 };
 
 const base = tv({
-  base: "w-full h-full rounded-lg border hover:bg-black hover:text-white transition duration-300 ease-in-out",
+  base: "w-full h-full rounded-lg border hover:bg-gray-100 transition duration-300 ease-in-out",
 });
 
 export const Button: FC<Props> = ({ children, className, onClick }) => {
