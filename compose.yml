@@ -1,3 +1,4 @@
+name: festival78-tickets
 services:
   festival78-tickets:
     container_name: server
