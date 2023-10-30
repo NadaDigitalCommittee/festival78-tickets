@@ -1,0 +1,40 @@
+{
+    "name": "festival78-ticket",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+      "dev": "next dev -p 3000 --turbo",
+      "build": "next build",
+      "start": "next start -p 3000",
+      "lint": "next lint",
+      "migrate": "npx prisma migrate dev --name init",
+      "format": "npx prettier --write {app,lib,components}/**/*.{ts,tsx,json,md}",
+      "postinstall": "prisma generate"
+    },
+    "dependencies": {
+      "@prisma/client": "^5.2.0",
+      "autoprefixer": "10.4.15",
+      "jsonwebtoken": "^9.0.2",
+      "next": "13.4.19",
+      "postcss": "8.4.28",
+      "react": "18.2.0",
+      "react-dom": "18.2.0",
+      "swr": "^2.2.2",
+      "tailwind-variants": "^0.1.14",
+      "zod": "^3.22.2"
+    },
+    "devDependencies": {
+      "@types/jsonwebtoken": "^9.0.4",
+      "@types/node": "20.5.6",
+      "@types/react": "18.2.21",
+      "@types/react-dom": "18.2.7",
+      "react-icons": "^4.11.0",
+      "eslint": "8.47.0",
+      "eslint-config-next": "13.4.19",
+      "eslint-plugin-unused-imports": "^3.0.0",
+      "prisma": "^5.2.0",
+      "tailwindcss": "3.3.3",
+      "typescript": "^5.2.2"
+    }
+  }
+  
