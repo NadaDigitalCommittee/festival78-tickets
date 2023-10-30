@@ -9,6 +9,9 @@ export function validateHandler<T>(
 ): (request: Request) => Promise<NextResponse<T>> {
   return async (request: Request) => {
     //認証
+    console.log("validateHandler")
+    console.log(request)
     return await handler(request, await validateUUID());
+    
   };
 }

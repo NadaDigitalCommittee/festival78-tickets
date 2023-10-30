@@ -13,11 +13,6 @@ COPY --from=openssl . .
 COPY --from=builder /app /app
 
 ENV NODE_ENV production
-RUN groupadd -r lirantal && useradd -r -s /bin/false -g lirantal lirantal
-
 WORKDIR /app
-RUN chown -R lirantal:lirantal /app
-USER lirantal
-
 EXPOSE 3000
 CMD ["node","./node_modules/next/dist/bin/next", "start"]
