@@ -8,18 +8,16 @@ RUN npm i && npm run build && npm prune --production
 
 FROM alpine/openssl as openssl
 
-RUN apk add nginx
-
 FROM googlefan25/amd64-tiny-node
 COPY --from=openssl . .
 COPY --from=builder /app /app
-COPY --from=builder /app/nginx /etc/nginx
 
 ENV NODE_ENV production
+RUN groupadd -r lirantal && useradd -r -s /bin/false -g lirantal lirantal
 
 WORKDIR /app
+RUN chown -R lirantal:lirantal /app
+USER lirantal
+
 EXPOSE 3000
-
-RUN service nginx start
-
 CMD ["node","./node_modules/next/dist/bin/next", "start"]
