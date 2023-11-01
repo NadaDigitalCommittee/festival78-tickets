@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/db";
 import { Api, ApiRaffleResponse } from "@/lib/types";
+import { prisma } from "@/lib/プリズマ";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { validateHandler } from "../handler";

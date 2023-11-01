@@ -1,17 +1,14 @@
 import { validateUUID } from "@/lib/session";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export function validateHandler<T>(
   handler: (
-    request: Request,
+    request: NextRequest,
     uuid: string | undefined,
   ) => Promise<NextResponse<T>>,
-): (request: Request) => Promise<NextResponse<T>> {
-  return async (request: Request) => {
+): (request: NextRequest) => Promise<NextResponse<T>> {
+  return async (request: NextRequest) => {
     //認証
-    console.log("validateHandler")
-    console.log(request)
-    return await handler(request, await validateUUID());
-    
+    return await handler(request, await validateUUID());    
   };
 }

@@ -30,5 +30,5 @@ enum Result {
 
 generator client {
   provider      = "prisma-client-js"
-  binaryTargets = ["linux-musl-openssl-3.0.x"]
+  binaryTargets = ["native"]
 }

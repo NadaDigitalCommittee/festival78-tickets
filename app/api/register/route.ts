@@ -1,9 +1,9 @@
-import { prisma } from "@/lib/db";
+import { generateUUID } from "@/lib/session";
 import { Api, ApiRegisterResponse } from "@/lib/types";
+import { prisma } from "@/lib/プリズマ";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { validateHandler } from "../handler";
-import { generateUUID } from "@/lib/session";
 
 export const POST = validateHandler<Api<ApiRegisterResponse>>(
   async (request) => {
