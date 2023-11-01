@@ -1,12 +1,12 @@
+import { prisma } from "@/lib/db";
 import { Api, ApiRaffleResponse } from "@/lib/types";
-import { prisma } from "@/lib/プリズマ";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { validateHandler } from "../handler";
 
 export const POST = validateHandler<Api<ApiRaffleResponse>>(
-  async (request, uuid) => {
-    if (!uuid) {
+  async (request, session) => {
+    if (!session) {
       return NextResponse.json({ ok: false }, { status: 401 });
     }
 
@@ -23,7 +23,7 @@ export const POST = validateHandler<Api<ApiRaffleResponse>>(
           unique_raffle: {
             eventId: safeRes.data.eventId,
             timeId: safeRes.data.timeId,
-            userId: uuid,
+            userId: session.uuid,
           },
         },
       })
@@ -39,7 +39,7 @@ export const POST = validateHandler<Api<ApiRaffleResponse>>(
         eventId: safeRes.data.eventId,
         participants: safeRes.data.participants,
         timeId: safeRes.data.timeId,
-        userId: uuid,
+        userId: session.uuid,
       },
     });
 

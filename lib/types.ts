@@ -28,6 +28,7 @@ export type ApiResultResponse = {
   raffle?: Raffle[];
 };
 
-export type ApiUserResponse = {
+export type Session = {
+  uuid: string;
   email: string;
 };

@@ -1,6 +1,6 @@
-import { generateUUID } from "@/lib/session";
+import { prisma } from "@/lib/db";
+import { generateSession } from "@/lib/session";
 import { Api, ApiLoginResponse } from "@/lib/types";
-import { prisma } from "@/lib/プリズマ";
 import { NextResponse } from "next/server";
 import z from "zod";
 import { validateHandler } from "../handler";
@@ -33,7 +33,7 @@ export const POST = validateHandler<Api<ApiLoginResponse>>(async (request) => {
     );
   }
 
-  generateUUID(user.uuid);
+  generateSession(user.uuid, user.email);
   return NextResponse.json(
     {
       ok: true,

@@ -1,22 +1,26 @@
 import { sign, verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { z } from "zod";
+import { Session } from "./types";
 
-export async function validateUUID(): Promise<string | undefined> {
+export async function validateSession(): Promise<Session | undefined> {
   const token = cookies().get("token")?.value;
   if (!token) {
     return undefined;
   }
 
-  let result: { ok: boolean; uuid: string } = { ok: false, uuid: "" };
+  let result: { ok: boolean } & Session = { ok: false, uuid: "", email: "" };
   verify(token, process.env.JWTSECRET ?? "", (e, decoded: any) => {
     if (!e) {
-      const scheme = z.string();
-      const parse = scheme.safeParse(decoded.uuid);
+      const scheme = z.object({
+        uuid: z.string(),
+        email: z.string(),
+      });
+      const parse = scheme.safeParse(decoded);
       if (parse.success) {
         result = {
           ok: true,
-          uuid: parse.data,
+          ...parse.data,
         };
       }
     }
@@ -26,18 +30,13 @@ export async function validateUUID(): Promise<string | undefined> {
     return undefined;
   }
 
-  const uuid = z.string().uuid().safeParse(result.uuid);
-  if (!uuid.success) {
-    return undefined;
-  }
-
-  return uuid.data;
+  return result;
 }
 
-export async function generateUUID(uuid: string) {
+export async function generateSession(uuid: string, email: string) {
   cookies().set(
     "token",
-    sign({ uuid: uuid }, process.env.JWTSECRET ?? "", {
+    sign({ uuid, email }, process.env.JWTSECRET ?? "", {
       expiresIn: "2 days",
     }),
     {

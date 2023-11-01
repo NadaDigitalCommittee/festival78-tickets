@@ -1,6 +1,6 @@
-import { generateUUID } from "@/lib/session";
+import { prisma } from "@/lib/db";
+import { generateSession } from "@/lib/session";
 import { Api, ApiRegisterResponse } from "@/lib/types";
-import { prisma } from "@/lib/プリズマ";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { validateHandler } from "../handler";
@@ -17,14 +17,14 @@ export const POST = validateHandler<Api<ApiRegisterResponse>>(
           uuid: uuid,
         },
       });
-      if(user){
+      if (user) {
         prisma.user.update({
-          "where":{
-            "uuid":uuid
+          "where": {
+            "uuid": uuid
           },
-          data:{
-            email:email,
-            uuid:uuid
+          data: {
+            email: email,
+            uuid: uuid
           }
         })
         return NextResponse.json({ ok: true }, { status: 200 });
@@ -70,7 +70,7 @@ export const POST = validateHandler<Api<ApiRegisterResponse>>(
     });
 
     //cookieにtokenをセット
-    generateUUID(user.uuid);
+    generateSession(user.uuid, user.email);
 
     return NextResponse.json({ ok: true }, { status: 200 });
   }
