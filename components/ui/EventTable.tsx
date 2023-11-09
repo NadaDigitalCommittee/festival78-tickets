@@ -1,11 +1,13 @@
 "use client";
+
 import { EVENTS, apiBase, isDev } from "@/lib/constants";
 import { Time } from "@/lib/time";
 import { ApiRaffleResponse, Event } from "@/lib/types";
 import { Result } from "@prisma/client";
 import { FC, useContext, useEffect, useRef, useState } from "react";
 import { mutate } from "swr";
-import { RaffleResultContext } from "../App";
+import { RaffleResultContext } from "../context";
+
 
 type EventBoxProps = {
   time: Time;

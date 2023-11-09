@@ -1,14 +1,8 @@
 "use client"
 import { ApiResultResponse, ApiUserResponse } from "@/lib/types";
-import { Raffle } from "@prisma/client";
-import { createContext } from "react";
+
 import useSWR from "swr";
 //import { EventTable } from "./ui/EventTable";
-
-export const RaffleResultContext = createContext<Raffle[] | undefined>(
-  undefined
-);
-
 export default function App() {
   const { data: result } = useSWR<ApiResultResponse>(`/result`, {
     refreshInterval: 1 * 60 * 1000,
@@ -31,9 +25,8 @@ export default function App() {
           <EventTable />
         </div>
       </RaffleResultContext.Provider> */}
-      
+
     </div>
   );
 };
-
 
