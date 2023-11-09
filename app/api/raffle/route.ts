@@ -2,9 +2,9 @@ import { prisma } from "@/lib/db";
 import { Api, ApiRaffleResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { validateHandler } from "../handler";
+import { validateApiHandler } from "../handler";
 
-export const POST = validateHandler<Api<ApiRaffleResponse>>(
+export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
   async (request, session) => {
     if (!session) {
       return NextResponse.json({ ok: false }, { status: 401 });

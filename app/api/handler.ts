@@ -2,7 +2,7 @@ import { validateSession } from "@/lib/session";
 import { Session } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";
 
-export function validateHandler<T>(
+export function validateApiHandler<T>(
   handler: (
     request: NextRequest,
     session: Session | undefined,

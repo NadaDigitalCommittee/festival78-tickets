@@ -3,9 +3,9 @@ import { generateSession } from "@/lib/session";
 import { Api, ApiRegisterResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { validateHandler } from "../handler";
+import { validateApiHandler } from "../handler";
 
-export const POST = validateHandler<Api<ApiRegisterResponse>>(
+export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
   async (request) => {
     const res = await request.json();
     const email = res.email as string;

@@ -1,48 +1,51 @@
-import { sign, verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { z } from "zod";
 import { Session } from "./types";
+import { SignJWT, jwtVerify } from "jose";
+
+const encoder = new TextEncoder();
+const privateKey =
+  process.env.JWTSECRET ??
+  (() => {
+    throw new Error("No JWTSECRET");
+  })();
+const secret = encoder.encode(privateKey);
 
 export async function validateSession(): Promise<Session | undefined> {
   const token = cookies().get("token")?.value;
   if (!token) {
     return undefined;
   }
-
-  let result: { ok: boolean } & Session = { ok: false, uuid: "", email: "" };
-  verify(token, process.env.JWTSECRET ?? "", (e, decoded: any) => {
-    if (!e) {
-      const scheme = z.object({
-        uuid: z.string(),
-        email: z.string(),
-      });
-      const parse = scheme.safeParse(decoded);
-      if (parse.success) {
-        result = {
-          ok: true,
-          ...parse.data,
-        };
-      }
-    }
+  const scheme = z.object({
+    uuid: z.string(),
+    email: z.string(),
   });
-
-  if (!result.ok) {
+  try {
+    const { payload } = await jwtVerify(token, secret, {
+      algorithms: ["HS256"],
+    });
+    const parse = scheme.safeParse(payload);
+    if (!parse.success) {
+      return undefined;
+    } else {
+      return parse.data;
+    }
+  } catch (e) {
+    console.log(e);
     return undefined;
   }
-
-  return result;
 }
 
-export async function generateSession(uuid: string, email: string) {
-  cookies().set(
-    "token",
-    sign({ uuid, email }, process.env.JWTSECRET ?? "", {
-      expiresIn: "2 days",
-    }),
-    {
-      httpOnly: true,
-      secure: true,
-      sameSite: "strict",
-    },
-  );
+export async function generateSession(
+  uuid: string,
+  email: string,
+): Promise<string> {
+  const jwt = await new SignJWT({
+    uuid,
+    email,
+  })
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime("2d")
+    .sign(secret);
+  return jwt;
 }

@@ -3,9 +3,9 @@ import { generateSession } from "@/lib/session";
 import { Api, ApiLoginResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import z from "zod";
-import { validateHandler } from "../handler";
+import { validateApiHandler } from "../handler";
 
-export const POST = validateHandler<Api<ApiLoginResponse>>(async (request) => {
+export const POST = validateApiHandler<Api<ApiLoginResponse>>(async (request) => {
   const res = await request.json();
   const email = z.string().min(1).safeParse(res.email);
 
@@ -33,11 +33,15 @@ export const POST = validateHandler<Api<ApiLoginResponse>>(async (request) => {
     );
   }
 
-  generateSession(user.uuid, user.email);
+  const token =await generateSession(user.uuid, user.email);
   return NextResponse.json(
     {
       ok: true,
     },
-    { status: 200 }
+    {
+      status: 200, headers: {
+        "set-cookie": `token=${token};path=/;httponly;max-age=172800;`
+      }
+    }
   );
 });

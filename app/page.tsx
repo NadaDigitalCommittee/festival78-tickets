@@ -1,41 +1,39 @@
-import { App } from "@/components/App";
-import { Login } from "@/components/Login";
-import { Register } from "@/components/Register";
-import { SWR } from "@/lib/Swr";
-import { validateSession } from "@/lib/session";
+"use client"
+import { ApiResultResponse, ApiUserResponse } from "@/lib/types";
+import { Raffle } from "@prisma/client";
+import { createContext } from "react";
+import useSWR from "swr";
+//import { EventTable } from "./ui/EventTable";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const session = await validateSession();
-  const isSecret = searchParams["secret"] === process.env.SECRET ?? "";
+export const RaffleResultContext = createContext<Raffle[] | undefined>(
+  undefined
+);
 
-  if (!session) {
-    if (isSecret) {
-      //登録ページ
-      return (
-        <main>
-          <Register secret={searchParams["secret"] as string} />
-        </main>
-      );
-    } else {
-      return (
-        <main>
-          <Login />
-        </main>
-      );
-    }
-  } else {
-    //Webアプリ
+export default function App() {
+  const { data: result } = useSWR<ApiResultResponse>(`/result`, {
+    refreshInterval: 1 * 60 * 1000,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+  const { data: user } = useSWR<ApiUserResponse>(`/user`, {
+    refreshInterval: 1 * 60 * 1000,
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+  return (
+    <div className={"w-full h-screen px-3"}>
+      <h1>{user && user.email}さんようこそ</h1>
 
-    return (
-      <main>
-        <SWR>
-          <App session={session} />
-        </SWR>
-      </main>
-    );
-  }
-}
+      {/* <RaffleResultContext.Provider value={result?.raffle}>
+        <div className={result ? "" : " pointer-events-none"}>
+          <EventTable />
+        </div>
+      </RaffleResultContext.Provider> */}
+      
+    </div>
+  );
+};
+
+

@@ -2,9 +2,9 @@ import { prisma } from "@/lib/db";
 import { Api, ApiResultResponse } from "@/lib/types";
 import { Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { validateHandler } from "../handler";
+import { validateApiHandler } from "../handler";
 
-export const GET = validateHandler<Api<ApiResultResponse>>(
+export const GET = validateApiHandler<Api<ApiResultResponse>>(
   async (request, session) => {
     return prisma.user
       .findUnique({

@@ -9,14 +9,16 @@ type Props = {
   state: State;
   setState: (state: State) => void;
   className?: string;
-  icon: IconType
+  icon: IconType;
 };
 
 export const Menu: FC<Props> = ({ state, setState, icon }) => {
   return (
-    <div onClick={() => {
-      setState(state)
-    }}>
+    <div
+      onClick={() => {
+        setState(state);
+      }}
+    >
       <Card className="h-[200px]">
         <Center className="flex-col">
           {icon({})}

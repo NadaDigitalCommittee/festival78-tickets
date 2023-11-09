@@ -1,12 +1,13 @@
-import { sign, verify } from "jsonwebtoken";
-(async () => {
-  const a = sign({ uuid: "test", expiresIn: "1" }, "dfjaof",{expiresIn:"1s"});
-  console.log(a)
-  verify(a, "dfjaof", (e, d) => {
-    console.log(e, d);
-  });
-  await new Promise((r) => setTimeout(r, 2000));
-  verify(a, "dfjaof", (e, d) => {
-    console.log(e, d);
-  });
-})();
+async function main() {
+    const res=await fetch("http://localhost:3000/api/login",{
+        "method":"POST",
+        "headers":{
+            "content-type":"application/json"
+            
+        },
+        "body":JSON.stringify({"email":"hiromu.at@icloud.com"}),
+        "credentials":"include"
+    })
+    console.log(res)
+}
+main()
