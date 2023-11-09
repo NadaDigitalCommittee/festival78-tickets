@@ -3,8 +3,6 @@ services:
   festival78-tickets:
     container_name: server
     image:  ghcr.io/nadadigitalcommittee/festival78-ticket:latest
-    ports:
-      - "3000:3000"
     env_file:
       - ./.env
   nginx:
