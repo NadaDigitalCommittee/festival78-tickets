@@ -5,10 +5,7 @@ import { SignJWT, jwtVerify } from "jose";
 
 const encoder = new TextEncoder();
 const privateKey =
-  process.env.JWTSECRET ??
-  (() => {
-    throw new Error("No JWTSECRET");
-  })();
+  process.env.JWTSECRET ??()=>{console.error("JWTSECRET not set")}
 const secret = encoder.encode(privateKey);
 
 export async function validateSession(): Promise<Session | undefined> {
