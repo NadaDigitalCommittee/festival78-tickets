@@ -9,7 +9,7 @@ type Props = {
   icon: IconType;
 };
 
-export const Menu: FC<Props> = ({  icon }) => {
+export const Menu: FC<Props> = ({ icon }) => {
   return (
     <div
       onClick={() => {

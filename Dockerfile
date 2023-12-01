@@ -1,4 +1,4 @@
-FROM node:21-slim as builder
+FROM node:21-slim
 
 ENV NEXT_TELEMETRY_DISABLED 1
 WORKDIR /app

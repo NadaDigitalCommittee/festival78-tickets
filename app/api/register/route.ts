@@ -70,8 +70,16 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     });
 
     //cookieにtokenをセット
-    generateSession(user.uuid, user.email);
-
-    return NextResponse.json({ ok: true }, { status: 200 });
+    const token = await generateSession(user.uuid, user.email);
+    return NextResponse.json(
+      {
+        ok: true,
+      },
+      {
+        status: 201, headers: {
+          "set-cookie": `token=${token};path=/;httponly;max-age=172800;Secure;SameSite=Strict`
+        }
+      }
+    );
   }
 );

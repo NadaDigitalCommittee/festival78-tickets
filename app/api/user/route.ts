@@ -11,7 +11,9 @@ export const GET = validateApiHandler<Api<ApiUserResponse>>(
     return NextResponse.json(
       {
         ok: true,
-        data: session
+        data: {
+          email: session.email
+        }
       },
       { status: 201 }
     );

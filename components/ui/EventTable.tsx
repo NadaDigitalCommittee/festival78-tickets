@@ -1,13 +1,12 @@
 "use client";
 
 import { EVENTS, apiBase, isDev } from "@/lib/constants";
+import { useRaffles } from "@/lib/hooks";
 import { Time } from "@/lib/time";
 import { ApiRaffleResponse, Event } from "@/lib/types";
 import { Result } from "@prisma/client";
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { mutate } from "swr";
-import { RaffleResultContext } from "../context";
-
 
 type EventBoxProps = {
   time: Time;
@@ -23,13 +22,14 @@ export const EventBox: FC<EventBoxProps> = ({ time, eventId, timeId }) => {
   const periodHours = time.periodMinutes / 60;
   const [showDialog, setShowDialog] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const ctx = useContext(RaffleResultContext);
+  const { raffles } = useRaffles();
   const [result, setResult] = useState<Result | undefined>(undefined);
   useEffect(() => {
     setResult(
-      ctx?.find((e) => e.eventId === eventId && e.timeId === timeId)?.result,
+      raffles?.find((e) => e.eventId === eventId && e.timeId === timeId)
+        ?.result,
     );
-  }, [ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [raffles]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     window.addEventListener("click", (e) => {
       if (e.target === ref.current) setShowDialog(false);
@@ -39,7 +39,7 @@ export const EventBox: FC<EventBoxProps> = ({ time, eventId, timeId }) => {
     ? false
     : time.end.getTime() < Time.nowJST().getTime();
 
-  const times: Time[] | undefined = ctx
+  const times: Time[] | undefined = raffles
     ?.filter((e) => {
       return e.result !== Result.LOSE;
     })
@@ -55,12 +55,12 @@ export const EventBox: FC<EventBoxProps> = ({ time, eventId, timeId }) => {
           (result === Result.LOSE
             ? " bg-red-200"
             : result === Result.WIN
-            ? " bg-green-200"
-            : result === Result.PROCESSING
-            ? " bg-yellow-200"
-            : isTimeOut || isConflict
-            ? " bg-gray-200"
-            : " bg-blue-200")
+              ? " bg-green-200"
+              : result === Result.PROCESSING
+                ? " bg-yellow-200"
+                : isTimeOut || isConflict
+                  ? " bg-gray-200"
+                  : " bg-blue-200")
         }
         style={{
           top: 30 + Math.floor(startHours * unit),
@@ -77,14 +77,14 @@ export const EventBox: FC<EventBoxProps> = ({ time, eventId, timeId }) => {
           {result === Result.LOSE
             ? "落選"
             : result === Result.WIN
-            ? "当選"
-            : result === Result.PROCESSING
-            ? "抽選中"
-            : isTimeOut
-            ? "募集終了"
-            : isConflict
-            ? "重複"
-            : "受付中"}
+              ? "当選"
+              : result === Result.PROCESSING
+                ? "抽選中"
+                : isTimeOut
+                  ? "募集終了"
+                  : isConflict
+                    ? "重複"
+                    : "受付中"}
         </p>
       </div>
       {showDialog && !result && (
@@ -96,7 +96,7 @@ export const EventBox: FC<EventBoxProps> = ({ time, eventId, timeId }) => {
             eventId={eventId}
             timeId={timeId}
             onSubmitted={(res) => {
-              ctx?.push({
+              raffles?.push({
                 eventId: eventId,
                 timeId: timeId,
                 result: Result.PROCESSING,
@@ -155,14 +155,15 @@ export const RaffleDialog: FC<RaffleDialogProps> = ({
   const event = EVENTS[eventId];
   const [participants, setParticipants] = useState(1);
   const [isConflict, setIsConflict] = useState(false);
-  const ctx = useContext(RaffleResultContext);
-  const times = ctx
+  const { raffles } = useRaffles();
+  const times = raffles
     ?.map((e) => {
       return EVENTS[e.eventId].time[e.timeId];
     })
     .filter(() => {
-      const r = ctx.find((e) => e.eventId === eventId && e.timeId === timeId)
-        ?.result;
+      const r = raffles.find(
+        (e) => e.eventId === eventId && e.timeId === timeId,
+      )?.result;
       if (!r) return true;
       return r !== Result.WIN;
     });

@@ -1,7 +1,14 @@
-import { SWR } from "@/lib/Swr";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { validateSession } from "@/lib/session";
+import { SessionProvider } from "@/lib/context";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { SWR } from "@/lib/Swr";
+import { ChakraProvider } from "@chakra-ui/react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,10 +22,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await validateSession();
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <SWR>{children}</SWR>
+      <body className={inter.className + " w-screen"}>
+        <ChakraProvider>
+          <Header />
+          <main className="min-h-screen">
+            <SWR>
+              <SessionProvider value={session}>{children}</SessionProvider>
+            </SWR>
+          </main>
+          <Footer />
+        </ChakraProvider>
       </body>
     </html>
   );

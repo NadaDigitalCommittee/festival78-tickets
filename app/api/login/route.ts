@@ -40,7 +40,7 @@ export const POST = validateApiHandler<Api<ApiLoginResponse>>(async (request) =>
     },
     {
       status: 200, headers: {
-        "set-cookie": `token=${token};path=/;httponly;max-age=172800;`
+        "set-cookie": `token=${token};path=/;httponly;max-age=172800;Secure;SameSite=Strict`
       }
     }
   );

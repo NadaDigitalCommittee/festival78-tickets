@@ -5,11 +5,16 @@ import { SignJWT, jwtVerify } from "jose";
 
 const encoder = new TextEncoder();
 const privateKey =
-  process.env.JWTSECRET ??(()=>{console.error("JWTSECRET not set");return ""})()
+  process.env.JWTSECRET ??
+  (() => {
+    console.error("JWTSECRET not set");
+    return "";
+  })();
 const secret = encoder.encode(privateKey);
 
 export async function validateSession(): Promise<Session | undefined> {
   const token = cookies().get("token")?.value;
+  const dev = cookies().get("private")?.value === process.env.PRIVATE;
   if (!token) {
     return undefined;
   }
@@ -25,7 +30,10 @@ export async function validateSession(): Promise<Session | undefined> {
     if (!parse.success) {
       return undefined;
     } else {
-      return parse.data;
+      return {
+        ...parse.data,
+        dev,
+      };
     }
   } catch (e) {
     console.log(e);
