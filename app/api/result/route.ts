@@ -21,7 +21,7 @@ export const GET = validateApiHandler<Api<ApiResultResponse>>(
               raffle: raffles ?? undefined,
             },
           },
-          { status: 200 }
+          { status: 200 },
         );
       })
       .catch((e) => {
@@ -30,5 +30,5 @@ export const GET = validateApiHandler<Api<ApiResultResponse>>(
         }
         return NextResponse.json({ ok: false }, { status: 400 });
       });
-  }
+  },
 );

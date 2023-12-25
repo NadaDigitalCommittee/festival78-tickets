@@ -8,12 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        
+      backgroundImage: {},
+      colors: {
+        theme: "FF9209",
       },
-      colors:{
-        "theme":"FF9209"
-      }
     },
   },
   plugins: [],

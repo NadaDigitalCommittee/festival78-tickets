@@ -19,14 +19,14 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
       });
       if (user) {
         prisma.user.update({
-          "where": {
-            "uuid": uuid
+          where: {
+            uuid: uuid,
           },
           data: {
             email: email,
-            uuid: uuid
-          }
-        })
+            uuid: uuid,
+          },
+        });
         return NextResponse.json({ ok: true }, { status: 200 });
       }
     }
@@ -35,7 +35,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     if (res.secret !== process.env.SECRET) {
       return NextResponse.json(
         { ok: false },
-        { status: 401, statusText: "Unauthorized" }
+        { status: 401, statusText: "Unauthorized" },
       );
     }
 
@@ -44,7 +44,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     if (!scheme.safeParse(email).success) {
       return NextResponse.json(
         { ok: false },
-        { status: 400, statusText: "Bad Request" }
+        { status: 400, statusText: "Bad Request" },
       );
     }
 
@@ -58,7 +58,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     ) {
       return NextResponse.json(
         { ok: false },
-        { status: 409, statusText: "Conflict" }
+        { status: 409, statusText: "Conflict" },
       );
     }
 
@@ -76,10 +76,11 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
         ok: true,
       },
       {
-        status: 201, headers: {
-          "set-cookie": `token=${token};path=/;httponly;max-age=172800;Secure;SameSite=Strict`
-        }
-      }
+        status: 201,
+        headers: {
+          "set-cookie": `token=${token};path=/;httponly;max-age=172800;Secure;SameSite=Strict`,
+        },
+      },
     );
-  }
+  },
 );

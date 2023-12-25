@@ -30,7 +30,7 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
     ) {
       return NextResponse.json(
         { ok: false },
-        { status: 409, statusText: "Already raffled" }
+        { status: 409, statusText: "Already raffled" },
       );
     }
 
@@ -48,9 +48,9 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
         ok: true,
         data: raffle,
       },
-      { status: 201 }
+      { status: 201 },
     );
-  }
+  },
 );
 
 const scheme = z.object({
