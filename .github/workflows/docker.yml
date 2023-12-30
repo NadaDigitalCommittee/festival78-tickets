@@ -39,4 +39,5 @@ jobs:
             ghcr.io/${{ env.GITHUB_OWNER }}/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ env.GITHUB_OWNER}}/${{ env.IMAGE_NAME }}:${{ github.sha }}
           build-args: |
-            MICROCMS_SERVICE_DOMAIN=${{ env.MICROCMS_SERVICE_DOMAIN }},MICROCMS_API_KEY=${{ env.MICROCMS_API_KEY }}
+            MICROCMS_SERVICE_DOMAIN=${{ env.MICROCMS_SERVICE_DOMAIN }}
+            MICROCMS_API_KEY=${{ env.MICROCMS_API_KEY }}
