@@ -8,6 +8,8 @@ jobs:
     env:
       IMAGE_NAME: festival78-ticket
       GITHUB_OWNER: nadadigitalcommittee
+      MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -18,6 +20,7 @@ jobs:
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -35,3 +38,6 @@ jobs:
           tags: |
             ghcr.io/${{ env.GITHUB_OWNER }}/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ env.GITHUB_OWNER}}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          build-args: |
+            MICROCMS_SERVICE_DOMAIN=${{ env.MICROCMS_SERVICE_DOMAIN }}
+            MICROCMS_API_KEY=${{ env.MICROCMS_API_KEY }}
