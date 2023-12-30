@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 type Props = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   className?: string;
   onClick?: () => void;
 };

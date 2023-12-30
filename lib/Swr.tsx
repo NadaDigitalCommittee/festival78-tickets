@@ -1,15 +1,16 @@
 "use client";
 
 import { Api } from "@/lib/types";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { SWRConfig } from "swr";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export async function fetcher<T>(
   input: string,
+  // eslint-disable-next-line no-undef
   init?: RequestInit,
 ): Promise<T> {
   const res = await fetch(`/api/${input}`, init);

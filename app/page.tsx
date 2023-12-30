@@ -1,5 +1,5 @@
 "use client";
-import { TicketCardGallery } from "@/components/TicketCard";
+// import { TicketCardGallery } from "@/components/TicketCard";
 import { SessionContext } from "@/lib/context";
 import { useContext } from "react";
 //import { EventTable } from "./ui/EventTable";
@@ -9,7 +9,7 @@ export default function App() {
   return (
     <div className={"w-full h-screen px-3"}>
       <h1>{user?.email}さんようこそ</h1>
-      <TicketCardGallery />
+      {/* <TicketCardGallery /> */}
       {/* <RaffleResultContext.Provider value={result?.raffle}>
         <div className={result ? "" : " pointer-events-none"}>
           <EventTable />
