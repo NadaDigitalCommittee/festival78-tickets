@@ -1,3 +1,4 @@
 [submodule "prisma"]
 	path = prisma
 	url = https://github.com/NadaDigitalCommittee/festival78-tickets-prisma.git
+	branch = main
