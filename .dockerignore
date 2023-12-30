@@ -1,0 +1,9 @@
+.git 
+.github
+.vscode
+.env
+bun.lockb
+yarn.lock
+README.md
+.next
+node_modules
