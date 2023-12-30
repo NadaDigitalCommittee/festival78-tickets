@@ -38,5 +38,5 @@ jobs:
           tags: |
             ghcr.io/${{ env.GITHUB_OWNER }}/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ env.GITHUB_OWNER}}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          secret-envs: |
+          secrets: |
             MICROCMS_SERVICE_DOMAIN=${{ env.MICROCMS_SERVICE_DOMAIN }},MICROCMS_API_KEY=${{ env.MICROCMS_API_KEY }}
