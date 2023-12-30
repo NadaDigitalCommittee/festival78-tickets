@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/Button";
-import { apiBase } from "@/lib/constants";
 import { FC, ReactNode, useRef, useState } from "react";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { z } from "zod";
@@ -18,7 +17,7 @@ const Login = () => {
     if (!result.success) {
       return setErrMessage("メールアドレスが不正です。");
     }
-    const res = await fetch(`${apiBase}/login`, {
+    const res = await fetch(`/api/login`, {
       method: "POST",
       body: JSON.stringify({
         email: email,

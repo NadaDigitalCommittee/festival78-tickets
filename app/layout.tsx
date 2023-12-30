@@ -30,7 +30,9 @@ export default async function RootLayout({
           <Header />
           <main className="min-h-screen">
             <SWR>
-              <SessionProvider value={session}>{children}</SessionProvider>
+              <SessionProvider value={session}>
+                {children}
+              </SessionProvider>
             </SWR>
           </main>
           <Footer />

@@ -1,6 +1,5 @@
 "use client";
 
-import { apiBase } from "@/lib/constants";
 import { Api } from "@/lib/types";
 import { FC } from "react";
 import { SWRConfig } from "swr";
@@ -13,7 +12,7 @@ export async function fetcher<T>(
   input: string,
   init?: RequestInit,
 ): Promise<T> {
-  const res = await fetch(`${apiBase}${input}`, init);
+  const res = await fetch(`/api/${input}`, init);
   const data = (await res.json()) as Api<{}>;
 
   if (data.ok === false) {

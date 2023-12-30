@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/Button";
-import { apiBase } from "@/lib/constants";
 import Link from "next/link";
 import { FC, ReactNode, useRef, useState } from "react";
 import { BsExclamationTriangleFill } from "react-icons/bs";
@@ -19,7 +18,7 @@ export default function Page({
     if (!email) {
       return;
     }
-    const res = await fetch(`${apiBase}/register`, {
+    const res = await fetch(`/api/register`, {
       method: "POST",
       body: JSON.stringify({
         email: email,

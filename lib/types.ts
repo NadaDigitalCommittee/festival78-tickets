@@ -32,6 +32,10 @@ export type ApiUserResponse = {
   email: string;
 };
 
+export type ApiEventsResponse ={
+  events: Event[];
+}
+
 export type Session = {
   uuid: string;
   email: string;
