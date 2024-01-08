@@ -1,15 +1,16 @@
-import "./globals.css";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
+import { SWR } from "@/lib/Swr";
+import { SessionProvider } from "@/lib/context";
+import { validateSession } from "@/lib/session";
+import { Session } from "@/lib/types";
+import { ChakraProvider } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { validateSession } from "@/lib/session";
-import { SessionProvider } from "@/lib/context";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
-import { SWR } from "@/lib/Swr";
-import { ChakraProvider } from "@chakra-ui/react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { ReactNode } from "react";
+import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,18 +28,29 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className + " w-screen"}>
-        <ChakraProvider>
+        <Provider session={session}>
           <Header />
-          <main className="min-h-screen">
-            <SWR>
-              <SessionProvider value={session}>
-                {children}
-              </SessionProvider>
-            </SWR>
-          </main>
+          {children}
           <Footer />
-        </ChakraProvider>
+        </Provider>
       </body>
     </html>
   );
 }
+
+const Provider = ({
+  children,
+  session,
+}: {
+  children: ReactNode;
+  session?: Session;
+}) => {
+  return (
+    <ChakraProvider>
+      <SWR>
+        <SessionProvider value={session}>{children}</SessionProvider>
+      </SWR>
+      <Footer />
+    </ChakraProvider>
+  );
+};

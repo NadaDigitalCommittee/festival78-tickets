@@ -4,7 +4,7 @@ import { Session } from "./types";
 import { SignJWT, jwtVerify } from "jose";
 
 const encoder = new TextEncoder();
-const privateKey = process.env.JWTSECRET
+const privateKey = process.env.JWTSECRET;
 const secret = encoder.encode(privateKey);
 
 export async function validateSession(): Promise<Session | undefined> {
