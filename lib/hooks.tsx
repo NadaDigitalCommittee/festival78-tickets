@@ -15,7 +15,7 @@ export const useRaffles = () => {
   return { raffles: result?.raffle, error, mutate };
 };
 
-export const useEvents = () =>{
+export const useEvents = () => {
   const {
     data: result,
     error,
@@ -26,5 +26,5 @@ export const useEvents = () =>{
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-  return { events: result?.events, error, mutate }; 
-}
+  return { events: result?.events, error, mutate };
+};
