@@ -15,7 +15,7 @@ export const GET = validateApiHandler<Api<ApiUserResponse>>(
           email: session.email,
         },
       },
-      { status: 201 },
+      { status: 201 }
     );
-  },
+  }
 );

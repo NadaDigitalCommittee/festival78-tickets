@@ -6,8 +6,8 @@ import { NextRequest, NextResponse } from "next/server";
 export function validateApiHandler<T>(
   handler: (
     request: NextRequest,
-    session: Session | undefined,
-  ) => Promise<NextResponse<T>>,
+    session: Session | undefined
+  ) => Promise<NextResponse<T>>
 ): (request: NextRequest) => Promise<NextResponse<T>> {
   return async (request: NextRequest) => {
     //認証

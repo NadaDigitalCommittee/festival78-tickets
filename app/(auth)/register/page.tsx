@@ -35,7 +35,7 @@ export default function Page({
     }
     if (res.status === 401) {
       alert(
-        "この登録リンクは利用できません。文化祭スタッフにお問い合わせください。",
+        "この登録リンクは利用できません。文化祭スタッフにお問い合わせください。"
       );
       return;
     }
@@ -46,14 +46,14 @@ export default function Page({
   const [errMessage, setErrMessage] = useState("");
 
   return (
-    <div className="flex flex-col items-center w-screen h-screen ">
-      <div className="flex flex-col items-center sm:w-[400px] md:w-[550px] lg:w-2/3 bg-white rounded mt-12 px-2">
-        <p className="text-3xl mt-12">文化祭抽選券システム</p>
+    <div className="flex h-screen w-screen flex-col items-center ">
+      <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
+        <p className="mt-12 text-3xl">文化祭抽選券システム</p>
         <p className="mb-6 mt-2 text-2xl">登録用フォーム</p>
 
         <p className="">以下の注意事項および利用規約をお読みください。</p>
 
-        <div className="w-full flex flex-col items-center lg:w-2/3 my-6 rounded-lg border ">
+        <div className="my-6 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
           <RegisterHelpCard
             icon={<MdEmail />}
             title="メールへ抽選結果が送信"
@@ -85,10 +85,10 @@ export default function Page({
         </p>
 
         <div className="flex flex-col items-center justify-center">
-          <p className="text-base my-3">メールアドレス*</p>
-          <p className="text-red-500 text-sm h-6">{errMessage}</p>
+          <p className="my-3 text-base">メールアドレス*</p>
+          <p className="h-6 text-sm text-red-500">{errMessage}</p>
           <input
-            className="w-[280px] h-10 border-2 border-gray-300 rounded-lg"
+            className="h-10 w-[280px] rounded-lg border-2 border-gray-300"
             ref={ref}
             onChange={() => {
               const scheme = z.string().email();
@@ -103,14 +103,14 @@ export default function Page({
               return setErrMessage("");
             }}
           ></input>
-          <Button onClick={action} className="h-12 my-4">
+          <Button onClick={action} className="my-4 h-12">
             次へ
           </Button>
           <Button
             onClick={() => {
               location.pathname = "/login";
             }}
-            className="h-12 mb-6"
+            className="mb-6 h-12"
           >
             すでに登録されている方はこちら
           </Button>
@@ -126,9 +126,9 @@ const RegisterHelpCard: FC<{
   content: string;
 }> = ({ icon, title, content }) => {
   return (
-    <div className="flex px-6 w-full my-3">
-      <span className=" text-4xl w-10 h-10 mb-auto">{icon}</span>
-      <div className="flex flex-col ml-6">
+    <div className="my-3 flex w-full px-6">
+      <span className="mb-auto h-10 w-10 text-4xl">{icon}</span>
+      <div className="ml-6 flex flex-col">
         <p className="text-base font-bold">{title}</p>
         <p className="text-sm">{content}</p>
       </div>

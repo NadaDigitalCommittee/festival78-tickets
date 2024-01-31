@@ -38,7 +38,7 @@ export async function validateSession(): Promise<Session | undefined> {
 
 export async function generateSession(
   uuid: string,
-  email: string,
+  email: string
 ): Promise<string> {
   const jwt = await new SignJWT({
     uuid,

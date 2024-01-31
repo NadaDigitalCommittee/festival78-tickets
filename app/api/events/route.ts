@@ -10,7 +10,7 @@ export const GET = validateApiHandler<Api<ApiEventsResponse>>(
         {
           ok: false,
         },
-        { status: 401 },
+        { status: 401 }
       );
     }
     const events = await getEvents();
@@ -20,5 +20,5 @@ export const GET = validateApiHandler<Api<ApiEventsResponse>>(
         events: events,
       },
     });
-  },
+  }
 );

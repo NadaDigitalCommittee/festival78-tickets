@@ -5,7 +5,7 @@ import { Session } from "./types";
 /* eslint react/display-name: 0 */
 const Provider =
   <T extends Context<U>, U = T extends Context<infer U> ? U : never>(
-    context: T,
+    context: T
   ): FC<{ value: U; children?: ReactNode }> =>
   ({ children, value }) => (
     <context.Provider value={value}>{children}</context.Provider>

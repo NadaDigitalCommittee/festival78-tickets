@@ -15,7 +15,7 @@ export const POST = validateApiHandler<Api<ApiLoginResponse>>(
         {
           ok: false,
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -30,7 +30,7 @@ export const POST = validateApiHandler<Api<ApiLoginResponse>>(
         {
           ok: false,
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -44,7 +44,7 @@ export const POST = validateApiHandler<Api<ApiLoginResponse>>(
         headers: {
           "set-cookie": `token=${token};path=/;httponly;max-age=172800;Secure;SameSite=Strict`,
         },
-      },
+      }
     );
-  },
+  }
 );

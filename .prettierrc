@@ -2,5 +2,7 @@
   "filepath": "{app,lib,components}/**/*.{ts,tsx,json,md} {app,lib,components}/*.{ts,tsx,json,md} middleware.ts",
   "semi": true,
   "tabWidth": 2,
-  "printWidth": 80
+  "printWidth": 80,
+  "trailingComma": "es5",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

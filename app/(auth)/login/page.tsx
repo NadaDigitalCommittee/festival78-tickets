@@ -31,14 +31,14 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center w-screen h-screen ">
-      <div className="flex flex-col items-center sm:w-[400px] md:w-[550px] lg:w-2/3 bg-white rounded mt-12 px-2">
-        <p className="text-3xl mt-12">文化祭抽選券システム</p>
+    <div className="flex h-screen w-screen flex-col items-center ">
+      <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
+        <p className="mt-12 text-3xl">文化祭抽選券システム</p>
         <p className="mb-6 mt-2 text-2xl">ログイン</p>
         <p className="my-2 text-base">メールアドレス*</p>
         <p className="text-red-500">{errMessage}</p>
         <input
-          className="h-8 border-2 w-[320px] border-gray-300 rounded-lg"
+          className="h-8 w-[320px] rounded-lg border-2 border-gray-300"
           ref={ref}
           name="email"
           onChange={() => {}}
@@ -47,17 +47,17 @@ const Login = () => {
           onClick={() => {
             action(ref.current?.value as string);
           }}
-          className="h-12 my-4 w-[320px]"
+          className="my-4 h-12 w-[320px]"
         >
           ログイン
         </Button>
 
-        <div className="w-full flex flex-col items-center lg:w-2/3 my-6 rounded-lg border ">
+        <div className="my-6 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
           <LoginHelpCard
             icon={<RiQuestionnaireFill />}
             title="この画面が表示された場合"
             content={
-              <div className="gap-3 flex flex-col">
+              <div className="flex flex-col gap-3">
                 <p>①登録フォームでメールアドレスをすでに登録されている方</p>
                 <p>
                   セッションが切れている、もしくは別のブラウザ・端末でログインしている可能性があります。もう一度登録したメールアドレスでログインしてください。
@@ -87,9 +87,9 @@ const LoginHelpCard: FC<{
   content: ReactNode;
 }> = ({ icon, title, content }) => {
   return (
-    <div className="flex px-6 w-full my-3">
-      <span className=" text-4xl w-10 h-10 mb-auto">{icon}</span>
-      <div className="flex flex-col ml-6">
+    <div className="my-3 flex w-full px-6">
+      <span className="mb-auto h-10 w-10 text-4xl">{icon}</span>
+      <div className="ml-6 flex flex-col">
         <p className="text-base font-bold">{title}</p>
         <div className="text-sm">{content}</div>
       </div>

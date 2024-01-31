@@ -26,7 +26,7 @@ export default async function RootLayout({
 }) {
   const session = await validateSession();
   return (
-    <html lang="en">
+    <html lang="ja">
       <body className={inter.className + " w-screen"}>
         <Provider session={session}>
           <Header />
@@ -50,7 +50,6 @@ const Provider = ({
       <SWR>
         <SessionProvider value={session}>{children}</SessionProvider>
       </SWR>
-      <Footer />
     </ChakraProvider>
   );
 };

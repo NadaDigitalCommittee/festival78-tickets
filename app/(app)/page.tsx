@@ -7,7 +7,7 @@ import { useContext } from "react";
 export default function App() {
   const user = useContext(SessionContext);
   return (
-    <div className={"w-full h-screen px-3"}>
+    <div className={"h-screen w-full px-3"}>
       <h1>{user?.email}さんようこそ</h1>
       {/* <TicketCardGallery /> */}
       {/* <RaffleResultContext.Provider value={result?.raffle}>

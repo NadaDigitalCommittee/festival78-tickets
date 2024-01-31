@@ -40,8 +40,8 @@ export async function getEvents(): Promise<Event[]> {
             content.start[i].hour,
             content.start[i].minute,
             content.end[i].hour,
-            content.end[i].minute,
-          ),
+            content.end[i].minute
+          )
         );
       }
       return {
