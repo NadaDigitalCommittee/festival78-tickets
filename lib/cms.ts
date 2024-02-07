@@ -22,7 +22,15 @@ type EventSchema = {
   end: TimeSchema[];
 };
 
+type NewsSchema = {
+  title: string;
+  body: string;
+  isEmergency: boolean;
+  compactBody: string;
+};
+
 export async function getEvents(): Promise<Event[]> {
+  console.log("getEvents");
   const res = await client.getList<EventSchema>({
     endpoint: "events",
     customRequestInit: {
@@ -54,4 +62,16 @@ export async function getEvents(): Promise<Event[]> {
       };
     })
     .sort((a, b) => a.id - b.id);
+}
+
+export async function getNewsFromCMS() {
+  const res = await client.getList<NewsSchema>({
+    endpoint: "news",
+    customRequestInit: {
+      next: {
+        revalidate: 60,
+      },
+    },
+  });
+  return res.contents;
 }

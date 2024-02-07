@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "standalone",
+  sassOptions: {
+    includePaths: [require("path").join(__dirname, "styles")],
+  },
 };
 
 module.exports = nextConfig;

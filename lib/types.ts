@@ -8,6 +8,7 @@ export type Event = {
   time: Time[];
   location?: string;
   image?: string;
+  capacity: number;
 };
 
 export type Api<T = undefined> =
@@ -30,10 +31,36 @@ export type ApiResultResponse = {
 
 export type ApiUserResponse = {
   email: string;
+  uuid: string;
 };
 
+export type ApiUserPutResponse = {};
+
+export type ApiNewsResponse = {
+  news: News[];
+};
+
+export type News = {
+  id: string;
+  title: string;
+  body: string;
+  compactBody: string;
+  type: NewsType;
+};
+export type NewsType = "information" | "emergency" | "win" | "lose";
+
 export type ApiEventsResponse = {
-  events: Event[];
+  events: {
+    id: number;
+    name: string;
+    description: string;
+    capacity: number;
+    place: string;
+    time: {
+      start: string;
+      end: string;
+    }[];
+  }[];
 };
 
 export type Session = {

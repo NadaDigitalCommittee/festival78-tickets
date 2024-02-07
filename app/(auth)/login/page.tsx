@@ -31,7 +31,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex h-screen w-screen flex-col items-center ">
+    <div className="flex w-screen flex-col items-center">
       <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
         <p className="mt-12 text-3xl">文化祭抽選券システム</p>
         <p className="mb-6 mt-2 text-2xl">ログイン</p>

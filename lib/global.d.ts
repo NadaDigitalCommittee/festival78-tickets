@@ -8,5 +8,6 @@ declare namespace NodeJS {
     readonly JWTSECRET: string;
     readonly MICROCMS_API_KEY: string;
     readonly MICROCMS_SERVICE_DOMAIN: string;
+    readonly NEXT_PUBLIC_ADOBE_FONT_ID: string;
   }
 }

@@ -64,4 +64,12 @@ export class Time {
   private to2Digits(num: number) {
     return num.toString().length === 1 ? `0${num.toString()}` : num.toString();
   }
+  public static fromDate(start: Date, end: Date) {
+    return new Time(
+      start.getHours(),
+      start.getMinutes(),
+      end.getHours(),
+      end.getMinutes()
+    );
+  }
 }

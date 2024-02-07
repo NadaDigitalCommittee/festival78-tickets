@@ -1,0 +1,25 @@
+@use "variables.scss" as var;
+
+.content {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid var.$theme;
+    margin: 40px 0 0px 0;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  h4 {
+    font-size: 1.125rem;
+  }
+  h5 {
+    font-size: 1rem;
+  }
+  p {
+    margin: 10px 0 15px 0;
+    font-size: 1rem;
+  }
+}

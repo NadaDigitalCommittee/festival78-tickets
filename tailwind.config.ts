@@ -10,7 +10,11 @@ const config: Config = {
     extend: {
       backgroundImage: {},
       colors: {
-        theme: "FF9209",
+        theme: "#FF9209",
+      },
+      fontFamily: {
+        avianosans: ["aviano-sans"],
+        zen_kaku_gothic_new: ["var(--font-zen-kaku-gothic-new)"],
       },
     },
   },
