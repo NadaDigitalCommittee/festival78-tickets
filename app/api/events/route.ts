@@ -17,7 +17,17 @@ export const GET = validateApiHandler<Api<ApiEventsResponse>>(
     return NextResponse.json({
       ok: true,
       data: {
-        events: events,
+        events: events.map(e=>({
+          id: e.id,
+          name: e.name,
+          description: e.description??"",
+          capacity: e.capacity,
+          place:"",
+          time: e.time.map(t=>({
+            start: t.start.toUTCString(),
+            end: t.end.toUTCString(),
+          })),
+        })),
       },
     });
   }
