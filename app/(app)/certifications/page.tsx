@@ -67,7 +67,7 @@ export default async function Page({
     <main>
       <Accordion defaultIndex={index}>
         {certificationData.map((data) => (
-          <AccordionItem>
+          <AccordionItem key={data.eventName}>
             <h2>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
