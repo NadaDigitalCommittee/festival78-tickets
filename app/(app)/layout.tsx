@@ -6,13 +6,13 @@ import { Button } from "@chakra-ui/react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="font-zen_kaku_gothic_new sm:mx-2 sm:w-full md:w-[400px]">
-      <div className="">
+    <div className="font-zen_kaku_gothic_new">
+      <div className="mx-auto w-[1000px]">
         <div className="mx-2 my-2">
           <BreadCrumbs />
         </div>
       </div>
-      <div className="min-h-[90vh] w-full px-9 py-6">
+      <div className="min-h-[90vh] px-9 py-6 max-md:w-[360px] md:w-[60vw] max-w-[800px] mx-auto">
         {children}
         <Link href="/">
           <div className="mt-12 w-full rounded-lg border border-theme p-2">

@@ -1,6 +1,5 @@
 "use client";
 import { useEvents } from "@/lib/client/hooks";
-import type { Event } from "@/lib/types";
 import { useToast } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 
@@ -11,12 +10,6 @@ export const Form: FC = () => {
   const [participants, setParticipants] = useState<number>(1);
   const [raffleMessage, setRaffleMessage] = useState("");
   const toast = useToast();
-
-  useEffect(() => {
-    setSelectedTimeId(0);
-  }, [events]);
-
-  useEffect(() => {}, []);
 
   const requestRaffle = async () => {
     const res = await fetch("/api/raffle", {
@@ -41,7 +34,7 @@ export const Form: FC = () => {
   };
 
   return (
-    <div className="mt-2 grid gap-3 sm:grid-cols-1 md:grid-cols-2">
+    <div className="mt-2 w-full">
       <div className="flex flex-col gap-4">
         <p>企画名</p>
         <select

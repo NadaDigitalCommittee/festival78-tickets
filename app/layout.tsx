@@ -5,7 +5,7 @@ import { SessionProvider } from "@/lib/client/context";
 import { validateSession } from "@/lib/session";
 import { Session } from "@/lib/types";
 import { ChakraProvider } from "@chakra-ui/react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Zen_Kaku_Gothic_New } from "next/font/google";
 import { ReactNode } from "react";
 import "slick-carousel/slick/slick-theme.css";
@@ -67,6 +67,11 @@ export const metadata: Metadata = {
       },
     ],
   },
+};
+
+export const viewport:Viewport={
+  width: "360",
+  initialScale: 1,
 };
 
 export default async function RootLayout({

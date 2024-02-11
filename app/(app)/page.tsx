@@ -25,7 +25,7 @@ export default async function App() {
               </div>
             </div>
           </Link>
-          <Link href={"/raffle"}>
+          <Link href={"/events"}>
             <div
               className={`flex h-36 flex-col items-center rounded-3xl pt-6 shadow-md   ${styles.bg}`}
             >

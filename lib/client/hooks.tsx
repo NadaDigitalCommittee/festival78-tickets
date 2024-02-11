@@ -6,7 +6,7 @@ import {
   ApiUserResponse,
   Event,
 } from "../types";
-import { Time } from "../time";
+import { convertEvent } from "../utils";
 
 export const useRaffles = () => {
   const {
@@ -33,18 +33,7 @@ export const useEvents = () => {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-  const parsed: Event[] | undefined = result?.events.map((e) => {
-    return {
-      id: e.id,
-      name: e.name,
-      description: e.description,
-      time: e.time.map((t) =>
-        Time.fromDate(new Date(t.start), new Date(t.end))
-      ),
-      location: e.place,
-      capacity: e.capacity,
-    };
-  });
+  const parsed: Event[] | undefined = result?.events.map(convertEvent)
   return { events: parsed, error, mutate };
 };
 

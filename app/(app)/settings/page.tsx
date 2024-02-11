@@ -1,6 +1,5 @@
 "use client";
 
-import { LogoAnim } from "@/components/LogoAnim";
 import { useUser } from "@/lib/client/hooks";
 import {
   Accordion,
@@ -9,10 +8,6 @@ import {
   AccordionIcon,
   AccordionPanel,
   Box,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
   useDisclosure,
   Button,
   AlertDialog,

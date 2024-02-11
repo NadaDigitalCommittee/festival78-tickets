@@ -1,6 +1,4 @@
 import { Form } from "@/components/Form";
-import { getEvents } from "@/lib/cms";
-import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function Page() {
   // const {
@@ -14,8 +12,8 @@ export default function Page() {
   // const events=getEvents()
 
   return (
-    <main>
-      <Form />
+    <main className="">
+      <Form  />
     </main>
   );
 }

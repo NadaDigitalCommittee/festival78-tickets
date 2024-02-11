@@ -1,6 +1,7 @@
 import { createClient } from "microcms-js-sdk";
 import { Time } from "./time";
 import type { Event } from "./types";
+import { convertEvent } from "./utils";
 
 const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,
@@ -12,7 +13,7 @@ type TimeSchema = {
   minute: number;
 };
 
-type EventSchema = {
+export type EventSchema = {
   number: number;
   name: string;
   capacity: number;
@@ -29,8 +30,12 @@ type NewsSchema = {
   compactBody: string;
 };
 
-export async function getEvents(): Promise<Event[]> {
-  console.log("getEvents");
+export async function getEvents():Promise<Event[]>{
+  const data=(await getEventsFromCMS())
+  return data.map(convertEvent)
+}
+
+export async function getEventsFromCMS() {
   const res = await client.getList<EventSchema>({
     endpoint: "events",
     customRequestInit: {
@@ -40,31 +45,9 @@ export async function getEvents(): Promise<Event[]> {
     },
   });
   return res.contents
-    .map((content) => {
-      const time: Time[] = [];
-      for (let i = 0; i < content.start.length; i++) {
-        time.push(
-          new Time(
-            content.start[i].hour,
-            content.start[i].minute,
-            content.end[i].hour,
-            content.end[i].minute
-          )
-        );
-      }
-      return {
-        id: content.number,
-        name: content.name,
-        capacity: content.capacity,
-        description: content.description,
-        place: content.place,
-        time: time,
-      };
-    })
-    .sort((a, b) => a.id - b.id);
 }
 
-export async function getNewsFromCMS() {
+export async function getNews() {
   const res = await client.getList<NewsSchema>({
     endpoint: "news",
     customRequestInit: {

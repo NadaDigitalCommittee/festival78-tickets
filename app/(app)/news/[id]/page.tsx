@@ -1,4 +1,3 @@
-import { getNewsFromCMS } from "@/lib/cms";
 import { fetchNews } from "@/lib/fetchNews";
 import styles from "@/styles/news.module.scss";
 

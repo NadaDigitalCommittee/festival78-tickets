@@ -1,4 +1,4 @@
-import { getNewsFromCMS } from "@/lib/cms";
+import { getNews } from "@/lib/cms";
 import { prisma } from "@/lib/db";
 import { News } from "@/lib/types";
 import { Raffle, Result } from "@prisma/client";
@@ -10,7 +10,7 @@ export async function fetchNews(): Promise<News[]> {
   if (!uuid) {
     return [];
   }
-  const news: News[] = (await getNewsFromCMS()).map((news) => {
+  const news: News[] = (await getNews()).map((news) => {
     return { ...news, type: news.isEmergency ? "emergency" : "information" };
   });
   const result = await prisma.raffle.findMany({
