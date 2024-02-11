@@ -13,8 +13,8 @@ export const GET = validateApiHandler<Api<ApiEventsResponse>>(
         { status: 401 }
       );
     }
-    console.log("getEventsFromCMS")
+    console.log("getEventsFromCMS");
     const events = await getEventsFromCMS();
-    return NextResponse.json({ ok: true, data:{events}});
+    return NextResponse.json({ ok: true, data: { events } });
   }
 );

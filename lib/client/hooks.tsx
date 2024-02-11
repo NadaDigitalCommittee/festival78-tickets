@@ -33,7 +33,7 @@ export const useEvents = () => {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-  const parsed: Event[] | undefined = result?.events.map(convertEvent)
+  const parsed: Event[] | undefined = result?.events.map(convertEvent);
   return { events: parsed, error, mutate };
 };
 

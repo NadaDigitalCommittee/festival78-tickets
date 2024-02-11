@@ -13,7 +13,7 @@ export default function Page() {
 
   return (
     <main className="">
-      <Form  />
+      <Form />
     </main>
   );
 }

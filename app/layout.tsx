@@ -69,7 +69,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport:Viewport={
+export const viewport: Viewport = {
   width: "360",
   initialScale: 1,
 };

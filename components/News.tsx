@@ -40,7 +40,10 @@ export const News: FC<Props> = async ({ compact }) => {
               } p-4`}
             >
               <div className="mb-1 flex">
-                <IoMdInformationCircle size={"1.4rem"} color={`${n.type=="win"?"green":"gray"}`} />
+                <IoMdInformationCircle
+                  size={"1.4rem"}
+                  color={`${n.type == "win" ? "green" : "gray"}`}
+                />
                 {n.title}
               </div>
               <p className="line-clamp-1 w-full text-sm text-[#4d5156]">

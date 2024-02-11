@@ -30,9 +30,9 @@ type NewsSchema = {
   compactBody: string;
 };
 
-export async function getEvents():Promise<Event[]>{
-  const data=(await getEventsFromCMS())
-  return data.map(convertEvent)
+export async function getEvents(): Promise<Event[]> {
+  const data = await getEventsFromCMS();
+  return data.map(convertEvent);
 }
 
 export async function getEventsFromCMS() {
@@ -44,7 +44,7 @@ export async function getEventsFromCMS() {
       },
     },
   });
-  return res.contents
+  return res.contents;
 }
 
 export async function getNews() {
