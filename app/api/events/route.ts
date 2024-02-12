@@ -1,4 +1,4 @@
-import { getEvents, getEventsFromCMS } from "@/lib/cms";
+import { getEventsFromCMS } from "@/lib/cms";
 import { Api, ApiEventsResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { validateApiHandler } from "../handler";

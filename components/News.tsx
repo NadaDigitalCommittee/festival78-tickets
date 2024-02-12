@@ -1,5 +1,4 @@
 import { fetchNews } from "@/lib/fetchNews";
-import { Session } from "@/lib/types";
 import Link from "next/link";
 import { FC } from "react";
 import { IoMdAlert, IoMdInformationCircle } from "react-icons/io";

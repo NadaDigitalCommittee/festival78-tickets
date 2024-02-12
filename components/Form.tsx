@@ -1,6 +1,6 @@
 "use client";
 import { useEvents } from "@/lib/client/hooks";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef, useState } from "react";
 
 import {
   useToast,

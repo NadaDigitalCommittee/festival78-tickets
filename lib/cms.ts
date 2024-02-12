@@ -1,5 +1,4 @@
 import { createClient } from "microcms-js-sdk";
-import { Time } from "./time";
 import type { Event } from "./types";
 import { convertEvent } from "./utils";
 

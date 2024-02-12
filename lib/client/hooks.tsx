@@ -1,7 +1,6 @@
 import useSWR from "swr";
 import {
   ApiEventsResponse,
-  ApiNewsResponse,
   ApiResultResponse,
   ApiUserResponse,
   Event,

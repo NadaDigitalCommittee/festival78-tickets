@@ -1,4 +1,5 @@
 export default async function Page({
+  // eslint-disable-next-line no-unused-vars
   params,
 }: {
   params: {

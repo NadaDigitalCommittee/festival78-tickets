@@ -19,7 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 export default function Page() {
   const { user } = useUser();
@@ -27,10 +27,8 @@ export default function Page() {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const emailNotificationRef = useRef<HTMLInputElement>(null);
-  const [isServing, setIsServing] = useState(false);
   const toast = useToast();
   const submit = async () => {
-    setIsServing(true);
     const res = await fetch("/api/user", {
       method: "PUT",
       headers: {
@@ -41,7 +39,6 @@ export default function Page() {
         notification: !emailNotificationRef.current?.checked,
       }),
     });
-    setIsServing(false);
     onClose();
     const data = await res.json();
     if (!data.ok) {
@@ -58,7 +55,6 @@ export default function Page() {
     }
   };
 
-  //console.log(emailNotificationRef.current?.value)
   return (
     <main>
       <form>

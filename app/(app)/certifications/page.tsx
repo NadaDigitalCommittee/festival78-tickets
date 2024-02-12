@@ -1,5 +1,4 @@
 import { getEvents } from "@/lib/cms";
-import { number, z } from "zod";
 import {
   Accordion,
   AccordionButton,

@@ -1,4 +1,4 @@
-import { Api, ApiUserPutResponse, ApiUserResponse } from "@/lib/types";
+import { Api, ApiUserResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { validateApiHandler } from "../handler";
 import { z } from "zod";
@@ -68,7 +68,7 @@ export const PUT = validateApiHandler<Api>(async (request, session) => {
       .then(() => {
         return NextResponse.json({ ok: true }, { status: 200 });
       })
-      .catch((e) => {
+      .catch(() => {
         return NextResponse.json({ ok: false }, { status: 500 });
       });
   }

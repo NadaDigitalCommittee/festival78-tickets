@@ -1,7 +1,6 @@
-import { Time } from "@/lib/time";
-import { FC } from "react";
 import styles from "@/styles/layout.module.scss";
 import Image from "next/image";
+import { FC } from "react";
 type Props = {
   raffleId?: string;
   eventName?: string;
@@ -19,7 +18,7 @@ export const Certification: FC<Props> = ({
       <div className="absolute z-10 w-full">
         <p className="text-center text-2xl">{eventName}</p>
         <p className="text-center">{eventTime}</p>
-        <p className="font-avianosans text-5xl text-[rgb(255,210,155)]">
+        <p className="text-center font-avianosans text-5xl text-[rgb(255,210,155)]">
           ODYSSEY
         </p>
         <p className="text-center text-4xl">{raffleId}</p>

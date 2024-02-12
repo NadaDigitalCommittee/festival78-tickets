@@ -1,8 +1,8 @@
 "use client";
 //Adobe Fontsを読み込む
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 
-const TypekitLoader: React.FC = () => {
+const TypekitLoader: FC = () => {
   useEffect(() => {
     (function (d: Document) {
       const config = {
@@ -24,7 +24,9 @@ const TypekitLoader: React.FC = () => {
         clearTimeout(t);
         try {
           (window as any).Typekit.load(config);
-        } catch (e) {}
+        }catch(e){
+          console.log(e)
+        }
       };
       tk.onerror = function () {
         clearTimeout(t);

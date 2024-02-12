@@ -1,8 +1,6 @@
 import { BreadCrumbs } from "@/components/ui/BreadCrumbs";
 import Link from "next/link";
-import styles from "@/styles/layout.module.scss";
 import { ReactNode } from "react";
-import { Button } from "@chakra-ui/react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
