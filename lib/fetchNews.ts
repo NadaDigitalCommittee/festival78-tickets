@@ -6,7 +6,7 @@ import { validateSession } from "./session";
 
 export async function fetchNews(): Promise<News[]> {
   const session = await validateSession();
-  const events=await getEvents();
+  const events = await getEvents();
   const uuid = session?.uuid;
   if (!uuid) {
     return [];
@@ -17,16 +17,21 @@ export async function fetchNews(): Promise<News[]> {
   const result = await prisma.raffle.findMany({
     where: {
       userId: uuid,
-      result:{
-        not:Result.PROCESSING
-      }
+      result: {
+        not: Result.PROCESSING,
+      },
     },
   });
-  const raffles = result.map((raffle) => newsRaffle(raffle,events.find((event)=>event.id===raffle.eventId)));
+  const raffles = result.map((raffle) =>
+    newsRaffle(
+      raffle,
+      events.find((event) => event.id === raffle.eventId)
+    )
+  );
   return [...raffles, ...news];
 }
 
-function newsRaffle(raffle: Raffle,event?:Event): News {
+function newsRaffle(raffle: Raffle, event?: Event): News {
   if (raffle.result === Result.WIN) {
     return {
       id: raffle.uuid,

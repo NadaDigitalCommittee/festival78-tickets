@@ -24,8 +24,8 @@ const TypekitLoader: FC = () => {
         clearTimeout(t);
         try {
           (window as any).Typekit.load(config);
-        }catch(e){
-          console.log(e)
+        } catch (e) {
+          console.log(e);
         }
       };
       tk.onerror = function () {

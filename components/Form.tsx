@@ -101,7 +101,7 @@ export const Form: FC = () => {
         </select>
         <button
           onClick={() => {
-            onOpen()
+            onOpen();
           }}
           className=" w-full rounded-lg bg-theme p-2 text-white"
         >
@@ -146,8 +146,8 @@ export const Form: FC = () => {
               <Button
                 colorScheme="red"
                 onClick={() => {
-                  requestRaffle()
-                  onClose()
+                  requestRaffle();
+                  onClose();
                 }}
                 ml={3}
               >
