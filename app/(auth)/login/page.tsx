@@ -1,21 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/Button";
+import { useToast } from "@chakra-ui/react";
 import { FC, ReactNode, useRef, useState } from "react";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { z } from "zod";
 
 const Login = () => {
-  const [errMessage, setErrMessage] = useState("");
   const ref = useRef<HTMLInputElement>(null);
+  const toast = useToast();
   const action = async (email: string) => {
     const scheme = z.string().email();
-
-    if (ref.current?.value === "") {
-      return setErrMessage("");
-    }
     const result = scheme.safeParse(ref.current?.value);
     if (!result.success) {
-      return setErrMessage("メールアドレスが不正です。");
+      return toast({
+        title: "メールアドレスの形式が正しくありません。",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
     const res = await fetch(`/api/login`, {
       method: "POST",
@@ -27,7 +29,12 @@ const Login = () => {
     if (json.ok === true) {
       location.pathname = "/";
     } else {
-      alert("メールアドレスが正しくありません。");
+      toast({
+        title: "メールアドレスが正しくありません。",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
   return (
@@ -35,8 +42,9 @@ const Login = () => {
       <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
         <p className="mt-12 text-3xl">文化祭抽選券システム</p>
         <p className="mb-6 mt-2 text-2xl">ログイン</p>
-        <p className="my-2 text-base">メールアドレス*</p>
-        <p className="text-red-500">{errMessage}</p>
+        <p className="my-2 text-base">
+          メールアドレス<span className="text-red-600">*</span>
+        </p>
         <input
           className="h-8 w-[320px] rounded-lg border-2 border-gray-300"
           ref={ref}

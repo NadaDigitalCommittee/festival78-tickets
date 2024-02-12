@@ -1,14 +1,26 @@
 "use client";
 import { useEvents } from "@/lib/client/hooks";
-import { useToast } from "@chakra-ui/react";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
+import {
+  useToast,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  Button,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
+} from "@chakra-ui/react";
 export const Form: FC = () => {
   const { events } = useEvents();
   const [selectedEvent, setSelectedEvent] = useState<number>(0);
   const [selectedTimeId, setSelectedTimeId] = useState<number>(0);
   const [participants, setParticipants] = useState<number>(1);
   const [raffleMessage, setRaffleMessage] = useState("");
+  const { isOpen, onClose, onOpen } = useDisclosure();
+  const cancelRef = useRef<HTMLButtonElement>(null);
   const toast = useToast();
 
   const requestRaffle = async () => {
@@ -27,6 +39,14 @@ export const Form: FC = () => {
         title: "エラー",
         description: res.status === 409 ? "すでに抽選済みです" : data.message,
         status: "error",
+        duration: 6000,
+        isClosable: true,
+      });
+    } else {
+      toast({
+        title: "抽選完了",
+        description: "抽選登録が完了しました",
+        status: "success",
         duration: 6000,
         isClosable: true,
       });
@@ -81,7 +101,7 @@ export const Form: FC = () => {
         </select>
         <button
           onClick={() => {
-            requestRaffle();
+            onOpen()
           }}
           className=" w-full rounded-lg bg-theme p-2 text-white"
         >
@@ -89,6 +109,54 @@ export const Form: FC = () => {
         </button>
         <p>{raffleMessage}</p>
       </div>
+
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent width={"80%"}>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              登録情報
+            </AlertDialogHeader>
+
+            <AlertDialogBody flex={"flex"}>
+              以下の内容で抽選登録をします。後から取り消すことはできません。
+              <div className="h-6" />
+              <p>・企画:{events?.at(selectedEvent)?.name}</p>
+              <p>
+                ・時間帯:
+                {events
+                  ?.at(selectedEvent)
+                  ?.time.at(selectedTimeId)
+                  ?.toPeriodString()}
+              </p>
+              <p>
+                ・参加人数:
+                {participants}人
+              </p>
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose}>
+                キャンセル
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={() => {
+                  requestRaffle()
+                  onClose()
+                }}
+                ml={3}
+              >
+                確定
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </div>
   );
 };
