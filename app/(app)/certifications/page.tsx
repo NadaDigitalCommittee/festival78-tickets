@@ -10,6 +10,7 @@ import {
 import { prisma } from "@/lib/db";
 import { validateSession } from "@/lib/session";
 import { Certification } from "@/components/Certification";
+import { RaffleIds } from "@/lib/getRaffleId";
 
 export default async function Page({
   searchParams,
@@ -43,16 +44,9 @@ export default async function Page({
     (async () => {
       const event = events.find((e) => e.id === r.eventId);
       const time = event?.time?.[r.timeId];
-      const raffleId = (
-        await prisma.event.findUnique({
-          where: {
-            unique_event: {
-              eventId: r.eventId,
-              timeId: r.timeId,
-            },
-          },
-        })
-      )?.raffleId;
+      const raffleId = RaffleIds.get(
+        JSON.stringify({ eventId: r.eventId, timeId: r.timeId })
+      );
       certificationData.push({
         raffleId: raffleId,
         eventName: event?.name,

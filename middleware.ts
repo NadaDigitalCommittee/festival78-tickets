@@ -6,24 +6,26 @@ import { validateSession } from "./lib/session";
 
 export async function middleware(request: NextRequest) {
   const params = request.nextUrl.searchParams;
-  const dev = params.get("dev");
 
   const Redirect = (url: string) => {
     const response = NextResponse.redirect(new URL(url, request.url));
-    dev &&
-      response.cookies.set("dev", dev, {
-        maxAge: 2 * 24 * 60 * 60,
-      });
     return response;
   };
+
+  if (params.get("secret") === process.env.ADMIN_SECRET) {
+    const res = NextResponse.next();
+    res.cookies.set("admin", process.env.ADMIN_SECRET, {
+      sameSite: "strict",
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+    return res;
+  }
 
   const session = await validateSession();
   if (session) {
     const res = NextResponse.next();
-    dev &&
-      res.cookies.set("dev", dev, {
-        maxAge: 2 * 24 * 60 * 60,
-      });
     return res;
   }
 
@@ -31,7 +33,7 @@ export async function middleware(request: NextRequest) {
     return Redirect("/login");
   }
 
-  const isSecret = params.get("secret") === (process.env.SECRET ?? "");
+  const isSecret = params.get("secret") === process.env.SECRET;
   if (isSecret) {
     return Redirect("/register");
   } else {
@@ -41,5 +43,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
   //loginとregisterとアセット/api以外
   matcher:
-    "/((?!login|register|terms|api|_next/static|_next/image|img|favicon.ico).*)",
+    "/((?!login|register|terms|club|api|_next/static|_next/image|img|favicon.ico).*)",
 };

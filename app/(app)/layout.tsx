@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="font-zen_kaku_gothic_new">
+    <div className="">
       <div className="mx-auto w-[1000px]">
         <div className="mx-2 my-2">
           <BreadCrumbs />

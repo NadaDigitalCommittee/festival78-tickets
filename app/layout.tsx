@@ -89,6 +89,7 @@ export default async function RootLayout({
       >
         <Provider session={session}>
           <Header />
+          <p className="text-center text-2xl text-red-500">{`${session?.uuid === "admin" ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
           {children}
           <Footer />
         </Provider>
@@ -107,7 +108,9 @@ const Provider = ({
   return (
     <SWR>
       <SessionProvider value={session}>
-        <div className={`min-h-[100lvh] overflow-x-hidden `}>
+        <div
+          className={`min-h-[100lvh] overflow-x-hidden font-zen_kaku_gothic_new`}
+        >
           <ChakraProvider>{children}</ChakraProvider>
         </div>
         <TypekitLoader />

@@ -9,7 +9,12 @@ const secret = encoder.encode(privateKey);
 
 export async function validateSession(): Promise<Session | undefined> {
   const token = cookies().get("token")?.value;
-  const dev = cookies().get("private")?.value === process.env.PRIVATE;
+  if (cookies().get("admin")?.value === process.env.ADMIN_SECRET) {
+    return {
+      uuid: "admin",
+      email: "admin",
+    };
+  }
   if (!token) {
     return undefined;
   }
@@ -27,7 +32,6 @@ export async function validateSession(): Promise<Session | undefined> {
     } else {
       return {
         ...parse.data,
-        dev,
       };
     }
   } catch (e) {

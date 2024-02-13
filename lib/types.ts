@@ -58,5 +58,4 @@ export type ApiEventsResponse = {
 export type Session = {
   uuid: string;
   email: string;
-  dev: boolean;
 };
