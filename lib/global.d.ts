@@ -12,5 +12,9 @@ declare namespace NodeJS {
     readonly MICROCMS_API_KEY: string;
     readonly MICROCMS_SERVICE_DOMAIN: string;
     readonly NEXT_PUBLIC_ADOBE_FONT_ID: string;
+    readonly GOOGLE_CLIENT_ID: string;
+    readonly GOOGLE_CLIENT_SECRET: string;
+    readonly GOOGLE_REFRESH_TOKEN: string;
+    readonly GOOGLE_USER: string;
   }
 }

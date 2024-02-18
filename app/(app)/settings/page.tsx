@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@/lib/client/hooks";
+import { useFetch, useUser } from "@/lib/client/hooks";
 import {
   Accordion,
   AccordionButton,
@@ -28,24 +28,22 @@ export default function Page() {
   const emailRef = useRef<HTMLInputElement>(null);
   const emailNotificationRef = useRef<HTMLInputElement>(null);
   const toast = useToast();
+  const { onFetch, isFetching } = useFetch<{
+    email: string;
+    notification: boolean;
+  }>("/api/user", "PUT");
   const submit = async () => {
-    const res = await fetch("/api/user", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: emailRef.current?.value,
-        notification: !emailNotificationRef.current?.checked,
-      }),
+    const { response, data } = await onFetch({
+      email: emailRef.current?.value as string,
+      notification: !emailNotificationRef.current?.checked,
     });
+
     onClose();
-    const data = await res.json();
     if (!data.ok) {
       toast({
         title: "エラーが発生しました",
         description:
-          res.status === 409
+          response?.status === 409
             ? "メールアドレスが重複しています。"
             : "サーバーエラーが発生しました。",
         status: "error",
@@ -128,6 +126,7 @@ export default function Page() {
                   submit();
                 }}
                 ml={3}
+                isLoading={isFetching}
               >
                 確定
               </Button>

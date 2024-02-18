@@ -1,3 +1,4 @@
+import { LogoutButton } from "@/components/LogoutButton";
 import { BreadCrumbs } from "@/components/ui/BreadCrumbs";
 import Link from "next/link";
 import { ReactNode } from "react";
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <p className="w-full text-center">ホームへ戻る</p>
           </div>
         </Link>
+        <LogoutButton />
       </div>
     </div>
   );

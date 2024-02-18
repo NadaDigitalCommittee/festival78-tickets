@@ -1,7 +1,8 @@
+const { join } = require("path");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   sassOptions: {
-    includePaths: [require("path").join(__dirname, "styles")],
+    includePaths: [join(__dirname, "styles")],
   },
   output: "standalone",
 };

@@ -11,7 +11,7 @@ type Props = {
 const pathNames = new Map<string, string>([
   ["terms", "利用規約"],
   ["timetable", "タイムテーブル"],
-  ["certifications", "抽選証明書"],
+  ["certifications", "当選証明書"],
   ["settings", "設定"],
   ["raffle", "抽選"],
   ["events", "企画説明"],

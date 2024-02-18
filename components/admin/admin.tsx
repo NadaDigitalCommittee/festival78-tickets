@@ -1,5 +1,5 @@
 "use client";
-import { useEvents } from "@/lib/client/hooks";
+import { useEvents, useFetch } from "@/lib/client/hooks";
 import { useToast } from "@chakra-ui/react";
 import { FC, useState, useRef, MutableRefObject, ReactNode } from "react";
 import {
@@ -31,11 +31,16 @@ export const AdminForm: FC<Props> = ({ secret }) => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const [selectedEventId, setSelectedEventId] = useState(0);
   const [selectedTimeId, setSelectedTimeId] = useState(0);
-  const [isServing, setIsServing] = useState(false);
   const toast = useToast();
+  const { onFetch, isFetching } = useFetch<{
+    eventId?: number;
+    timeId: number;
+    capacity?: number;
+    secret: string;
+  }>("/api/exec", "POST");
 
   const requestRaffle = async () => {
-    if (isServing) {
+    if (isFetching) {
       return toast({
         title: `抽選中です。`,
         status: "error",
@@ -43,17 +48,12 @@ export const AdminForm: FC<Props> = ({ secret }) => {
         isClosable: true,
       });
     }
-    setIsServing(true);
-    const res = await fetch("/api/exec", {
-      method: "POST",
-      body: JSON.stringify({
-        eventId: events?.at(selectedEventId)?.id,
-        timeId: selectedTimeId,
-        capacity: events?.at(selectedEventId)?.capacity,
-        secret: secret,
-      }),
+    const { data } = await onFetch({
+      eventId: events?.at(selectedEventId)?.id,
+      timeId: selectedTimeId,
+      capacity: events?.at(selectedEventId)?.capacity,
+      secret: secret,
     });
-    const data = await res.json();
     if (data.ok) {
       toast({
         title: `抽選が実行されました。${data.data.message}`,
@@ -69,7 +69,6 @@ export const AdminForm: FC<Props> = ({ secret }) => {
         isClosable: true,
       });
     }
-    setIsServing(false);
   };
   const requestReset = async () => {
     onCloseReset();
@@ -116,7 +115,7 @@ export const AdminForm: FC<Props> = ({ secret }) => {
         </select>
         <p>・これらのボタンを押すときは注意してください。</p>
         <div className="mt-6 flex flex-col gap-12">
-          <Button onClick={onOpenRaffle} isLoading={isServing}>
+          <Button onClick={onOpenRaffle} isLoading={isFetching}>
             抽選ボタン
           </Button>
           <Button onClick={onOpenReset} colorScheme="red">

@@ -1,10 +1,11 @@
 "use client";
-import { Button } from "@/components/ui/Button";
+
+import { useFetch } from "@/lib/client/hooks";
+import { Button, useToast } from "@chakra-ui/react";
 import Link from "next/link";
 import { FC, ReactNode, useRef, useState } from "react";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import { MdEmail, MdMobileFriendly, MdOutlineArticle } from "react-icons/md";
-import { z } from "zod";
 
 export default function Page({
   searchParams,
@@ -13,40 +14,53 @@ export default function Page({
 }) {
   const secret = searchParams.secret as string;
   const ref = useRef<HTMLInputElement>(null);
+  const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const { onFetch } = useFetch<{
+    email: string;
+    secret: string;
+  }>("/api/register", "POST");
   const action = async () => {
     const email = ref.current?.value;
     if (!email) {
       return;
     }
-    const res = await fetch(`/api/register`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-        secret: secret,
-      }),
-    });
-    if (res.status === 409) {
-      alert("既に同じアドレスが登録されています。");
+    setIsLoading(true);
+    const { response } = await onFetch({ email: email, secret: secret });
+    setIsLoading(false);
+    console.log(response);
+    if (response?.status === 409) {
+      toast({
+        title: "既に同じアドレスが登録されています。",
+        status: "error",
+        duration: 9000,
+      });
       return;
     }
-    if (res.status === 400) {
-      alert("メールアドレスが不正です。");
+    if (response?.status === 400) {
+      toast({
+        title: "メールアドレスが不正です。",
+        status: "error",
+        duration: 9000,
+      });
       return;
     }
-    if (res.status === 401) {
-      alert(
-        "この登録リンクは利用できません。文化祭スタッフにお問い合わせください。"
-      );
+    if (response?.status === 401) {
+      toast({
+        title:
+          "この登録リンクは利用できません。文化委員スタッフにお問い合わせください。",
+        status: "error",
+        duration: 9000,
+      });
       return;
     }
-    if (res.status === 200) {
+    if (response?.status === 201) {
       return (location.pathname = "/");
     }
   };
-  const [errMessage, setErrMessage] = useState("");
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center ">
+    <div className="flex w-screen flex-col items-center ">
       <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
         <p className="mt-12 text-3xl">文化祭抽選券システム</p>
         <p className="mb-6 mt-2 text-2xl">登録用フォーム</p>
@@ -80,30 +94,24 @@ export default function Page({
         </div>
 
         <p>
-          利用規約
-          <Link href="/terms">はこちら</Link>
+          利用規約は
+          <Link href="/terms" className="text-blue-500 underline">
+            こちら
+          </Link>
         </p>
 
         <div className="flex flex-col items-center justify-center">
           <p className="my-3 text-base">メールアドレス*</p>
-          <p className="h-6 text-sm text-red-500">{errMessage}</p>
           <input
             className="h-10 w-[280px] rounded-lg border-2 border-gray-300"
             ref={ref}
-            onChange={() => {
-              const scheme = z.string().email();
-
-              if (ref.current?.value === "") {
-                return setErrMessage("");
-              }
-              const result = scheme.safeParse(ref.current?.value);
-              if (!result.success) {
-                return setErrMessage("メールアドレスが不正です。");
-              }
-              return setErrMessage("");
-            }}
           ></input>
-          <Button onClick={action} className="my-4 h-12">
+          <Button
+            onClick={action}
+            className="my-4 h-12"
+            colorScheme="orange"
+            isLoading={isLoading}
+          >
             次へ
           </Button>
           <Button
@@ -111,6 +119,7 @@ export default function Page({
               location.pathname = "/login";
             }}
             className="mb-6 h-12"
+            variant={"outline"}
           >
             すでに登録されている方はこちら
           </Button>

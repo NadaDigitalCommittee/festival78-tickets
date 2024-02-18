@@ -1,5 +1,5 @@
 "use client";
-import { useEvents } from "@/lib/client/hooks";
+import { useEvents, useFetch } from "@/lib/client/hooks";
 import { FC, useRef, useState } from "react";
 
 import {
@@ -22,22 +22,24 @@ export const Form: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
   const toast = useToast();
+  const { onFetch } = useFetch<{
+    eventId?: number;
+    timeId: number;
+    participants: number;
+  }>("/api/raffle", "POST");
 
   const requestRaffle = async () => {
-    const res = await fetch("/api/raffle", {
-      method: "POST",
-      body: JSON.stringify({
-        eventId: events?.at(selectedEvent)?.id,
-        timeId: selectedTimeId,
-        participants: participants,
-      }),
+    const { response, data } = await onFetch({
+      eventId: events?.at(selectedEvent)?.id,
+      timeId: selectedTimeId,
+      participants: participants,
     });
-    const data = await res.json();
-    setRaffleMessage(data.message);
-    if (!data.ok) {
+    setRaffleMessage(data?.message);
+    if (!data?.ok) {
       toast({
         title: "エラー",
-        description: res.status === 409 ? "すでに抽選済みです" : data.message,
+        description:
+          response?.status === 409 ? "すでに抽選済みです" : data.message,
         status: "error",
         duration: 6000,
         isClosable: true,

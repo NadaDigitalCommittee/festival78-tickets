@@ -6,6 +6,7 @@ import {
   Event,
 } from "../types";
 import { convertEvent } from "../utils";
+import { useState } from "react";
 
 export const useRaffles = () => {
   const {
@@ -49,3 +50,34 @@ export const useUser = () => {
   });
   return { user: result, error, mutate };
 };
+
+export function useFetch<T>(
+  url: string,
+  method: "POST" | "PUT" | "GET" | "DELETE",
+  onError?: () => void
+) {
+  const [data, setData] = useState<any | undefined>(undefined);
+  const [response, setResponse] = useState<Response | undefined>(undefined);
+  const [isFetching, setIsFetching] = useState(false);
+  const onFetch = async (body?: T) => {
+    setIsFetching(true);
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: body && JSON.stringify(body),
+      });
+      setIsFetching(false);
+      setResponse(response);
+      const data = await response.json();
+      setData(data);
+      return { response, data };
+    } catch (e) {
+      onError?.();
+      return { response: undefined, data: undefined };
+    }
+  };
+  return { data, response, onFetch, isFetching };
+}

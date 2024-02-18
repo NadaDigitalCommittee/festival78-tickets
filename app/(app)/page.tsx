@@ -51,7 +51,7 @@ export default async function App() {
             <div
               className={`flex h-36 flex-col items-center rounded-3xl pt-6 shadow-md   ${styles.bg}`}
             >
-              <p>{"抽選証明書"}</p>
+              <p>{"当選証明書"}</p>
               <div className="my-auto h-20">
                 <PiCertificate size={"4em"} />
               </div>

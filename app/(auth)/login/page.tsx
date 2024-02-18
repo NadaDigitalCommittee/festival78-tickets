@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/Button";
-import { useToast } from "@chakra-ui/react";
+import { useFetch } from "@/lib/client/hooks";
+import { Button, useToast } from "@chakra-ui/react";
 import { FC, ReactNode, useRef } from "react";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { z } from "zod";
@@ -8,6 +8,9 @@ import { z } from "zod";
 const Login = () => {
   const ref = useRef<HTMLInputElement>(null);
   const toast = useToast();
+  const { onFetch, isFetching } = useFetch<{
+    email: string;
+  }>("/api/login", "POST");
   const action = async (email: string) => {
     const scheme = z.string().email();
     const result = scheme.safeParse(ref.current?.value);
@@ -19,14 +22,8 @@ const Login = () => {
         isClosable: true,
       });
     }
-    const res = await fetch(`/api/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-      }),
-    });
-    const json = await res.json();
-    if (json.ok === true) {
+    const { data } = await onFetch({ email: email });
+    if (data.ok === true) {
       location.pathname = "/";
     } else {
       toast({
@@ -56,6 +53,8 @@ const Login = () => {
             action(ref.current?.value as string);
           }}
           className="my-4 h-12 w-[320px]"
+          colorScheme="orange"
+          isLoading={isFetching}
         >
           ログイン
         </Button>
