@@ -13,7 +13,7 @@ export const VerficationTokenEmail: FC<Props> = ({ token }) => {
             </Head>
             <Body>
                 <Container width={"80%"}>
-                    <Img src="https://festival78-ticket.vercel.app/img/LOGO.svg" width={100} height={100} style={{fill:"#FF9209"}}/>
+                    <Img src="https://festival78-ticket.vercel.app/img/logo2.svg" width={100} height={100} style={{fill:"#FF9209"}}/>
                     <Text>{token}</Text>
                 </Container>
             </Body>
