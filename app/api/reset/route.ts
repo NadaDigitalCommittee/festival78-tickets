@@ -1,10 +1,18 @@
+import { prisma } from "@/lib/server/db";
 import { Api } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { validateApiHandler } from "../handler";
-import { prisma } from "@/lib/db";
 
 export const POST = validateApiHandler<Api<{}>>(async (request, session) => {
-  if (session?.uuid !== "admin") {
+  if (!session) {
+    return NextResponse.json(
+      {
+        ok: false,
+      },
+      { status: 401 }
+    );
+  }
+  if (!session.admin) {
     return NextResponse.json(
       {
         ok: false,

@@ -2,11 +2,19 @@ import { Api } from "@/lib/types";
 import { NextResponse } from "next/server";
 import z from "zod";
 import { validateApiHandler } from "../handler";
-import { raffle } from "@/lib/raffle";
+import { raffle } from "@/lib/server/raffle";
 
 export const POST = validateApiHandler<Api<{ message: string }>>(
   async (request, session) => {
-    if (session?.uuid !== "admin") {
+    if (!session) {
+      return NextResponse.json(
+        {
+          ok: false,
+        },
+        { status: 401 }
+      );
+    }
+    if (!session.admin) {
       return NextResponse.json(
         {
           ok: false,

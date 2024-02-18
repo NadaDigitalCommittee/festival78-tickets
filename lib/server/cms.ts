@@ -1,6 +1,6 @@
 import { createClient } from "microcms-js-sdk";
-import type { Event } from "./types";
-import { convertEvent } from "./utils";
+import type { Event } from "../types";
+import { convertEvent } from "../utils";
 
 const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,

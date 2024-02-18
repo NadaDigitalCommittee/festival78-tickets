@@ -1,7 +1,7 @@
 import { Raffle } from "@prisma/client";
-import { Time } from "./time";
-import { EventSchema } from "./cms";
 import { MicroCMSContentId, MicroCMSDate } from "microcms-js-sdk";
+import { EventSchema } from "./server/cms";
+import { Time } from "./time";
 
 export type Event = {
   id: number;
@@ -58,4 +58,5 @@ export type ApiEventsResponse = {
 export type Session = {
   uuid: string;
   email: string;
+  admin: boolean;
 };

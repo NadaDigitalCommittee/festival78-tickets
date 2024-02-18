@@ -1,5 +1,5 @@
 import { FC } from "react";
-import styles from "@/styles/logo.module.scss";
+import styles from "./styles.module.scss";
 import Image from "next/image";
 
 type Props = {

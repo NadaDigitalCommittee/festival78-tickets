@@ -1,4 +1,4 @@
-import { fetchNews } from "@/lib/fetchNews";
+import { fetchNews } from "@/lib/server/fetchNews";
 import Link from "next/link";
 import { FC } from "react";
 import { IoMdAlert, IoMdInformationCircle } from "react-icons/io";
@@ -7,6 +7,12 @@ type Props = {
   compact?: boolean;
 };
 
+/**
+ * News component displays a list of news items.
+ * @param {Props} props - The component props.
+ * @param {boolean} props.compact - Indicates whether to display the news items in compact mode.
+ * @returns {JSX.Element} The rendered News component.
+ */
 export const News: FC<Props> = async ({ compact }) => {
   const news = await fetchNews();
   const emergencyNews = news?.filter((n) => n.type === "emergency");

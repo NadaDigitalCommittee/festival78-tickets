@@ -1,3 +1,6 @@
+/**
+ * Represents a time period with a start and end time.
+ */
 export class Time {
   public periodMinutes: number;
   public start: Date;

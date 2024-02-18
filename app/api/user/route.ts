@@ -1,8 +1,8 @@
+import { prisma } from "@/lib/server/db";
 import { Api, ApiUserResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
-import { validateApiHandler } from "../handler";
 import { z } from "zod";
-import { prisma } from "@/lib/db";
+import { validateApiHandler } from "../handler";
 
 export const GET = validateApiHandler<Api<ApiUserResponse>>(
   async (_request, session) => {

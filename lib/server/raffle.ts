@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/server/db";
 
 /**
  * eventId,timeIdにそってcapacity人の当選者を決めた後、DBを更新する

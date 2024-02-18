@@ -1,5 +1,5 @@
-import { getEvents, getNews } from "@/lib/cms";
-import { prisma } from "@/lib/db";
+import { getEvents, getNews } from "@/lib/server/cms";
+import { prisma } from "@/lib/server/db";
 import { Event, News } from "@/lib/types";
 import { Raffle, Result } from "@prisma/client";
 import { validateSession } from "./session";

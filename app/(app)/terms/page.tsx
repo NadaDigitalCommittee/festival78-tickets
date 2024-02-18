@@ -1,4 +1,4 @@
-import styles from "@/styles/terms.module.scss";
+import styles from "./styles.module.scss";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "利用規約とプライバシーポリシー",

@@ -1,8 +1,8 @@
-import { EventList } from "@/components/admin/EventList";
-import { AdminForm } from "@/components/admin/admin";
-import { getEvents } from "@/lib/cms";
-import { prisma } from "@/lib/db";
-import { RaffleIds } from "@/lib/getRaffleId";
+import { EventList } from "@/app/(admin)/_components/EventList";
+import { AdminForm } from "@/app/(admin)/admin/_components/admin";
+import { getEvents } from "@/lib/server/cms";
+import { prisma } from "@/lib/server/db";
+import { RaffleIds } from "@/lib/server/getRaffleId";
 
 export default async function Page({
   searchParams,

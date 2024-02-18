@@ -1,4 +1,4 @@
-import { getEvents } from "@/lib/cms";
+import { getEvents } from "@/lib/server/cms";
 import {
   Accordion,
   AccordionButton,
@@ -7,10 +7,10 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
-import { prisma } from "@/lib/db";
-import { validateSession } from "@/lib/session";
-import { Certification } from "@/components/Certification";
-import { RaffleIds } from "@/lib/getRaffleId";
+import { prisma } from "@/lib/server/db";
+import { validateSession } from "@/lib/server/session";
+import { Certification } from "@/app/(app)/certifications/_components/Certification";
+import { RaffleIds } from "@/lib/server/getRaffleId";
 
 export default async function Page({
   searchParams,

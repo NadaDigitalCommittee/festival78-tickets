@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/db";
-import { generateSession } from "@/lib/session";
+import { prisma } from "@/lib/server/db";
+import { generateSession } from "@/lib/server/session";
 import { Api, ApiRegisterResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";

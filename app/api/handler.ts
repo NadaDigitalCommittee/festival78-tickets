@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { validateSession } from "@/lib/session";
+import { validateSession } from "@/lib/server/session";
 import { Session } from "@/lib/types";
 import { NextRequest, NextResponse } from "next/server";
 

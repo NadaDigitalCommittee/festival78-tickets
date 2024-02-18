@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/server/db";
 import { Api, ApiRaffleResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";

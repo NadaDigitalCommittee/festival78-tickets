@@ -1,4 +1,4 @@
-import { fetchNews } from "@/lib/fetchNews";
+import { fetchNews } from "@/lib/server/fetchNews";
 import styles from "@/styles/news.module.scss";
 
 export default async function Page({ params }: { params: { id: string } }) {

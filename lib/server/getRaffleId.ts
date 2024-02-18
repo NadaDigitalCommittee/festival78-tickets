@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import { Time } from "./time";
+import { Time } from "../time";
 import { getEvents } from "./cms";
 
 export const RaffleIds: Map<string, string> = new Map();

@@ -1,8 +1,7 @@
 // middleware.ts
 
-import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
-import { validateSession } from "./lib/session";
+import { NextRequest, NextResponse } from "next/server";
+import { validateSession } from "./lib/server/session";
 
 export async function middleware(request: NextRequest) {
   const params = request.nextUrl.searchParams;

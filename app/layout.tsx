@@ -1,17 +1,17 @@
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import TypekitLoader from "@/components/TypeKit";
 import { SWR } from "@/lib/client/Swr";
 import { SessionProvider } from "@/lib/client/context";
-import { validateSession } from "@/lib/session";
+import { validateSession } from "@/lib/server/session";
 import { Session } from "@/lib/types";
+import "@/styles/globals.scss";
 import { ChakraProvider } from "@chakra-ui/react";
 import type { Metadata, Viewport } from "next";
 import { Inter, Zen_Kaku_Gothic_New } from "next/font/google";
 import { ReactNode } from "react";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import "@/styles/globals.scss";
-import TypekitLoader from "@/components/TypeKit";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -89,7 +89,7 @@ export default async function RootLayout({
       >
         <Provider session={session}>
           <Header />
-          <p className="text-center text-2xl text-red-500">{`${session?.uuid === "admin" ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
+          <p className="text-center text-2xl text-red-500">{`${session?.admin ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
           {children}
           <Footer />
         </Provider>

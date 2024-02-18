@@ -1,8 +1,8 @@
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/server/db";
 import { Api, ApiResultResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
-import { validateApiHandler } from "../handler";
 import { PrismaClientKnownRequestError } from "prisma/prisma-client/runtime/library";
+import { validateApiHandler } from "../handler";
 
 export const GET = validateApiHandler<Api<ApiResultResponse>>(
   async (request, session) => {

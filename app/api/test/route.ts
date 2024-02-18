@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/server/db";
+import { Api } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { validateApiHandler } from "../handler";
-import { Api } from "@/lib/types";
 
 export const GET = validateApiHandler<Api<{}>>(async (_request, session) => {
-  if (session?.uuid !== "admin") {
+  if (!session) {
+    return NextResponse.json({ ok: false }, { status: 401 });
+  }
+  if (!session.admin) {
     return NextResponse.json({ ok: false }, { status: 403 });
   }
   testRaffle(0, 0);

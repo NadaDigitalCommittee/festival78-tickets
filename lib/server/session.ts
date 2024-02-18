@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { z } from "zod";
-import { Session } from "./types";
+import { Session } from "../types";
 import { SignJWT, jwtVerify } from "jose";
 
 const encoder = new TextEncoder();
@@ -11,8 +11,9 @@ export async function validateSession(): Promise<Session | undefined> {
   const token = cookies().get("token")?.value;
   if (cookies().get("admin")?.value === process.env.ADMIN_SECRET) {
     return {
-      uuid: "admin",
-      email: "admin",
+      uuid: "",
+      email: "",
+      admin: true,
     };
   }
   if (!token) {
@@ -32,6 +33,7 @@ export async function validateSession(): Promise<Session | undefined> {
     } else {
       return {
         ...parse.data,
+        admin: false,
       };
     }
   } catch (e) {
