@@ -2,6 +2,7 @@ import { render } from "@react-email/render";
 import { Tailwind } from "@react-email/tailwind";
 import { createTransport } from "nodemailer";
 import { ReactElement } from "react";
+import { VerficationTokenEmail } from "./pages/Verification";
 const transporter = createTransport({
   service: "gmail",
   auth: {
@@ -29,3 +30,5 @@ export async function sendMail(
     html: data,
   });
 }
+
+sendMail((<VerficationTokenEmail token="123456"/>),"登録コードのお知らせ","hiromu.at@icloud.com")
