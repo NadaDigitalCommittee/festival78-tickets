@@ -7,8 +7,8 @@ const encoder = new TextEncoder();
 const privateKey = process.env.JWTSECRET;
 const secret = encoder.encode(privateKey);
 
-export async function validateSession(): Promise<Session | undefined> {
-  const token = cookies().get("token")?.value;
+export async function validateSession(_token?:string): Promise<Session | undefined> {
+  const token = _token|| cookies().get("token")?.value;
   if (cookies().get("admin")?.value === process.env.ADMIN_SECRET) {
     return {
       uuid: "",

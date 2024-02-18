@@ -10,6 +10,18 @@ export async function middleware(request: NextRequest) {
     const response = NextResponse.redirect(new URL(url, request.url));
     return response;
   };
+  
+  const token=params.get("token")
+  if(token!==null){
+    const res=NextResponse.redirect(new URL("/",request.nextUrl.origin))
+    res.cookies.set("token", token, {
+      sameSite: "strict",
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 7,
+      path: "/",
+    });
+    return res;
+  }
 
   if (params.get("secret") === process.env.ADMIN_SECRET) {
     const res = NextResponse.next();
@@ -42,5 +54,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
   //loginとregisterとアセット/api以外
   matcher:
-    "/((?!login|register|verify|terms|club|api|_next/static|_next/image|img|favicon.ico).*)",
+    "/((?!login|register|terms|club|api|_next/static|_next/image|img|favicon.ico).*)",
 };
