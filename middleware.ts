@@ -10,12 +10,11 @@ export async function middleware(request: NextRequest) {
     const response = NextResponse.redirect(new URL(url, request.url));
     return response;
   };
-  
+
   const token=params.get("token")
   if(token!==null){
     const res=NextResponse.redirect(new URL("/",request.nextUrl.origin))
     res.cookies.set("token", token, {
-      sameSite: "strict",
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7,
       path: "/",
