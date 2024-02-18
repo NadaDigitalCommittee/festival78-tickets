@@ -9,7 +9,7 @@ export const LogoAnim: FC<Props> = ({ show }) => {
   return (
     <div className={`h-[100px] w-[100px] bg-black ${!show && "hidden"}`}>
       <Image
-        src="/img/logo.svg"
+        src="/img/svg/logo.svg"
         alt="logo"
         width={100}
         height={100}

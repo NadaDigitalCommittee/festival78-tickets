@@ -25,7 +25,7 @@ export const Certification: FC<Props> = ({
       </div>
       <Image
         className="absolute -translate-y-[50px] translate-x-[100px] rotate-[10deg] scale-[120%]"
-        src="/img/logo.svg"
+        src="/img/svg/logo.svg"
         height={300}
         width={300}
         alt="aa"
