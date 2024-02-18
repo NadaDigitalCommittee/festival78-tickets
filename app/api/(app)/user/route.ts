@@ -2,7 +2,7 @@ import { prisma } from "@/lib/server/db";
 import { Api, ApiUserResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { validateApiHandler } from "../handler";
+import { validateApiHandler } from "../../handler";
 
 export const GET = validateApiHandler<Api<ApiUserResponse>>(
   async (_request, session) => {
@@ -13,7 +13,10 @@ export const GET = validateApiHandler<Api<ApiUserResponse>>(
     return NextResponse.json(
       {
         ok: true,
-        data: session,
+        data: {
+          email: session.email,
+          uuid: session.uuid,
+        },
       },
       { status: 200 }
     );

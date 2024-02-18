@@ -3,7 +3,9 @@ import { generateSession } from "@/lib/server/session";
 import { Api, ApiRegisterResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { validateApiHandler } from "../handler";
+import { validateApiHandler } from "../../handler";
+import { sendMail } from "@/lib/email/email";
+import { VerficationTokenEmail } from "@/lib/email/template/Verification";
 
 export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
   async (request) => {
@@ -69,18 +71,16 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
       },
     });
 
-    //cookieにtokenをセット
     const token = await generateSession(user.uuid, user.email);
-    return NextResponse.json(
-      {
-        ok: true,
-      },
-      {
-        status: 201,
-        headers: {
-          "set-cookie": `token=${token};path=/;httponly;max-age=172800;Secure;SameSite=Strict`,
-        },
-      }
+
+    await sendMail(
+      VerficationTokenEmail({
+        url: `${process.env.HOST}/verify?token=${token}`,
+      }),
+      "本人確認のお知らせ",
+      email
     );
+
+    return NextResponse.json({ ok: true }, { status: 201 });
   }
 );

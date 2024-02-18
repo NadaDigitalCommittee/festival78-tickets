@@ -2,7 +2,7 @@ import { prisma } from "@/lib/server/db";
 import { Api, ApiRaffleResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { validateApiHandler } from "../handler";
+import { validateApiHandler } from "../../handler";
 
 export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
   async (request, session) => {

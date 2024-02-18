@@ -1,7 +1,7 @@
 import { render } from "@react-email/render";
 import { Tailwind } from "@react-email/tailwind";
 import { createTransport } from "nodemailer";
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 
 const transporter = createTransport({
   service: "gmail",
@@ -14,11 +14,7 @@ const transporter = createTransport({
   },
 });
 
-export async function sendMail(
-  body: ReactElement,
-  subject: string,
-  to: string
-) {
+export async function sendMail(body: ReactNode, subject: string, to: string) {
   const data = render(<Tailwind>{body}</Tailwind>);
   return transporter.sendMail({
     from: {

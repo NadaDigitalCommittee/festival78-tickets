@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/server/db";
 import { Api } from "@/lib/types";
 import { NextResponse } from "next/server";
-import { validateApiHandler } from "../handler";
+import { validateApiHandler } from "../../handler";
 
 export const POST = validateApiHandler<Api<{}>>(async (request, session) => {
   if (!session) {

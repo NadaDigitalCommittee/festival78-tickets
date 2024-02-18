@@ -1,7 +1,7 @@
 import { getEventsFromCMS } from "@/lib/server/cms";
 import { Api, ApiEventsResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
-import { validateApiHandler } from "../handler";
+import { validateApiHandler } from "../../handler";
 
 export const GET = validateApiHandler<Api<ApiEventsResponse>>(
   async (_request, session) => {
