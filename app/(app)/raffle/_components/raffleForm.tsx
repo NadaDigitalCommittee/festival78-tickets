@@ -22,7 +22,7 @@ export const Form: FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
   const toast = useToast();
-  const { onFetch } = useFetch<{
+  const { onFetch, isFetching } = useFetch<{
     eventId?: number;
     timeId: number;
     participants: number;
@@ -101,14 +101,9 @@ export const Form: FC = () => {
           <option value="5">5</option>
           <option value="6">6</option>
         </select>
-        <button
-          onClick={() => {
-            onOpen();
-          }}
-          className=" w-full rounded-lg bg-theme p-2 text-white"
-        >
+        <Button onClick={onOpen} colorScheme="orange">
           抽選する
-        </button>
+        </Button>
         <p>{raffleMessage}</p>
       </div>
 
@@ -147,11 +142,12 @@ export const Form: FC = () => {
               </Button>
               <Button
                 colorScheme="red"
-                onClick={() => {
-                  requestRaffle();
+                onClick={async () => {
+                  await requestRaffle();
                   onClose();
                 }}
                 ml={3}
+                isLoading={isFetching}
               >
                 確定
               </Button>

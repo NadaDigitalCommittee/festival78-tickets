@@ -39,7 +39,9 @@ export const VerficationTokenEmail: FC<Props> = ({ url }) => {
           >
             <Text>認証URL</Text>
             <Text>
-              <Link href={url}>{url.length>50?(`${url.slice(0,50)}...`):(url)}</Link>
+              <Link href={url}>
+                {url.length > 50 ? `${url.slice(0, 50)}...` : url}
+              </Link>
             </Text>
           </Container>
         </Container>

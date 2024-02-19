@@ -11,9 +11,9 @@ export async function middleware(request: NextRequest) {
     return response;
   };
 
-  const token=params.get("token")
-  if(token!==null){
-    const res=NextResponse.redirect(new URL("/",request.nextUrl.origin))
+  const token = params.get("token");
+  if (token !== null) {
+    const res = NextResponse.redirect(new URL("/", request.nextUrl.origin));
     res.cookies.set("token", token, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7,
