@@ -1,17 +1,18 @@
 "use client";
 import { useEvents, useFetch } from "@/lib/client/hooks";
-import { useToast } from "@chakra-ui/react";
-import { FC, useState, useRef, MutableRefObject, ReactNode } from "react";
+import { ja } from "@/lib/lang/ja";
 import {
-  useDisclosure,
-  Button,
   AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
+import { FC, MutableRefObject, ReactNode, useRef, useState } from "react";
 type Props = {
   secret: string;
 };
@@ -42,7 +43,7 @@ export const AdminForm: FC<Props> = ({ secret }) => {
   const requestRaffle = async () => {
     if (isFetching) {
       return toast({
-        title: `抽選中です。`,
+        title: `${ja.toast.raffling}`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -56,14 +57,14 @@ export const AdminForm: FC<Props> = ({ secret }) => {
     });
     if (data.ok) {
       toast({
-        title: `抽選が実行されました。${data.data.message}`,
+        title: `${ja.toast.raffle_executed}${data.data.message}`,
         status: "success",
         duration: 9000,
         isClosable: true,
       });
     } else {
       toast({
-        title: `抽選が実行されませんでした。${data.data.message}`,
+        title: `${ja.toast.raffle_not_executed}${data.data.message}`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -74,7 +75,7 @@ export const AdminForm: FC<Props> = ({ secret }) => {
     onCloseReset();
     await fetch("/api/reset", {});
     toast({
-      title: `抽選情報をリセットしました。`,
+      title: `${ja.toast.reset_raffle}`,
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -84,7 +85,7 @@ export const AdminForm: FC<Props> = ({ secret }) => {
   return (
     <div className="mt-2 grid gap-3 sm:grid-cols-1 md:grid-cols-2">
       <div>
-        <p>・企画名</p>
+        <p>・{ja.word.event_name}</p>
         <select
           className="border border-black"
           onChange={(e) => {
@@ -97,7 +98,7 @@ export const AdminForm: FC<Props> = ({ secret }) => {
             </option>
           ))}
         </select>
-        <p>・時間帯</p>
+        <p>・{ja.word.period}</p>
         <select
           className="border border-black"
           onChange={(e) => {

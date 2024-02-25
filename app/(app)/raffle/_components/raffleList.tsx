@@ -11,6 +11,7 @@ import {
   Stack,
   Skeleton,
 } from "@chakra-ui/react";
+import { ja } from "@/lib/lang/ja";
 type Props = {};
 
 export const RaffleList: FC<Props> = () => {
@@ -19,15 +20,13 @@ export const RaffleList: FC<Props> = () => {
 
   return (
     <div className="mt-6">
-      <p className="my-3 text-xl font-bold">抽選状況</p>
-      {raffles?.length === 0 && <p>抽選はありません</p>}
+      <p className="my-3 text-xl font-bold">{ja.raffle.raffle_state}</p>
+      {raffles?.length === 0 && <p>{ja.raffle.no_raffle_history}</p>}
       <Accordion>
         <>
-          {raffles || (
+          {!!raffles || (
             <Stack>
-              <Skeleton height="15px" />
-              <Skeleton height="15px" />
-              <Skeleton height="15px" />
+              <Skeleton height="45px" />
             </Stack>
           )}
         </>
@@ -42,11 +41,14 @@ export const RaffleList: FC<Props> = () => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={2}>
-              {data.result === "PROCESSING"
-                ? "抽選中"
-                : data.result === "WIN"
-                  ? "当選"
-                  : "落選"}
+              <p>{`${ja.word.participants_number}:${data.participants}`}</p>
+              <p>
+                {data.result === "PROCESSING"
+                  ? `${ja.word.raffling}`
+                  : data.result === "WIN"
+                    ? `${ja.word.win}`
+                    : `${ja.word.lose}`}
+              </p>
             </AccordionPanel>
           </AccordionItem>
         ))}

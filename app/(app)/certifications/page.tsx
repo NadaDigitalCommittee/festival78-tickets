@@ -1,4 +1,9 @@
+import { Certification } from "@/app/(app)/certifications/_components/Certification";
+import { ja } from "@/lib/lang/ja";
 import { getEvents } from "@/lib/server/cms";
+import { prisma } from "@/lib/server/db";
+import { RaffleIds } from "@/lib/server/getRaffleId";
+import { validateSession } from "@/lib/server/session";
 import {
   Accordion,
   AccordionButton,
@@ -7,10 +12,6 @@ import {
   AccordionPanel,
   Box,
 } from "@chakra-ui/react";
-import { prisma } from "@/lib/server/db";
-import { validateSession } from "@/lib/server/session";
-import { Certification } from "@/app/(app)/certifications/_components/Certification";
-import { RaffleIds } from "@/lib/server/getRaffleId";
 
 export default async function Page({
   searchParams,
@@ -58,7 +59,7 @@ export default async function Page({
 
   return (
     <main>
-      {certificationData.length === 0 && <p>当選履歴がありません。</p>}
+      {certificationData.length === 0 && <p>{ja.raffle.no_win_history}</p>}
       <Accordion defaultIndex={index}>
         {certificationData.map((data) => (
           <AccordionItem key={data.eventName}>

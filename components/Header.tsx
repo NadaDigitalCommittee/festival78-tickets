@@ -3,6 +3,7 @@ import { FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/layout.module.scss";
+import { ja } from "@/lib/lang/ja";
 
 type Props = {};
 
@@ -16,8 +17,8 @@ export const Header: FC<Props> = () => {
           <Image src={"/img/logo1.png"} alt="ロゴ" height={100} width={100} />
         </Link>
         <Link href={"/"} className="grow">
-          <p>第78回灘校文化祭 </p>
-          <p className="text-xl font-bold">抽選券システム</p>
+          <p>{ja.meta.fest}</p>
+          <p className="text-xl font-bold">{ja.word.tickets_system}</p>
         </Link>
         {/* <Link href="/login"><p className="ml-3 text-xl">ログイン</p></Link> */}
       </div>

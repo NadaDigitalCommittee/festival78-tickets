@@ -34,6 +34,7 @@ export const useEvents = () => {
     revalidateOnReconnect: false,
   });
   const parsed: Event[] | undefined = result?.events.map(convertEvent);
+  parsed?.sort((a, b) => a.id - b.id);
   return { events: parsed, error, mutate };
 };
 

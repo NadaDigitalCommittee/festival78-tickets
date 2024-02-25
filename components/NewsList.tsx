@@ -1,3 +1,4 @@
+import { ja } from "@/lib/lang/ja";
 import { fetchNews } from "@/lib/server/fetchNews";
 import Link from "next/link";
 import { FC } from "react";
@@ -13,13 +14,14 @@ type Props = {
  * @param {boolean} props.compact - Indicates whether to display the news items in compact mode.
  * @returns {JSX.Element} The rendered News component.
  */
-export const News: FC<Props> = async ({ compact }) => {
+export const NewsList: FC<Props> = async ({ compact }) => {
   const news = await fetchNews();
   const emergencyNews = news?.filter((n) => n.type === "emergency");
-  const normalNews = news?.filter((n) => n.type !== "emergency");
+  const normalNews = news?.filter((n) => n.type === "information");
+  const raffleNews= news?.filter((n) => n.type === "win"||n.type === "lose");
   return (
     <div className="mb-6">
-      <p className="mb-2">お知らせ</p>
+      <p className="mb-2 font-bold">{ja.word.news}</p>
       {emergencyNews?.map((n) => (
         <div key={n.id} className="mb-4 rounded-md bg-red-100 p-4">
           <div className="mb-1 flex">
@@ -31,12 +33,13 @@ export const News: FC<Props> = async ({ compact }) => {
           </p>
 
           <p className="text-right text-sm text-blue-500 underline">
-            <Link href={`/news/${n.id}`}>詳細</Link>
+            <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
           </p>
         </div>
       ))}
-      {normalNews?.map(
-        (n, i) =>
+      {
+        raffleNews?.map(
+          (n,i)=>
           (i < 3 - (emergencyNews ?? []).length || !compact) && (
             <div
               key={n.id}
@@ -55,14 +58,38 @@ export const News: FC<Props> = async ({ compact }) => {
                 {n.compactBody}
               </p>
               <p className="text-right text-sm text-blue-500 underline">
-                <Link href={`/news/${n.id}`}>詳細</Link>
+                <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
               </p>
-            </div>
-          )
-      )}
+            </div>)
+        )
+      }
+      {
+        normalNews?.map(
+          (n,i)=>
+          (i < 3 - (emergencyNews ?? []).length - (raffleNews ?? []).length || !compact) && (
+            <div
+              key={n.id}
+              className="mb-4 rounded-md bg-gray-100 p-4"
+            >
+              <div className="mb-1 flex">
+                <IoMdInformationCircle
+                  size={"1.4rem"}
+                  color="gray"
+                />
+                {n.title}
+              </div>
+              <p className="line-clamp-1 w-full text-sm text-[#4d5156]">
+                {n.compactBody}
+              </p>
+              <p className="text-right text-sm text-blue-500 underline">
+                <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
+              </p>
+            </div>)
+        )
+      }
       {compact && (
         <p className="text-right text-blue-500">
-          <Link href={"/news"}>過去のお知らせはこちら</Link>
+          <Link href={"/news"}>{ja.news.guide_for_past_news}</Link>
         </p>
       )}
     </div>

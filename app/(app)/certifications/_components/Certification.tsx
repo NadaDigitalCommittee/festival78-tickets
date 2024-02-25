@@ -28,7 +28,7 @@ export const Certification: FC<Props> = ({
         src="/img/svg/logo.svg"
         height={300}
         width={300}
-        alt="aa"
+        alt="logo"
       />
     </div>
   );

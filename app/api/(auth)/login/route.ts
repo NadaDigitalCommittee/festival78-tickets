@@ -4,8 +4,7 @@ import { Api, ApiLoginResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import z from "zod";
 import { validateApiHandler } from "../../handler";
-import { sendMail } from "@/lib/email/email";
-import { VerficationTokenEmail } from "@/lib/email/template/Verification";
+import { sendVerficationTokenEmail } from "@/lib/email/template/Verification";
 
 export const POST = validateApiHandler<Api<ApiLoginResponse>>(
   async (request) => {
@@ -38,13 +37,7 @@ export const POST = validateApiHandler<Api<ApiLoginResponse>>(
 
     const token = await generateSession(user.uuid, user.email);
 
-    await sendMail(
-      VerficationTokenEmail({
-        url: `${process.env.HOST}/verify?token=${token}`,
-      }),
-      "本人確認のお知らせ",
-      user.email
-    );
+    await sendVerficationTokenEmail(user.email, token);
 
     return NextResponse.json(
       {

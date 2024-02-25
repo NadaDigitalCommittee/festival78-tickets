@@ -1,6 +1,7 @@
 "use client";
 
 import { useFetch, useUser } from "@/lib/client/hooks";
+import { ja } from "@/lib/lang/ja";
 import {
   Accordion,
   AccordionButton,
@@ -41,11 +42,11 @@ export default function Page() {
     onClose();
     if (!data.ok) {
       toast({
-        title: "エラーが発生しました",
+        title: `${ja.toast.error_occured}`,
         description:
           response?.status === 409
-            ? "メールアドレスが重複しています。"
-            : "サーバーエラーが発生しました。",
+            ? `${ja.toast.error_email_already_exists}`
+            : `${ja.toast.error_server}`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -56,19 +57,19 @@ export default function Page() {
   return (
     <main>
       <form>
-        <p>メールアドレス</p>
+        <p>{ja.word.email}</p>
         <input
           type="email"
           ref={emailRef}
           className="w-full rounded-lg border"
         />
         <p className="text-right text-sm text-blue-500">
-          <Link href={"/terms"}>利用規約はこちら</Link>
+          <Link href={"/terms"}>{ja.settings.guide_for_terms}</Link>
         </p>
         <input type="checkbox" ref={emailNotificationRef} className="my-4" />
-        <label>メールアドレスの当選通知を希望しない</label>
+        <label>{ja.settings.not_want_email_winning_notification}</label>
         <Button colorScheme="orange" onClick={onOpen} width={"100%"}>
-          変更
+          {ja.word.update}
         </Button>
       </form>
 
@@ -78,7 +79,7 @@ export default function Page() {
             <h2>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  各種ID
+                  {ja.word.list_id}
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
@@ -99,26 +100,26 @@ export default function Page() {
         <AlertDialogOverlay>
           <AlertDialogContent width={"80%"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              登録情報の変更
+              {ja.settings.update_information_short}
             </AlertDialogHeader>
 
             <AlertDialogBody flex={"flex"}>
-              以下の内容に変更します。変更は取り消せません。
+              {ja.settings.update_information_long}
               <div className="h-6" />
               <p>
                 {emailRef.current?.value !== "" &&
-                  `。メールアドレス:${emailRef.current?.value}`}
+                  `${ja.word.email}:${emailRef.current?.value}`}
               </p>
               <p>{`${
                 !emailNotificationRef.current?.checked
-                  ? "・メール通知をする"
-                  : "・メール通知をしない"
+                  ? `・${ja.settings.notification_ok}`
+                  : `・${ja.settings.notification_ng}`
               }`}</p>
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                キャンセル
+                {ja.word.cancel}
               </Button>
               <Button
                 colorScheme="red"
@@ -128,7 +129,7 @@ export default function Page() {
                 ml={3}
                 isLoading={isFetching}
               >
-                確定
+                {ja.word.confirmation}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

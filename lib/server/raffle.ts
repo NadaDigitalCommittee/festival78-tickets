@@ -1,4 +1,7 @@
 import { prisma } from "@/lib/server/db";
+import { sendWinEmail } from "../email/template/Win";
+import { getEvents } from "./cms";
+import { sendLoseEmail } from "../email/template/Lose";
 
 /**
  * eventId,timeIdにそってcapacity人の当選者を決めた後、DBを更新する
@@ -12,9 +15,11 @@ export async function raffle(
   timeId: number,
   capacity: number
 ): Promise<[string, string[]]> {
-  const [status, winnersUUID] = await raffleUUID(eventId, timeId, capacity);
+  const [status, winnersUUID,losersUUID] = await raffleUUID(eventId, timeId, capacity);
   if (status !== "ok") return [status, []];
   await updateResult(eventId, timeId, winnersUUID);
+  await sendEmail(winnersUUID,"win",eventId,timeId);
+  await sendEmail(losersUUID,"lose",eventId,timeId);
   return ["ok", winnersUUID];
 }
 
@@ -22,10 +27,10 @@ async function raffleUUID(
   eventId: number,
   timeId: number,
   capacity: number
-): Promise<[string, string[]]> {
+): Promise<[string, string[],string[]]> {
   console.log("抽選中...", capacity);
   if (capacity === 0) {
-    return ["当選者なし", []];
+    return ["当選者なし", [],[]];
   }
   const all = await prisma.raffle.findMany({
     select: {
@@ -38,7 +43,7 @@ async function raffleUUID(
     },
   });
   const participants = all.map((a) => a.participants);
-  if (participants.length === 0) return ["参加者が0人", []];
+  if (participants.length === 0) return ["参加者が0人", [],[]];
 
   const distribution: number[] = []; // i+1人の参加者が何組いるか
   for (let i = 0; i < Math.max(...participants); i++) {
@@ -60,9 +65,11 @@ async function raffleUUID(
     return shuffled.slice(0, count);
   });
 
-  if (winnersUUID.flat().length === 0) return ["当選者が0人", []];
+  const losersUUID = all.map((a) => a.uuid).filter((a) => !winnersUUID.flat().includes(a));
 
-  return ["ok", winnersUUID.flat()];
+  if (winnersUUID.flat().length === 0) return ["当選者が0人", [],[]];
+
+  return ["ok", winnersUUID.flat(), losersUUID];
 }
 
 async function updateResult(
@@ -94,6 +101,27 @@ async function updateResult(
       result: "LOSE",
     },
   });
+}
+
+async function sendEmail(uuid:string[],type:"win"|"lose",eventId:number,timeId:number){
+  const event=await getEvents()
+  const name=event.find((e)=>e.id===eventId)?.name??""
+  const time=event.find((e)=>e.id===eventId)?.time.at(timeId)?.toPeriodString()??""
+  const users=await prisma.user.findMany({
+    where:{
+      uuid:{
+        in:uuid
+      }
+    }
+  })
+  for await(const user of users){
+    if(!user.notification){return;}
+    if(type==="win"){
+      await sendWinEmail(user.email,name,time,eventId,timeId);
+    }else{
+      await sendLoseEmail(user.email,name,time);
+    }
+  }
 }
 
 /**

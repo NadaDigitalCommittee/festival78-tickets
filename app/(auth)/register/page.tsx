@@ -2,6 +2,7 @@
 
 import { Terms } from "@/components/Terms/Terms";
 import { useFetch } from "@/lib/client/hooks";
+import { ja } from "@/lib/lang/ja";
 import {
   Box,
   Button,
@@ -16,13 +17,13 @@ import {
   useSteps,
   useToast,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import { useRef, useState } from "react";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import { IconContext } from "react-icons/lib";
 import { MdEmail, MdMobileFriendly, MdOutlineArticle } from "react-icons/md";
 import { SiMinutemailer } from "react-icons/si";
 import { HelpCard } from "../_components/HelpCard";
+import { Resend } from "../_components/Resend";
 
 const steps: {
   title: string;
@@ -48,6 +49,7 @@ export default function Page({
   const termsAgreeCheckBoxRef = useRef<HTMLInputElement>(null);
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState(""); // 再度送信用
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length,
@@ -68,7 +70,7 @@ export default function Page({
     const email = ref.current?.value;
     if (!email) {
       toast({
-        title: "メールアドレスを入力してください。",
+        title: `${ja.toast.error_email_not_filled}`,
         status: "error",
         duration: 9000,
       });
@@ -80,7 +82,7 @@ export default function Page({
     console.log(response);
     if (response?.status === 409) {
       toast({
-        title: "既に同じアドレスが登録されています。",
+        title: `${ja.toast.error_email_already_exists}`,
         status: "error",
         duration: 9000,
       });
@@ -88,7 +90,7 @@ export default function Page({
     }
     if (response?.status === 400) {
       toast({
-        title: "メールアドレスが不正です。",
+        title: `${ja.toast.error_email_scheme}`,
         status: "error",
         duration: 9000,
       });
@@ -96,22 +98,22 @@ export default function Page({
     }
     if (response?.status === 401) {
       toast({
-        title:
-          "この登録リンクは利用できません。文化委員スタッフにお問い合わせください。",
+        title: `${ja.toast.error_email_not_correct}`,
         status: "error",
         duration: 9000,
       });
       return;
     }
     if (response?.status === 201) {
+      setEmail(email);
       nextStep();
     }
   };
 
   return (
     <div className="flex w-screen flex-col items-center px-3">
-      <p className="mt-12 text-3xl">文化祭抽選券システム</p>
-      <p className="mb-6 mt-2 text-2xl">登録用フォーム</p>
+      <p className="mt-12 text-3xl">{ja.word.tickets_system}</p>
+      <p className="mb-6 mt-2 text-2xl">{ja.word.registeration_form}</p>
       <Box className="relative w-full">
         <Stepper size="sm" index={activeStep} gap="0" colorScheme="orange">
           {steps.map((step, index) => (
@@ -146,31 +148,31 @@ export default function Page({
             case 0:
               return (
                 <>
-                  <p className="">以下の注意事項をお読みください。</p>
+                  <p className="">{ja.auth.read_notes}</p>
 
                   <div className="my-6 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
                     <HelpCard
                       icon={<MdEmail />}
-                      title="メールへ抽選結果が送信"
-                      content="入力されたメールアドレスに対して、こちらから当選結果を表示するメールを送信いたします。"
+                      title={ja.auth.note_1}
+                      content={ja.auth.note_1_long}
                     />
 
                     <HelpCard
                       icon={<MdOutlineArticle />}
-                      title="スタッフの確認"
-                      content="メールの内容は抽選結果の証明書となります。現地でスタッフによる確認が行われる可能性があることをご了承ください。"
+                      title={ja.auth.note_2}
+                      content={ja.auth.note_2_long}
                     />
 
                     <HelpCard
                       icon={<MdMobileFriendly />}
-                      title="サイト内で確認"
-                      content="抽選券サイト内で抽選結果を確認することも可能です。"
+                      title={ja.auth.note_3}
+                      content={ja.auth.note_3_long}
                     />
 
                     <HelpCard
                       icon={<BsExclamationTriangleFill />}
-                      title="当日のパニック"
-                      content="システムで障害が起きると、やむを得ず紙抽選となる場合がございます。当日アナウンスをしたりスタッフが説明いたしますので、ご近くのスタッフまでお気軽にお問い合わせください。"
+                      title={ja.auth.note_4}
+                      content={ja.auth.note_4_long}
                     />
                   </div>
                   <Button
@@ -178,14 +180,14 @@ export default function Page({
                     className="h-12 w-[280px]"
                     colorScheme="orange"
                   >
-                    次へ
+                    {ja.word.next}
                   </Button>
                 </>
               );
             case 1:
               return (
                 <>
-                  <p>以下の利用規約をお読みください。</p>
+                  <p>{ja.auth.read_terms}</p>
                   <div className="my-6 h-screen overflow-y-scroll border border-dotted border-theme px-4">
                     <Terms />
                   </div>
@@ -195,13 +197,13 @@ export default function Page({
                       className="mr-1 h-4 w-4"
                       ref={termsAgreeCheckBoxRef}
                     />
-                    <label>利用規約に同意する</label>
+                    <label>{ja.auth.agree_terms}</label>
                   </div>
                   <Button
                     onClick={() => {
                       if (!termsAgreeCheckBoxRef.current?.checked) {
                         return toast({
-                          title: "利用規約に同意されないと登録できません。",
+                          title: `${ja.toast.error_terms_not_checked}`,
                           status: "error",
                           duration: 3000,
                         });
@@ -211,23 +213,21 @@ export default function Page({
                     className="mb-6 h-12 w-[280px]"
                     colorScheme="orange"
                   >
-                    次へ
+                    {ja.word.next}
                   </Button>
                   <Button
                     onClick={prevStep}
                     className="h-12 w-[280px]"
                     variant={"outline"}
                   >
-                    戻る
+                    {ja.word.back}
                   </Button>
                 </>
               );
             case 2:
               return (
                 <>
-                  <p className="my-3 text-base">
-                    登録用メールアドレスを入力してください。
-                  </p>
+                  <p className="my-3 text-base">{ja.auth.fill_email}</p>
                   <input
                     className="h-10 w-[280px] rounded-lg border-2 border-gray-300"
                     ref={ref}
@@ -238,14 +238,14 @@ export default function Page({
                     colorScheme="orange"
                     isLoading={isLoading}
                   >
-                    次へ
+                    {ja.word.register}
                   </Button>
                   <Button
                     onClick={prevStep}
                     className="mb-6 h-12 w-[280px]"
                     variant={"outline"}
                   >
-                    戻る
+                    {ja.word.back}
                   </Button>
                   <Button
                     onClick={() => {
@@ -254,7 +254,7 @@ export default function Page({
                     className="mt-6 h-12 w-[280px]"
                     variant={"outline"}
                   >
-                    すでに登録されている方はこちら
+                    {ja.auth.guide_for_login}
                   </Button>
                 </>
               );
@@ -264,28 +264,10 @@ export default function Page({
                   <IconContext.Provider value={{ size: "10em" }}>
                     <SiMinutemailer />
                   </IconContext.Provider>
-                  <p>認証メールを送信しました。</p>
-                  <p>メールボックスを確認してください。</p>
+                  <p>{ja.auth.submit_verification_email}</p>
+                  <p>{ja.auth.confirm_email}</p>
                   <div className="px-2">
-                    <p className="mt-12">認証メールが見当たらない場合</p>
-                    <div className="mt-2 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
-                      <HelpCard
-                        icon={<MdEmail />}
-                        title="迷惑メール"
-                        content="迷惑メールフォルダに入っている可能性があります。「festival.ticket@nada-sc.jp」からのメールの受信を許可してください。"
-                      />
-
-                      <HelpCard
-                        icon={<BsExclamationTriangleFill />}
-                        title="アドレスの打ち間違い"
-                        content="入力して頂いたメールアドレスが正しくない可能性があります。その場合最初からやり直してください。"
-                      />
-                    </div>
-                    <Link href="/">
-                      <div className="mt-12 w-full rounded-lg border border-theme p-2">
-                        <p className="w-full text-center">ホームへ戻る</p>
-                      </div>
-                    </Link>
+                    <Resend email={email} />
                   </div>
                 </>
               );

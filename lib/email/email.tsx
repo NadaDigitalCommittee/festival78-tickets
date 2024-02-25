@@ -2,6 +2,7 @@ import { render } from "@react-email/render";
 import { Tailwind } from "@react-email/tailwind";
 import { createTransport } from "nodemailer";
 import { ReactNode } from "react";
+import { ja } from "@/lib/lang/ja";
 
 const transporter = createTransport({
   service: "gmail",
@@ -19,7 +20,7 @@ export async function sendMail(body: ReactNode, subject: string, to: string) {
   return transporter.sendMail({
     from: {
       address: process.env.GOOGLE_USER,
-      name: "灘校文化祭 抽選券システム",
+      name: ja.email.name,
     },
     to: to,
     subject: subject,

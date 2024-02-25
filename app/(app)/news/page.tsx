@@ -1,14 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { News } from "@/components/News";
-import { fetchNews } from "@/lib/server/fetchNews";
+import { NewsList } from "@/components/NewsList";
 
 export default async function Page() {
-  const news = await fetchNews();
-  const emergencyNews = news?.filter((n) => n.type === "emergency");
-  const normalNews = news?.filter((n) => n.type !== "emergency");
   return (
     <main>
-      <News />
+      <NewsList />
     </main>
   );
 }
