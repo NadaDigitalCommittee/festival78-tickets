@@ -18,7 +18,7 @@ export const ja = {
     event_discription: "企画説明",
     period: "時間帯",
     capacity: "定員",
-    raffleId: "抽選ID",
+    raffleId: "当選ID",
     raffle: "抽選",
     raffling: "抽選中",
     error: "エラー",
