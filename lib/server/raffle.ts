@@ -15,12 +15,12 @@ export async function raffle(
   timeId: number,
   capacity: number
 ): Promise<[string, string[]]> {
-  const [status, winnersUUID,losersUUID] = await raffleUUID(eventId, timeId, capacity);
+  const [status, winnersRaffleUUID,losersRaffleUUID] = await raffleUUID(eventId, timeId, capacity);
   if (status !== "ok") return [status, []];
-  await updateResult(eventId, timeId, winnersUUID);
-  await sendEmail(winnersUUID,"win",eventId,timeId);
-  await sendEmail(losersUUID,"lose",eventId,timeId);
-  return ["ok", winnersUUID];
+  await updateResult(eventId, timeId, winnersRaffleUUID);
+  await sendEmail(winnersRaffleUUID,"win",eventId,timeId);
+  await sendEmail(losersRaffleUUID,"lose",eventId,timeId);
+  return ["ok", winnersRaffleUUID];
 }
 
 async function raffleUUID(
@@ -57,7 +57,7 @@ async function raffleUUID(
     return raffleUUID(eventId, timeId, capacity - 1);
   }
 
-  const winnersUUID = result?.map((count, i) => {
+  const winnersRaffleUUID = result?.map((count, i) => {
     const a = all.filter((a) => a.participants === i + 1);
     const b = a.map((a) => a.uuid);
     //ランダムにcount組選ぶ
@@ -65,24 +65,24 @@ async function raffleUUID(
     return shuffled.slice(0, count);
   });
 
-  const losersUUID = all.map((a) => a.uuid).filter((a) => !winnersUUID.flat().includes(a));
+  const losersRaffleUUID = all.map((a) => a.uuid).filter((a) => !winnersRaffleUUID.flat().includes(a));
 
-  if (winnersUUID.flat().length === 0) return ["当選者が0人", [],[]];
+  if (winnersRaffleUUID.flat().length === 0) return ["当選者が0人", [],[]];
 
-  return ["ok", winnersUUID.flat(), losersUUID];
+  return ["ok", winnersRaffleUUID.flat(), losersRaffleUUID];
 }
 
 async function updateResult(
   eventId: number,
   timeId: number,
-  winnersUUID: string[]
+  winnersRaffleUUID: string[]
 ) {
   await prisma.raffle.updateMany({
     where: {
       eventId: eventId,
       timeId: timeId,
       uuid: {
-        in: winnersUUID.flat(),
+        in: winnersRaffleUUID.flat(),
       },
     },
     data: {
@@ -94,7 +94,7 @@ async function updateResult(
       eventId: eventId,
       timeId: timeId,
       uuid: {
-        notIn: winnersUUID.flat(),
+        notIn: winnersRaffleUUID.flat(),
       },
     },
     data: {
@@ -103,17 +103,22 @@ async function updateResult(
   });
 }
 
-async function sendEmail(uuid:string[],type:"win"|"lose",eventId:number,timeId:number){
+async function sendEmail(raffleUUID:string[],type:"win"|"lose",eventId:number,timeId:number){
   const event=await getEvents()
   const name=event.find((e)=>e.id===eventId)?.name??""
   const time=event.find((e)=>e.id===eventId)?.time.at(timeId)?.toPeriodString()??""
   const users=await prisma.user.findMany({
     where:{
-      uuid:{
-        in:uuid
+      raffle:{
+        some:{
+          uuid:{
+            in:raffleUUID
+          }
+        }
       }
     }
   })
+  console.log(raffleUUID,users,"送信")
   for await(const user of users){
     if(!user.notification){return;}
     if(type==="win"){
