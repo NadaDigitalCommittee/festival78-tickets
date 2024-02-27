@@ -1,0 +1,18 @@
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  curl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: curl
+        run: |
+          curl -H "x-secret: ${{secrets.CRON_SECRET}}" "https://tickets.nada-sc.jp/api/cron"
+      - name: wait
+        run: |
+          sleep 2m
+      - name: curl
+        run: |
+          curl -H "x-secret: ${{secrets.CRON_SECRET}}" "https://tickets.nada-sc.jp/api/cron"

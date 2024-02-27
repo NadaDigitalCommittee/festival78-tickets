@@ -79,7 +79,6 @@ export default function Page({
     setIsLoading(true);
     const { response } = await onFetch({ email: email, secret: secret });
     setIsLoading(false);
-    console.log(response);
     if (response?.status === 409) {
       toast({
         title: `${ja.toast.error_email_already_exists}`,
@@ -98,7 +97,7 @@ export default function Page({
     }
     if (response?.status === 401) {
       toast({
-        title: `${ja.toast.error_email_not_correct}`,
+        title: `${ja.toast.error_url_not_available}`,
         status: "error",
         duration: 9000,
       });

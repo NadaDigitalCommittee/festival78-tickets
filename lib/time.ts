@@ -29,16 +29,17 @@ export class Time {
     this.periodMinutes =
       (this.end.getTime() - this.start.getTime()) / 1000 / 60;
   }
-  static isConflict(...args: Time[]) {
+  static isConflict(...args: (Time|undefined)[]) {
     for (let i = 0; i < args.length; i++) {
       for (let j = i + 1; j < args.length; j++) {
-        if (args[i].isConflict(args[j])) return true;
+        if(args[i]?.isConflict(args[j])) return true;
       }
     }
     return false;
   }
-  public isConflict(time: Time) {
+  public isConflict(time?: Time) {
     return (
+      time &&
       this.start.getTime() < time.end.getTime() &&
       this.end.getTime() > time.start.getTime()
     );

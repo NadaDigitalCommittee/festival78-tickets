@@ -49,11 +49,10 @@ export const Form: FC = () => {
       setSelectedEventId(() => eventId);
     }
     if (timeIdLength > 0 && timeId) {
-      console.log("sett", timeId);
       setSelectedTimeId(() => timeId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [!!events]);
+  }, [!events]);
 
   const requestRaffle = async () => {
     const { response, data } = await onFetch({
@@ -145,6 +144,16 @@ export const Form: FC = () => {
               <option value="5">5</option>
               <option value="6">6</option>
             </select>
+
+              <div className="">
+                <p className="border-b-[1px] border-theme font-bold text-xl mb-2">注意事項</p>
+                <p>・同じ時間帯の企画を同時に登録することはできません。</p>
+                <p>・朝の企画どうするんだっけ</p>
+                <p>・抽選は開始時刻の約30分前に行われます。お早めに登録をお願いします。</p>
+                <p>・企画名が「ロボット制作」、「鉄研シミュレーター」の時には、参加者数は<strong>実際に参加する人数</strong>のことを指します。</p>
+                <p>・その他の企画では、参加者数とは会場に入る人数のことを指します。</p>
+              </div>
+
             <Button onClick={onOpen} colorScheme="orange">
               {ja.word.raffle}
             </Button>

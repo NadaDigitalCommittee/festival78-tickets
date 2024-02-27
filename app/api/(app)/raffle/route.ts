@@ -3,6 +3,8 @@ import { Api, ApiRaffleResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { validateApiHandler } from "../../handler";
+import { Time } from "@/lib/time";
+import { getEvents } from "@/lib/server/cms";
 
 export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
   async (request, session) => {
@@ -12,9 +14,21 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
 
     const res = await request.json();
     const safeRes = scheme.safeParse(res);
+    const events=await getEvents()
 
     if (!safeRes.success) {
       return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+
+    const raffles=await prisma.raffle.findMany({
+      where:{
+        userId:session.uuid,
+      }
+    })
+    const time=events.at(safeRes.data.eventId)?.time.at(safeRes.data.timeId)
+    if(Time.isConflict(time,...raffles.map(r=>events.at(r.eventId)?.time.at(r.timeId)))){
+      return NextResponse.json({ ok: false }, { status: 400 ,statusText:"Time conflict"});
     }
 
     if (

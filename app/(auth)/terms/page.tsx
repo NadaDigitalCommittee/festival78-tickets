@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div>
+    <div className="px-2">
       <Terms />
     </div>
   );

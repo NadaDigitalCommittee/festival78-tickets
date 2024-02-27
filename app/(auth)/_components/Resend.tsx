@@ -51,6 +51,7 @@ export const Resend: FC<Props> = ({ email }) => {
       </Button>
       <Button
         onClick={() => {
+          location.href = "/";
           location.reload();
         }}
         colorScheme="orange"

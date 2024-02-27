@@ -38,16 +38,6 @@ export default async function Page({
     <main className="mt-3 lg:mx-[100px]">
       <div className="flex flex-col items-center">
         {/* データベースを確認するためのURL、今回はprismaを採用しprisma studioへのリンクを載せている。 */}
-        <p className="my-3">
-          ・データベースは
-          <a
-            href={process.env.DB_SITE}
-            className=" text-blue-500"
-            target="_blank"
-          >
-            こちら
-          </a>
-        </p>
         <EventList
           events={events}
           raffleIds={RaffleIds}

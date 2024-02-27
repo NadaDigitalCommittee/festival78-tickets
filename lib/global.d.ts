@@ -17,5 +17,6 @@ declare namespace NodeJS {
     readonly GOOGLE_CLIENT_SECRET: string;
     readonly GOOGLE_REFRESH_TOKEN: string;
     readonly GOOGLE_USER: string;
+    readonly DISCORD_WEBHOOK_URL: string;
   }
 }

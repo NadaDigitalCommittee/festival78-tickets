@@ -3,6 +3,7 @@ import { Api, ApiResultResponse } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { PrismaClientKnownRequestError } from "prisma/prisma-client/runtime/library";
 import { validateApiHandler } from "../../handler";
+import { log } from "@/lib/server/log";
 
 export const GET = validateApiHandler<Api<ApiResultResponse>>(
   async (request, session) => {
@@ -26,7 +27,7 @@ export const GET = validateApiHandler<Api<ApiResultResponse>>(
       })
       .catch((e) => {
         if (e instanceof PrismaClientKnownRequestError) {
-          console.log(e);
+          log(e);
         }
         return NextResponse.json({ ok: false }, { status: 400 });
       });
