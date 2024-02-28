@@ -27,7 +27,7 @@ export const GET = validateApiHandler<Api<ApiResultResponse>>(
       })
       .catch((e) => {
         if (e instanceof PrismaClientKnownRequestError) {
-          log(e);
+          log(e.message);
         }
         return NextResponse.json({ ok: false }, { status: 400 });
       });
