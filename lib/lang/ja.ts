@@ -1,4 +1,4 @@
-//@/components/RaffleNews.tsxは集約化していない。
+//@/components/RaffleNews.tsx,@/components/Terms.tsxは集約化していない。 
 
 export const ja = {
   meta: {

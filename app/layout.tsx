@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     type: "website",
     title: ja.meta.title,
     description:
-      "2024年5月2日・5月3日に開催される第77回灘校文化祭「ODYSSEY」の公式ウェブサイトです。",
+      ja.meta.description,
     url: "https://tickets.nada-sc.jp",
     siteName: ja.meta.site_name,
     locale: "ja_JP",
