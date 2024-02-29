@@ -17,6 +17,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
+import { mutate } from "swr";
 export const Form: FC = () => {
   const searchParams = useSearchParams();
   const eventId = parseInt(searchParams.get("eventId") ?? "0");
@@ -65,13 +66,14 @@ export const Form: FC = () => {
         title: `${ja.toast.error}`,
         description:
           response?.status === 409
-            ? `${ja.raffle.error_already_raffled}`
+            ? `${ja.raffle.error_already_raffled_or_conflict}`
             : data.message,
         status: "error",
         duration: 6000,
         isClosable: true,
       });
     } else {
+      mutate("/result");
       toast({
         title: `${ja.toast.raffle_completed_short}`,
         description: `${ja.toast.raffle_completed_long}`,
@@ -145,14 +147,23 @@ export const Form: FC = () => {
               <option value="6">6</option>
             </select>
 
-              <div className="">
-                <p className="border-b-[1px] border-theme font-bold text-xl mb-2">注意事項</p>
-                <p>・同じ時間帯の企画を同時に登録することはできません。</p>
-                <p>・朝の企画どうするんだっけ</p>
-                <p>・抽選は開始時刻の約30分前に行われます。お早めに登録をお願いします。</p>
-                <p>・企画名が「ロボット制作」、「鉄研シミュレーター」の時には、参加者数は<strong>実際に参加する人数</strong>のことを指します。</p>
-                <p>・その他の企画では、参加者数とは会場に入る人数のことを指します。</p>
-              </div>
+            <div className="">
+              <p className="mb-2 border-b-[1px] border-theme text-xl font-bold">
+                注意事項
+              </p>
+              <p>・同じ時間帯の企画を同時に登録することはできません。</p>
+              {/* <p>・朝の企画どうするんだっけ</p> */}
+              <p>
+                ・抽選は開始時刻の約30分前に行われます。お早めに登録をお願いします。
+              </p>
+              {/* <p>
+                ・企画名が「ロボット制作」、「鉄研シミュレーター」の時には、参加者数は
+                <strong>実際に参加する人数</strong>のことを指します。
+              </p> */}
+              <p>
+                ・その他の企画では、参加者数とは会場に入る人数のことを指します。
+              </p>
+            </div>
 
             <Button onClick={onOpen} colorScheme="orange">
               {ja.word.raffle}
