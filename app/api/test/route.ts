@@ -11,9 +11,10 @@ export const GET = validateApiHandler<Api<{}>>(async (_request, session) => {
   if (!session.admin) {
     return NextResponse.json({ ok: false }, { status: 403 });
   }
-  testRaffle(0, 0);
-  testRaffle(0, 1);
-  testRaffle(1, 0);
+
+  // testRaffle(0, 0);
+  // testRaffle(0, 1);
+  // testRaffle(1, 0);
   return NextResponse.json({ ok: true, data: {} });
 });
 

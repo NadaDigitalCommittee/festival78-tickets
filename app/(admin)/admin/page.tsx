@@ -3,6 +3,7 @@ import { AdminForm } from "@/app/(admin)/admin/_components/admin";
 import { getEvents } from "@/lib/server/cms";
 import { prisma } from "@/lib/server/db";
 import { RaffleIds } from "@/lib/server/getRaffleId";
+import { validateSession } from "@/lib/server/session";
 
 export default async function Page({
   searchParams,
@@ -10,7 +11,8 @@ export default async function Page({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const secret = searchParams.secret;
-  if (secret !== process.env.ADMIN_SECRET) {
+  const session = await validateSession();
+  if (secret !== process.env.ADMIN_SECRET && !session?.admin) {
     return (
       <main>
         <p>
@@ -43,7 +45,7 @@ export default async function Page({
           raffleIds={RaffleIds}
           alreadyRaffled={alreadyRaffled}
         />
-        <AdminForm secret={secret} />
+        <AdminForm />
       </div>
     </main>
   );

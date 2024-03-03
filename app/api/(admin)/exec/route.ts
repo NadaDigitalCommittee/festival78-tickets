@@ -4,7 +4,7 @@ import z from "zod";
 import { validateApiHandler } from "../../handler";
 import { raffle } from "@/lib/server/raffle";
 
-export const POST = validateApiHandler<Api<{ message: string }>>(
+export const POST = validateApiHandler<Api>(
   async (request, session) => {
     if (!session) {
       return NextResponse.json(
@@ -39,11 +39,10 @@ export const POST = validateApiHandler<Api<{ message: string }>>(
     }
     const { eventId, timeId, capacity } = parsed.data;
 
-    const [message] = await raffle(eventId, timeId, capacity);
+    raffle(eventId, timeId, capacity);
     return NextResponse.json(
       {
         ok: true,
-        data: { message },
       },
       { status: 200 }
     );

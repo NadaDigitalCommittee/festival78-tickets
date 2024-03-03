@@ -229,6 +229,7 @@ export default function Page({
                   <p className="my-3 text-base">{ja.auth.fill_email}</p>
                   <input
                     className="h-10 w-[280px] rounded-lg border-2 border-gray-300"
+                    type="email"
                     ref={ref}
                   ></input>
                   <Button

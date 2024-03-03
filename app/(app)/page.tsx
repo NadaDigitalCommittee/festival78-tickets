@@ -6,6 +6,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdEmojiEvents } from "react-icons/md";
 import { PiCertificate } from "react-icons/pi";
 import { Menu } from "./_components/Menu";
+import { Notification } from "@/components/Notification";
 
 export default async function App() {
   return (
@@ -42,6 +43,7 @@ export default async function App() {
             path="/settings"
           />
         </div>
+        <Notification />
       </div>
     </div>
   );

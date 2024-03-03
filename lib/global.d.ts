@@ -18,5 +18,7 @@ declare namespace NodeJS {
     readonly GOOGLE_REFRESH_TOKEN: string;
     readonly GOOGLE_USER: string;
     readonly DISCORD_WEBHOOK_URL: string;
+    readonly NEXT_PUBLIC_VAPID_PUBLIC_KEY: string;
+    readonly VAPID_PRIVATE_KEY: string;
   }
 }

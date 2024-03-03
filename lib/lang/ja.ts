@@ -163,4 +163,12 @@ export const ja = {
   footer: {
     copyright: "©Nada Digital Committee All Rights Reserved.",
   },
+  notification: {
+    button: "プッシュ通知を許可する",
+    body: "抽選結果が発表されました！サイトまでお越しください！",
+    error_not_supported: "プッシュ通知が非対応です。",
+    error_notification_blocked: "通知がブロックされています。",
+    notification_fail: "プッシュ通知の購読に失敗しました。",
+    notification_success: "プッシュ通知を購読しました。",
+  },
 };

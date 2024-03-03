@@ -13,11 +13,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { FC, MutableRefObject, ReactNode, useRef, useState } from "react";
-type Props = {
-  secret: string;
-};
+type Props = {};
 
-export const AdminForm: FC<Props> = ({ secret }) => {
+export const AdminForm: FC<Props> = () => {
   const { events } = useEvents();
   const {
     isOpen: isOpenReset,
@@ -37,7 +35,6 @@ export const AdminForm: FC<Props> = ({ secret }) => {
     eventId?: number;
     timeId: number;
     capacity?: number;
-    secret: string;
   }>("/api/exec", "POST");
 
   const requestRaffle = async () => {
@@ -53,18 +50,17 @@ export const AdminForm: FC<Props> = ({ secret }) => {
       eventId: events?.at(selectedEventId)?.id,
       timeId: selectedTimeId,
       capacity: events?.at(selectedEventId)?.capacity,
-      secret: secret,
     });
     if (data.ok) {
       toast({
-        title: `${ja.toast.raffle_executed}${data.data.message}`,
+        title: `${ja.toast.raffle_executed}`,
         status: "success",
         duration: 9000,
         isClosable: true,
       });
     } else {
       toast({
-        title: `${ja.toast.raffle_not_executed}${data.data.message}`,
+        title: `${ja.toast.raffle_not_executed}`,
         status: "error",
         duration: 9000,
         isClosable: true,

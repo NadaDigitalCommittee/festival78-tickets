@@ -10,9 +10,3 @@ jobs:
       - name: curl
         run: |
           curl -H "x-secret: ${{secrets.CRON_SECRET}}" "https://tickets.nada-sc.jp/api/cron"
-      - name: wait
-        run: |
-          sleep 2m
-      - name: curl
-        run: |
-          curl -H "x-secret: ${{secrets.CRON_SECRET}}" "https://tickets.nada-sc.jp/api/cron"

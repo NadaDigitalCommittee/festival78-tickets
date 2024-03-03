@@ -53,5 +53,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
   //loginとregisterとアセット/api以外
   matcher:
-    "/((?!login|register|terms|club|api|_next/static|_next/image|img|favicon.ico|manifest.webmanifest|manifest/sw.js).*)",
+    "/((?!login|register|terms|club|api|_next/static|_next/image|img|favicon.ico|manifest).*)",
 };

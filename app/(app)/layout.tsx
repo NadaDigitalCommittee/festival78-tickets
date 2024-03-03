@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <div className="mx-auto min-h-[90vh] max-w-[800px] px-9 py-6 max-md:w-[360px] md:w-[60vw]">
         {children}
         <Link href="/">
-          <div className="mt-12 w-full rounded-lg border border-theme p-2">
+          <div className="mt-6 w-full rounded-lg border border-theme p-2">
             <p className="w-full text-center">{ja.word.return_to_top}</p>
           </div>
         </Link>

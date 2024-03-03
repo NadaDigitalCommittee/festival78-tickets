@@ -2,6 +2,8 @@ import { prisma } from "@/lib/server/db";
 import { sendWinEmail } from "../email/template/Win";
 import { getEvents } from "./cms";
 import { sendLoseEmail } from "../email/template/Lose";
+import { sendPushNotification } from "./pushNotification";
+import { ja } from "../lang/ja";
 
 /**
  * eventId,timeIdにそってcapacity人の当選者を決めた後、DBを更新する
@@ -24,6 +26,8 @@ export async function raffle(
   await updateResult(eventId, timeId, winnersRaffleUUID);
   await sendEmail(winnersRaffleUUID, "win", eventId, timeId);
   await sendEmail(losersRaffleUUID, "lose", eventId, timeId);
+  await pushNotification(winnersRaffleUUID);
+  await pushNotification(losersRaffleUUID);
   return ["ok", winnersRaffleUUID];
 }
 
@@ -133,7 +137,6 @@ async function sendEmail(
       },
     },
   });
-  console.log(raffleUUID, users, "送信");
   for await (const user of users) {
     if (!user.notification) {
       return;
@@ -143,6 +146,43 @@ async function sendEmail(
     } else {
       await sendLoseEmail(user.email, name, time);
     }
+  }
+}
+
+async function pushNotification(raffleUUID: string[]) {
+  const users = await prisma.user.findMany({
+    where: {
+      raffle: {
+        some: {
+          uuid: {
+            in: raffleUUID,
+          },
+        },
+      },
+    },
+  });
+  for await (const user of users) {
+    if (
+      !(await prisma.pushNotification.findFirst({
+        where: {
+          userId: user.uuid,
+        },
+      }))
+    ) {
+      return;
+    }
+    (
+      await prisma.pushNotification.findMany({
+        where: {
+          userId: user.uuid,
+        },
+      })
+    ).map(async (notification) => {
+      sendPushNotification(notification, {
+        title: ja.meta.title,
+        body: ja.notification.body,
+      });
+    });
   }
 }
 
@@ -184,8 +224,8 @@ function solveDistribution(distribution: number[], capacity: number) {
 }
 
 function random(distribution: number[], capacity: number) {
-  const C = solveDistribution(distribution, capacity);
-  const r = Math.floor(Math.random() * C.length);
-  if (C.length === 0) return undefined;
-  return C[r];
+  const distributions = solveDistribution(distribution, capacity);
+  const randomInt = Math.floor(Math.random() * distributions.length);
+  if (distributions.length === 0) return undefined;
+  return distributions[randomInt];
 }
