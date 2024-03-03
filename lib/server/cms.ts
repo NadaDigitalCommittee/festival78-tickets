@@ -35,15 +35,17 @@ export async function getEvents(): Promise<Event[]> {
 }
 
 export async function getEventsFromCMS() {
-  const res = await client.getList<EventSchema>({
-    endpoint: "events",
-    customRequestInit: {
-      next: {
-        revalidate: 60,
+  const res = (
+    await client.getList<EventSchema>({
+      endpoint: "events",
+      customRequestInit: {
+        next: {
+          revalidate: 60,
+        },
       },
-    },
-  });
-  return res.contents;
+    })
+  ).contents;
+  return res.sort((a, b) => a.number - b.number);
 }
 
 export async function getNews() {

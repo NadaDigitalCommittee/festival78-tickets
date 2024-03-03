@@ -1,4 +1,4 @@
-//@/components/RaffleNews.tsx,@/components/Terms.tsxは集約化していない。 
+//@/components/RaffleNews.tsx,@/components/Terms.tsxは集約化していない。
 
 export const ja = {
   meta: {
@@ -53,7 +53,8 @@ export const ja = {
   raffle: {
     no_win_history: "当選履歴がありません。",
     no_raffle_history: "抽選履歴がありません。",
-    error_already_raffled: "すでに抽選済みです。",
+    error_already_raffled_or_conflict:
+      "すでに抽選済みか、時間が被っているため登録できません。",
     raffle_information: "抽選情報",
     raffle_attention:
       "以下の内容で抽選登録をします。後から取り消すことはできません。",
@@ -62,17 +63,19 @@ export const ja = {
   news: {
     no_news: "記事が見つかりませんでした。",
     guide_for_past_news: "過去のお知らせはこちら",
-    win:{
-        title: "「{0}」への当選のお知らせ",
-        compact_body:"「{0}」(時間帯:{1})の企画に当選しましたので、お知らせします。",
-        body: "へ当選しましたので、当選番号をお知らせします。",        
-        body2: "詳しくはこちら",
+    win: {
+      title: "「{0}」への当選のお知らせ",
+      compact_body:
+        "「{0}」(時間帯:{1})の企画に当選しましたので、お知らせします。",
+      body: "へ当選しましたので、当選番号をお知らせします。",
+      body2: "詳しくはこちら",
     },
-    lose:{
-        title: "「{0}」への落選のお知らせ",
-        compact_body:"厳正なる抽選の結果、誠に残念ながら「{0}」(時間帯:{1})の企画に落選となりました。",
-        body: "申し訳ございません。「{0}」(時間帯:「{1}」)の企画に落選してしまいました。",
-    }
+    lose: {
+      title: "「{0}」への落選のお知らせ",
+      compact_body:
+        "厳正なる抽選の結果、誠に残念ながら「{0}」(時間帯:{1})の企画に落選となりました。",
+      body: "申し訳ございません。「{0}」(時間帯:「{1}」)の企画に落選してしまいました。",
+    },
   },
   auth: {
     //ログイン
@@ -161,4 +164,3 @@ export const ja = {
     copyright: "©Nada Digital Committee All Rights Reserved.",
   },
 };
-

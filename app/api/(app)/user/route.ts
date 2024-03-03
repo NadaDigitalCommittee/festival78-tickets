@@ -9,6 +9,11 @@ export const GET = validateApiHandler<Api<ApiUserResponse>>(
     if (!session) {
       return NextResponse.json({ ok: false }, { status: 401 });
     }
+    const user = await prisma.user.findUnique({
+      where: {
+        uuid: session.uuid,
+      },
+    });
 
     return NextResponse.json(
       {
@@ -16,6 +21,7 @@ export const GET = validateApiHandler<Api<ApiUserResponse>>(
         data: {
           email: session.email,
           uuid: session.uuid,
+          notification: user?.notification,
         },
       },
       { status: 200 }

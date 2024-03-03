@@ -18,6 +18,8 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   useToast,
+  Skeleton,
+  Stack,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useRef } from "react";
@@ -27,7 +29,7 @@ export default function Page() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const emailNotificationRef = useRef<HTMLInputElement>(null);
+  const emailNotificationRef = useRef<HTMLSelectElement>(null);
   const toast = useToast();
   const { onFetch, isFetching } = useFetch<{
     email: string;
@@ -36,7 +38,7 @@ export default function Page() {
   const submit = async () => {
     const { response, data } = await onFetch({
       email: emailRef.current?.value as string,
-      notification: !emailNotificationRef.current?.checked,
+      notification: emailNotificationRef.current?.value === "true",
     });
 
     onClose();
@@ -51,27 +53,47 @@ export default function Page() {
         duration: 5000,
         isClosable: true,
       });
+    } else {
+      location.href = "/";
     }
   };
 
   return (
     <main>
-      <form>
-        <p>{ja.word.email}</p>
-        <input
-          type="email"
-          ref={emailRef}
-          className="w-full rounded-lg border"
-        />
-        <p className="text-right text-sm text-blue-500">
-          <Link href={"/terms"}>{ja.settings.guide_for_terms}</Link>
-        </p>
-        <input type="checkbox" ref={emailNotificationRef} className="my-4" />
-        <label>{ja.settings.not_want_email_winning_notification}</label>
-        <Button colorScheme="orange" onClick={onOpen} width={"100%"}>
-          {ja.word.update}
-        </Button>
-      </form>
+      {!user ? (
+        <Stack gap={6}>
+          <Skeleton height="40px" />
+          <Skeleton height="20px" />
+          <Skeleton height="40px" />
+        </Stack>
+      ) : (
+        <form>
+          <p>{ja.word.email}</p>
+          <input
+            type="email"
+            ref={emailRef}
+            className="w-full rounded-lg border"
+            value={user?.email ?? ""}
+          />
+          <p className="text-right text-sm text-blue-500">
+            <Link href={"/terms"}>{ja.settings.guide_for_terms}</Link>
+          </p>
+          <p className="mt-4">
+            {ja.settings.not_want_email_winning_notification}
+          </p>
+          <select
+            className="mb-4 w-full rounded-lg border"
+            defaultValue={user.notification ? "true" : "false"}
+            ref={emailNotificationRef}
+          >
+            <option value="true">{ja.settings.notification_ok}</option>
+            <option value="false">{ja.settings.notification_ng}</option>
+          </select>
+          <Button colorScheme="orange" onClick={onOpen} width={"100%"}>
+            {ja.word.update}
+          </Button>
+        </form>
+      )}
 
       <div className="mt-12">
         <Accordion>
@@ -98,7 +120,7 @@ export default function Page() {
         isCentered
       >
         <AlertDialogOverlay>
-          <AlertDialogContent width={"80%"}>
+          <AlertDialogContent width={"90%"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               {ja.settings.update_information_short}
             </AlertDialogHeader>
@@ -111,7 +133,7 @@ export default function Page() {
                   `${ja.word.email}:${emailRef.current?.value}`}
               </p>
               <p>{`${
-                !emailNotificationRef.current?.checked
+                emailNotificationRef.current?.value === "true"
                   ? `・${ja.settings.notification_ok}`
                   : `・${ja.settings.notification_ng}`
               }`}</p>

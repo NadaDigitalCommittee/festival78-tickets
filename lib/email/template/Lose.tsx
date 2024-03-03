@@ -12,10 +12,10 @@ import { sendMail } from "../email";
 
 type Props = {
   eventName: string;
-  period: string;  
+  period: string;
 };
 
-const Lose: FC<Props> = ({eventName,period}) => {
+const Lose: FC<Props> = ({ eventName, period }) => {
   return (
     <Html lang="ja">
       <Head>
@@ -29,9 +29,9 @@ const Lose: FC<Props> = ({eventName,period}) => {
             height={400}
           />
           <Text>
-          この度は、抽選券システムをご利用いただき誠に有難うございます。厳正なる抽選の結果、誠に残念ながら今回はご希望に添えず、落選となりましたことをご報告いたします。
+            この度は、抽選券システムをご利用いただき誠に有難うございます。厳正なる抽選の結果、誠に残念ながら今回はご希望に添えず、落選となりましたことをご報告いたします。
           </Text>
-          <Text className="font-bold text-xl">企画概要</Text>
+          <Text className="text-xl font-bold">企画概要</Text>
           <Text>企画名: {eventName}</Text>
           <Text>時間帯: {period}</Text>
         </Container>
@@ -41,10 +41,14 @@ const Lose: FC<Props> = ({eventName,period}) => {
   );
 };
 
-export const sendLoseEmail=async(to:string,eventName:string,period:string)=>{
+export const sendLoseEmail = async (
+  to: string,
+  eventName: string,
+  period: string
+) => {
   await sendMail(
-    <Lose eventName={eventName} period={period}/>,
+    <Lose eventName={eventName} period={period} />,
     "当選のお知らせ",
     to
   );
-}
+};

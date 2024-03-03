@@ -14,21 +14,10 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
 
     const res = await request.json();
     const safeRes = scheme.safeParse(res);
-    const events=await getEvents()
+    const events = await getEvents();
 
     if (!safeRes.success) {
       return NextResponse.json({ ok: false }, { status: 400 });
-    }
-
-
-    const raffles=await prisma.raffle.findMany({
-      where:{
-        userId:session.uuid,
-      }
-    })
-    const time=events.at(safeRes.data.eventId)?.time.at(safeRes.data.timeId)
-    if(Time.isConflict(time,...raffles.map(r=>events.at(r.eventId)?.time.at(r.timeId)))){
-      return NextResponse.json({ ok: false }, { status: 400 ,statusText:"Time conflict"});
     }
 
     if (
@@ -45,6 +34,24 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
       return NextResponse.json(
         { ok: false },
         { status: 409, statusText: "Already raffled" }
+      );
+    }
+
+    const raffles = await prisma.raffle.findMany({
+      where: {
+        userId: session.uuid,
+      },
+    });
+    const time = events.at(safeRes.data.eventId)?.time.at(safeRes.data.timeId);
+    if (
+      Time.isConflict(
+        time,
+        ...raffles.map((r) => events.at(r.eventId)?.time.at(r.timeId))
+      )
+    ) {
+      return NextResponse.json(
+        { ok: false },
+        { status: 409, statusText: "Time conflict" }
       );
     }
 

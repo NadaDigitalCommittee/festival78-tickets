@@ -34,6 +34,7 @@ export type ApiResultResponse = {
 export type ApiUserResponse = {
   email: string;
   uuid: string;
+  notification: boolean;
 };
 
 export type ApiUserPutResponse = {};

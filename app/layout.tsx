@@ -43,8 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: ja.meta.title,
-    description:
-      ja.meta.description,
+    description: ja.meta.description,
     url: "https://tickets.nada-sc.jp",
     siteName: ja.meta.site_name,
     locale: "ja_JP",

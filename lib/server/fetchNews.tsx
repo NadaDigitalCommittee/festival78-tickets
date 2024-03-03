@@ -39,21 +39,29 @@ export async function fetchNews(select?: ["cms" | "raffle"]): Promise<News[]> {
   return news;
 }
 
-function newsRaffle(raffle: Raffle, event?: Event): News {  
+function newsRaffle(raffle: Raffle, event?: Event): News {
   if (raffle.result === Result.WIN) {
     return {
       id: raffle.uuid,
-      title: format(ja.news.win.title,event?.name),
+      title: format(ja.news.win.title, event?.name),
       body: render(<RaffleNews raffle={raffle} event={event} />),
-      compactBody: format(ja.news.win.compact_body,event?.name,event?.time.at(raffle.timeId)?.toPeriodString()),
+      compactBody: format(
+        ja.news.win.compact_body,
+        event?.name,
+        event?.time.at(raffle.timeId)?.toPeriodString()
+      ),
       type: "win",
     };
   } else {
     return {
       id: raffle.uuid,
-      title: format(ja.news.lose.title,event?.name),
+      title: format(ja.news.lose.title, event?.name),
       body: render(<RaffleNews raffle={raffle} event={event} />),
-      compactBody: format(ja.news.lose.compact_body,event?.name,event?.time.at(raffle.timeId)?.toPeriodString()),
+      compactBody: format(
+        ja.news.lose.compact_body,
+        event?.name,
+        event?.time.at(raffle.timeId)?.toPeriodString()
+      ),
       type: "lose",
     };
   }

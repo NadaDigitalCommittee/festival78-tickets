@@ -18,7 +18,7 @@ export const NewsList: FC<Props> = async ({ compact }) => {
   const news = await fetchNews();
   const emergencyNews = news?.filter((n) => n.type === "emergency");
   const normalNews = news?.filter((n) => n.type === "information");
-  const raffleNews= news?.filter((n) => n.type === "win"||n.type === "lose");
+  const raffleNews = news?.filter((n) => n.type === "win" || n.type === "lose");
   return (
     <div className="mb-6">
       <p className="mb-2 font-bold">{ja.word.news}</p>
@@ -37,9 +37,8 @@ export const NewsList: FC<Props> = async ({ compact }) => {
           </p>
         </div>
       ))}
-      {
-        raffleNews?.map(
-          (n,i)=>
+      {raffleNews?.map(
+        (n, i) =>
           (i < 3 - (emergencyNews ?? []).length || !compact) && (
             <div
               key={n.id}
@@ -60,22 +59,16 @@ export const NewsList: FC<Props> = async ({ compact }) => {
               <p className="text-right text-sm text-blue-500 underline">
                 <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
               </p>
-            </div>)
-        )
-      }
-      {
-        normalNews?.map(
-          (n,i)=>
-          (i < 3 - (emergencyNews ?? []).length - (raffleNews ?? []).length || !compact) && (
-            <div
-              key={n.id}
-              className="mb-4 rounded-md bg-gray-100 p-4"
-            >
+            </div>
+          )
+      )}
+      {normalNews?.map(
+        (n, i) =>
+          (i < 3 - (emergencyNews ?? []).length - (raffleNews ?? []).length ||
+            !compact) && (
+            <div key={n.id} className="mb-4 rounded-md bg-gray-100 p-4">
               <div className="mb-1 flex">
-                <IoMdInformationCircle
-                  size={"1.4rem"}
-                  color="gray"
-                />
+                <IoMdInformationCircle size={"1.4rem"} color="gray" />
                 {n.title}
               </div>
               <p className="line-clamp-1 w-full text-sm text-[#4d5156]">
@@ -84,9 +77,9 @@ export const NewsList: FC<Props> = async ({ compact }) => {
               <p className="text-right text-sm text-blue-500 underline">
                 <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
               </p>
-            </div>)
-        )
-      }
+            </div>
+          )
+      )}
       {compact && (
         <p className="text-right text-blue-500">
           <Link href={"/news"}>{ja.news.guide_for_past_news}</Link>

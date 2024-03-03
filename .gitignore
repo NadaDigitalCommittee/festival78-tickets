@@ -39,3 +39,5 @@ next-env.d.ts
 bun.lockb
 
 *.test.*
+
+**/public/manifest/*.*
