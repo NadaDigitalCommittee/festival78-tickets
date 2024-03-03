@@ -15,6 +15,7 @@ jobs:
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
       NEXT_PUBLIC_ADOBE_FONT_ID : ${{ secrets.NEXT_PUBLIC_ADOBE_FONT_ID }}
       NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+      VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -47,3 +48,4 @@ jobs:
             MICROCMS_API_KEY=${{ env.MICROCMS_API_KEY }}
             NEXT_PUBLIC_ADOBE_FONT_ID=${{ env.NEXT_PUBLIC_ADOBE_FONT_ID }}
             NEXT_PUBLIC_VAPID_PUBLIC_KEY=${{ env.NEXT_PUBLIC_VAPID_PUBLIC_KEY }}
+            VAPID_PRIVATE_KEY=${{ env.VAPID_PRIVATE_KEY }}
