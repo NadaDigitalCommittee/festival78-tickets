@@ -73,7 +73,7 @@ export default function Page() {
             type="email"
             ref={emailRef}
             className="w-full rounded-lg border"
-            value={user?.email ?? ""}
+            defaultValue={user.email??""}
           />
           <p className="text-right text-sm text-blue-500">
             <Link href={"/terms"}>{ja.settings.guide_for_terms}</Link>
@@ -130,7 +130,7 @@ export default function Page() {
               <div className="h-6" />
               <p>
                 {emailRef.current?.value !== "" &&
-                  `${ja.word.email}:${emailRef.current?.value}`}
+                  `・${ja.word.email}:${emailRef.current?.value}`}
               </p>
               <p>{`${
                 emailNotificationRef.current?.value === "true"

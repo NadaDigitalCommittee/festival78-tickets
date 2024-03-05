@@ -11,13 +11,7 @@ export async function validateSession(
   _token?: string
 ): Promise<Session | undefined> {
   const token = _token || cookies().get("token")?.value;
-  if (cookies().get("admin")?.value === process.env.ADMIN_SECRET) {
-    return {
-      uuid: "",
-      email: "",
-      admin: true,
-    };
-  }
+  const admin=cookies().get("admin")?.value === process.env.ADMIN_SECRET;
   if (!token) {
     return undefined;
   }
@@ -35,7 +29,7 @@ export async function validateSession(
     } else {
       return {
         ...parse.data,
-        admin: false,
+        admin: admin,
       };
     }
   } catch (e) {

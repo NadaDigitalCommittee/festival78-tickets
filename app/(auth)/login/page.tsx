@@ -43,7 +43,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex w-screen flex-col items-center">
+    <div className="flex sm:w-screen w-[1000px] flex-col items-center">
       {isPosted ? (
         <>
           <IconContext.Provider value={{ size: "10em" }}>

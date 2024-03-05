@@ -21,7 +21,7 @@ export const GET = validateApiHandler<Api<ApiUserResponse>>(
         data: {
           email: session.email,
           uuid: session.uuid,
-          notification: user?.notification??true,
+          notification: user?.notification ?? true,
         },
       },
       { status: 200 }
