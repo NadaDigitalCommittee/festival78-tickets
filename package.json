@@ -47,7 +47,7 @@
     "prisma": "^5.10.2"
   },
   "devDependencies": {
-    "@types/node": "^20.11.27",
+    "@types/node": "^20.11.28",
     "@types/nodemailer": "^6.4.14",
     "@types/prompts": "^2.4.9",
     "@types/react": "18.2.65",
