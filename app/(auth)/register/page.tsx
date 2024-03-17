@@ -110,7 +110,7 @@ export default function Page({
   };
 
   return (
-    <div className="max:w-screen mx-auto flex w-[1000px] flex-col items-center px-3">
+    <div className="flex flex-col items-center px-3">
       <p className="mt-12 text-3xl">{ja.word.tickets_system}</p>
       <p className="mb-6 mt-2 text-2xl">{ja.word.registeration_form}</p>
       <Box className="relative w-full">
@@ -141,7 +141,7 @@ export default function Page({
         />
       </Box>
 
-      <div className="flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
+      <div className="flex flex-col items-center rounded bg-white px-2">
         {(() => {
           switch (activeStep) {
             case 0:

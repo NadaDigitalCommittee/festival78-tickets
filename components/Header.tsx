@@ -20,7 +20,7 @@ export const Header: FC<Props> = () => {
           <p>{ja.meta.fest}</p>
           <p className="text-xl font-bold">{ja.word.tickets_system}</p>
         </Link>
-        {/* <Link href="/login"><p className="ml-3 text-xl">ログイン</p></Link> */}
+        {/* <Link href="/login"><p className="ml-3 text-xl">ログイン</p></Link>   */}
       </div>
     </header>
   );

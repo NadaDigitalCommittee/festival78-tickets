@@ -9,6 +9,9 @@ import { ja } from "@/lib/lang/ja";
 import { IconContext } from "react-icons/lib";
 import { SiMinutemailer } from "react-icons/si";
 import { Resend } from "../_components/Resend";
+import { HelpCard } from "../_components/HelpCard";
+import { MdEmail } from "react-icons/md";
+import { BsExclamationTriangleFill } from "react-icons/bs";
 
 const Login = () => {
   const ref = useRef<HTMLInputElement>(null);
@@ -43,19 +46,45 @@ const Login = () => {
     }
   };
   return (
-    <div className="w-max-[1000px] flex w-screen flex-col items-center">
+    <div className="flex flex-col items-center">
       {isPosted ? (
         <div className="mt-12 px-2">
+          <div className="flex flex-col items-center">
           <IconContext.Provider value={{ size: "10em" }}>
             <SiMinutemailer />
           </IconContext.Provider>
           <p>{ja.auth.submit_verification_email}</p>
-          <p>{ja.auth.confirm_email}</p>
+          <p>{ja.auth.confirm_email}</p></div>
+          <p className="mt-12 font-bold">{ja.auth.case_resend}</p>
+          <div className="mt-2 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
+            <HelpCard
+              icon={<MdEmail />}
+              title={ja.word.spam}
+              content={ja.auth.allow_email}
+            />
 
+            <HelpCard
+              icon={<BsExclamationTriangleFill />}
+              title={ja.auth.mistyped_email}
+              content={ja.auth.mistyped_email_long}
+            />
+          </div>
+          <p className="mb-3 mt-6 font-bold">{ja.auth.case1}</p>
           <Resend email={email} />
+          <Button
+            onClick={() => {
+              location.href = "/";
+              location.reload();
+            }}
+            colorScheme="orange"
+            className="my-6 w-full"
+            variant={"outline"}
+          >
+            {ja.word.return_to_top}
+          </Button>
         </div>
       ) : (
-        <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
+        <div className="mt-12 flex flex-col items-center rounded bg-white px-2">
           <p className="mt-12 text-3xl">{ja.word.tickets_system}</p>
           <p className="mb-6 mt-2 text-2xl">{ja.word.login}</p>
           <p className="my-2 text-base">
@@ -79,7 +108,7 @@ const Login = () => {
             {ja.word.login}
           </Button>
 
-          <div className="my-6 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
+          <div className="my-6 flex w-full flex-col items-center rounded-lg border">
             <LoginHelpCard
               icon={<RiQuestionnaireFill />}
               title={ja.auth.case2}

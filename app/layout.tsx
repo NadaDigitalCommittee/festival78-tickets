@@ -7,10 +7,10 @@ import { ja } from "@/lib/lang/ja";
 import { validateSession } from "@/lib/server/session";
 import { Session } from "@/lib/types";
 import "@/styles/globals.scss";
-import { ChakraProvider } from "@chakra-ui/react";
 import type { Metadata, Viewport } from "next";
 import { Inter, Zen_Kaku_Gothic_New } from "next/font/google";
 import { ReactNode } from "react";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -78,12 +78,13 @@ export default async function RootLayout({
 }) {
   const session = await validateSession();
   return (
-    <html lang="ja">
-      <body
-        className={`${[inter, zen_kaku_gothic_new]
-          .map((f) => f.variable)
-          .join(" ")} bg-neutral-[150]`}
-      >
+    <html
+      lang="ja"
+      className={`${[inter, zen_kaku_gothic_new]
+        .map((f) => f.variable)
+        .join(" ")} bg-neutral-[150]`}
+    >
+      <body>
         <Provider session={session}>
           <Header />
           <p className="text-center text-2xl text-red-500">{`${session?.admin ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>

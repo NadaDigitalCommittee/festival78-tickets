@@ -10,6 +10,12 @@
 - [ ] 抽選がすでに終わっている場合は登録できないようにする
 - [ ] 参加者数の定義
 
+## Dockerのビルド
+
+```sh
+docker build --build-arg MICROCMS_SERVICE_DOMAIN="" --build-arg MICROCMS_API_KEY="" --build-arg NEXT_PUBLIC_ADOBE_FONT_ID="" --build-arg NEXT_PUBLIC_VAPID_PUBLIC_KEY="" --build-arg VAPID_PRIVATE_KEY="" -t festival78-tickets .
+```
+
 ## api
 
 初めにクッキーから token を取得する。
