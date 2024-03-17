@@ -11,7 +11,7 @@ export async function validateSession(
   _token?: string
 ): Promise<Session | undefined> {
   const token = _token || cookies().get("token")?.value;
-  const admin=cookies().get("admin")?.value === process.env.ADMIN_SECRET;
+  const admin = cookies().get("admin")?.value === process.env.ADMIN_SECRET;
   if (!token) {
     return undefined;
   }
@@ -33,7 +33,6 @@ export async function validateSession(
       };
     }
   } catch (e) {
-    console.log(e);
     return undefined;
   }
 }

@@ -110,7 +110,7 @@ export default function Page({
   };
 
   return (
-    <div className="flex mx-auto max:w-screen w-[1000px] flex-col items-center px-3">
+    <div className="max:w-screen mx-auto flex w-[1000px] flex-col items-center px-3">
       <p className="mt-12 text-3xl">{ja.word.tickets_system}</p>
       <p className="mb-6 mt-2 text-2xl">{ja.word.registeration_form}</p>
       <Box className="relative w-full">

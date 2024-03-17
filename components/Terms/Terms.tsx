@@ -2,7 +2,7 @@ import { FC } from "react";
 import styles from "@/styles/news.module.scss";
 
 export const Terms: FC = () => (
-  <div className={`${styles.content} py-12 [&>]`}>
+  <div className={`${styles.content} [&>] py-12`}>
     <h1>第78回灘校文化祭抽選券システム利用規約とプライバシーポリシー</h1>
     <h2>利用規約</h2>
     <p>

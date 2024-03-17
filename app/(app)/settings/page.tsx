@@ -73,7 +73,7 @@ export default function Page() {
             type="email"
             ref={emailRef}
             className="w-full rounded-lg border"
-            defaultValue={user.email??""}
+            defaultValue={user.email ?? ""}
           />
           <p className="text-right text-sm text-blue-500">
             <Link href={"/terms"}>{ja.settings.guide_for_terms}</Link>

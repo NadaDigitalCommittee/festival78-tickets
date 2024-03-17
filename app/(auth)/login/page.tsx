@@ -43,18 +43,17 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex sm:w-screen w-[1000px] flex-col items-center">
+    <div className="w-max-[1000px] flex w-screen flex-col items-center">
       {isPosted ? (
-        <>
+        <div className="mt-12 px-2">
           <IconContext.Provider value={{ size: "10em" }}>
             <SiMinutemailer />
           </IconContext.Provider>
           <p>{ja.auth.submit_verification_email}</p>
           <p>{ja.auth.confirm_email}</p>
-          <div className="px-2">
-            <Resend email={email} />
-          </div>
-        </>
+
+          <Resend email={email} />
+        </div>
       ) : (
         <div className="mt-12 flex flex-col items-center rounded bg-white px-2 sm:w-[400px] md:w-[550px] lg:w-2/3">
           <p className="mt-12 text-3xl">{ja.word.tickets_system}</p>

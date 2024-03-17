@@ -11,8 +11,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import type { Metadata, Viewport } from "next";
 import { Inter, Zen_Kaku_Gothic_New } from "next/font/google";
 import { ReactNode } from "react";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -89,7 +87,11 @@ export default async function RootLayout({
         <Provider session={session}>
           <Header />
           <p className="text-center text-2xl text-red-500">{`${session?.admin ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
-          {children}
+          <div
+            className={`min-h-[100lvh] overflow-x-hidden font-zen_kaku_gothic_new`}
+          >
+            {children}
+          </div>
           <Footer />
         </Provider>
       </body>
@@ -107,11 +109,7 @@ const Provider = ({
   return (
     <SWR>
       <SessionProvider value={session}>
-        <div
-          className={`min-h-[100lvh] overflow-x-hidden font-zen_kaku_gothic_new`}
-        >
-          <ChakraProvider>{children}</ChakraProvider>
-        </div>
+        <ChakraProvider>{children}</ChakraProvider>
         <TypekitLoader />
       </SessionProvider>
     </SWR>
