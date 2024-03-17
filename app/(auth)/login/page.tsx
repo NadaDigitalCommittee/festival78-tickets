@@ -50,11 +50,12 @@ const Login = () => {
       {isPosted ? (
         <div className="mt-12 px-2">
           <div className="flex flex-col items-center">
-          <IconContext.Provider value={{ size: "10em" }}>
-            <SiMinutemailer />
-          </IconContext.Provider>
-          <p>{ja.auth.submit_verification_email}</p>
-          <p>{ja.auth.confirm_email}</p></div>
+            <IconContext.Provider value={{ size: "10em" }}>
+              <SiMinutemailer />
+            </IconContext.Provider>
+            <p>{ja.auth.submit_verification_email}</p>
+            <p>{ja.auth.confirm_email}</p>
+          </div>
           <p className="mt-12 font-bold">{ja.auth.case_resend}</p>
           <div className="mt-2 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
             <HelpCard
