@@ -59,5 +59,3 @@ function randomString(num: number) {
 function randomInt(num: number) {
   return Math.floor(Math.random() * (num - 1) + 1);
 }
-
-testUser();
