@@ -15,6 +15,8 @@ Next.jsのApp Routerでフロントエンドおよびバックエンドを一つ
 - MicroCMS
 - Google Gmail API
 
+## [デプロイ方法]("/deploy")
+
 ## 環境変数
 - `SECRET` : 登録リンクにアクセスする
 - `JWTSECRET` : セッションの暗号化に伴うJWTの暗号化に使う文字列
