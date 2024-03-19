@@ -15,7 +15,7 @@ Next.jsのApp Routerでフロントエンドおよびバックエンドを一つ
 - MicroCMS
 - Google Gmail API
 
-## [デプロイ方法](/deploy)
+## [デプロイ方法](/festival78-tickets/deploy)
 
 ## 環境変数
 - `SECRET` : 登録リンクにアクセスする
