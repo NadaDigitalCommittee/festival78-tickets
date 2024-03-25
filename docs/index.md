@@ -106,9 +106,9 @@ Next.jsのApp Routerでフロントエンドおよびバックエンドを一つ
 
 ## その他のマークダウンファイル
 
-`/deploy`
+[デプロイ方法](./deploy.md)
 
-`/terms`
+[利用規約](./terms.md)
 
 ## 環境変数
 
