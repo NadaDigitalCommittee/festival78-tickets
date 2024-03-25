@@ -3,7 +3,7 @@ import { Api } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { validateApiHandler } from "../../handler";
 
-export const POST = validateApiHandler<Api<{}>>(async (request, session) => {
+export const POST = validateApiHandler<Api>(async (request, session) => {
   if (!session) {
     return NextResponse.json(
       {
@@ -26,7 +26,6 @@ export const POST = validateApiHandler<Api<{}>>(async (request, session) => {
   return NextResponse.json(
     {
       ok: true,
-      data: {},
     },
     { status: 200 }
   );

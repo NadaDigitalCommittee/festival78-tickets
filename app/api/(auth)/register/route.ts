@@ -6,34 +6,25 @@ import { z } from "zod";
 import { validateApiHandler } from "../../handler";
 import { sendVerficationTokenEmail } from "@/lib/email/template/Verification";
 
+const scheme = z.object({
+  email: z.string(),
+  secret: z.string(),
+});
+
 export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
   async (request) => {
-    const res = await request.json();
-    const email = res.email as string;
-    const uuid = res.uuid as string;
+    const res = scheme.safeParse(await request.json());
 
-    if (uuid) {
-      const user = await prisma.user.findUnique({
-        where: {
-          uuid: uuid,
-        },
-      });
-      if (user) {
-        prisma.user.update({
-          where: {
-            uuid: uuid,
-          },
-          data: {
-            email: email,
-            uuid: uuid,
-          },
-        });
-        return NextResponse.json({ ok: true }, { status: 200 });
-      }
+    if (!res.success) {
+      return NextResponse.json(
+        { ok: false },
+        { status: 400}
+      );
     }
+    const data = res.data;
 
     //secretが一致しなかったら401を返す
-    if (res.secret !== process.env.SECRET) {
+    if (data.secret !== process.env.SECRET) {
       return NextResponse.json(
         { ok: false },
         { status: 401, statusText: "Unauthorized" }
@@ -41,8 +32,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     }
 
     //emailの形式が正しくなかったら400を返す
-    const scheme = z.string().email();
-    if (!scheme.safeParse(email).success) {
+    if (!z.string().email().safeParse(data.email).success) {
       return NextResponse.json(
         { ok: false },
         { status: 400, statusText: "Bad Request" }
@@ -53,7 +43,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     if (
       await prisma.user.findUnique({
         where: {
-          email: email,
+          email: data.email,
         },
       })
     ) {
@@ -66,7 +56,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     //user作成
     const user = await prisma.user.create({
       data: {
-        email: email,
+        email: data.email,
       },
     });
 

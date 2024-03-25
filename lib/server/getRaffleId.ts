@@ -29,4 +29,3 @@ async function setData() {
 }
 
 setData();
-setTimeout(setData, 1000 * 60 * 60);
