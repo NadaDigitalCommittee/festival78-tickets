@@ -18,6 +18,7 @@ Next.jsのApp Routerでフロントエンドおよびバックエンドを一つ
 ## [デプロイ方法](/festival78-tickets/deploy)
 
 ## 環境変数
+
 - `SECRET` : 登録リンクにアクセスする
 - `JWTSECRET` : セッションの暗号化に伴うJWTの暗号化に使う文字列
 - `ADMIN_SECRET` : 管理者用のパスワード
@@ -96,7 +97,6 @@ enum Result {
 
 当選IDは、イベント名、時間帯、当日の日付ごとに一意のIDを持つ。具体的にはこれらの文字列をハッシュ化することで生成される。
 
-
 ## 各フォルダーの説明
 
 ### app
@@ -158,3 +158,21 @@ next.jsのapp routerが入っている。
 
 お知らせの詳細を表示する。idがMicroCMSの記事IDに対応する場合と、抽選データのUUIDに対応する場合がある。
 
+##### (app)/raffle
+
+抽選ページ。企画名、時間帯、人数を入力して`/api/raffle`にPOSTリクエストを送る。
+`/raffle?eventId={eventId}&timeId={timeId}`とすれば、対応する企画をフォームに事前入力しておく。
+
+##### (app)/settings
+
+設定ページ。メールアドレスとメール通知を受け取るかどうか変更できる。
+
+##### (app)/timetable
+
+タイムテーブルを表示する。タイムテーブル内の企画をクリックすると`/raffle?eventId={eventId}&timeId={timeId}`に飛ぶ。
+
+#### (auth)
+
+##### (auth)/login
+
+メールアドレスを入力してボタンを押したのち、`/api/login`にPOSTリクエストを送る。
