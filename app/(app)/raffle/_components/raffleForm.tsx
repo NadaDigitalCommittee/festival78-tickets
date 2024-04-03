@@ -1,6 +1,6 @@
 "use client";
 import { useEvents, useFetch } from "@/lib/client/hooks";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 
 import { ja } from "@/lib/lang/ja";
 import {
@@ -20,8 +20,14 @@ import { useSearchParams } from "next/navigation";
 import { mutate } from "swr";
 export const Form: FC = () => {
   const searchParams = useSearchParams();
-  const eventId = parseInt(searchParams.get("eventId") ?? "0");
-  const timeId = parseInt(searchParams.get("timeId") ?? "0");
+  const eventId = useMemo(
+    () => parseInt(searchParams.get("eventId") ?? "0"),
+    [searchParams]
+  );
+  const timeId = useMemo(
+    () => parseInt(searchParams.get("timeId") ?? "0"),
+    [searchParams]
+  );
   const { events } = useEvents();
   const [selectedEventId, setSelectedEventId] = useState<number>(0);
   const [selectedTimeId, setSelectedTimeId] = useState<number>(0);
@@ -35,6 +41,7 @@ export const Form: FC = () => {
     participants: number;
   }>("/api/raffle", "POST");
   useEffect(() => {
+    console.log("why", !!events);
     if (!events) {
       return;
     }
@@ -47,13 +54,23 @@ export const Form: FC = () => {
       return;
     }
     if (eventIdLength > 0 && eventId) {
-      setSelectedEventId(() => eventId);
+      console.log("set", eventId);
+      setSelectedEventId(eventId);
     }
     if (timeIdLength > 0 && timeId) {
-      setSelectedTimeId(() => timeId);
+      setSelectedTimeId(timeId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [!events]);
+  }, [!!events]);
+
+  const event = useMemo(
+    () => events?.at(selectedEventId),
+    [events, selectedEventId]
+  );
+  const time = useMemo(
+    () => event?.time.at(selectedTimeId),
+    [event, selectedTimeId]
+  );
 
   const requestRaffle = async () => {
     const { response, data } = await onFetch({
@@ -69,7 +86,7 @@ export const Form: FC = () => {
             ? `${ja.raffle.error_already_raffled_or_conflict}`
             : data.message,
         status: "error",
-        duration: 6000,
+        duration: 9000,
         isClosable: true,
       });
     } else {
@@ -83,12 +100,11 @@ export const Form: FC = () => {
       });
     }
   };
-
   return (
     <div className="mt-2 w-full">
       <p className="my-3 text-xl font-bold">{ja.word.form}</p>
       <div className="flex flex-col gap-4">
-        {!events ? (
+        {!events || !time ? (
           <>
             <Stack gap={6}>
               <Skeleton height="15px" />
@@ -108,7 +124,7 @@ export const Form: FC = () => {
                 setSelectedEventId(e.target.selectedIndex);
                 setSelectedTimeId(0);
               }}
-              defaultValue={eventId}
+              value={selectedEventId}
             >
               {events?.map((e, i) => (
                 <option key={i} value={e.id}>
@@ -122,7 +138,7 @@ export const Form: FC = () => {
               onChange={(e) => {
                 setSelectedTimeId(e.target.selectedIndex);
               }}
-              defaultValue={timeId}
+              value={selectedTimeId}
             >
               {events?.[selectedEventId]?.time
                 .map((t) => t.toPeriodString())
@@ -132,6 +148,16 @@ export const Form: FC = () => {
                   </option>
                 ))}
             </select>
+            {events.at(selectedEventId)?.onlyParticipants ? (
+              <p>
+                ・参加者数は<b>実際に企画に参加される</b>
+                方のみをカウントします。保護者が立ち見をされる場合は保護者を人数に含めないでください。
+              </p>
+            ) : (
+              <p>
+                ・参加者数は<b>会場に入場される方全員</b>をカウントします。
+              </p>
+            )}
             <p>{ja.word.participants_number}</p>
             <select
               className="w-full rounded-lg border"
@@ -143,8 +169,6 @@ export const Form: FC = () => {
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
             </select>
 
             <div className="">
@@ -152,16 +176,9 @@ export const Form: FC = () => {
                 注意事項
               </p>
               <p>・同じ時間帯の企画を同時に登録することはできません。</p>
-              {/* <p>・朝の企画どうするんだっけ</p> */}
+              <p>・開始時刻が9:25までの企画は抽選券不要です。</p>
               <p>
                 ・抽選は開始時刻の約30分前に行われます。お早めに登録をお願いします。
-              </p>
-              {/* <p>
-                ・企画名が「ロボット制作」、「鉄研シミュレーター」の時には、参加者数は
-                <strong>実際に参加する人数</strong>のことを指します。
-              </p> */}
-              <p>
-                ・その他の企画では、参加者数とは会場に入る人数のことを指します。
               </p>
             </div>
 
@@ -188,14 +205,10 @@ export const Form: FC = () => {
               {ja.raffle.raffle_attention}
               <div className="h-6" />
               <p>
-                ・{ja.word.event}:{events?.at(selectedEventId)?.name}
+                ・{ja.word.event}:{event?.name}
               </p>
               <p>
-                ・{ja.word.period}:
-                {events
-                  ?.at(selectedEventId)
-                  ?.time.at(selectedTimeId)
-                  ?.toPeriodString()}
+                ・{ja.word.period}:{time?.toPeriodString()}
               </p>
               <p>
                 ・{ja.word.participants_number}:{participants}人

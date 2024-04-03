@@ -9,8 +9,13 @@ export type Event = {
   description?: string;
   time: Time[];
   location?: string;
-  image?: string;
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
   capacity: number;
+  onlyParticipants?: boolean;
 };
 
 export type Api<T = undefined> =

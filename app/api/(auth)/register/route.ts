@@ -16,10 +16,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
     const res = scheme.safeParse(await request.json());
 
     if (!res.success) {
-      return NextResponse.json(
-        { ok: false },
-        { status: 400}
-      );
+      return NextResponse.json({ ok: false }, { status: 400 });
     }
     const data = res.data;
 

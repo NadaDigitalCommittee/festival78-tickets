@@ -1,3 +1,9 @@
+import { Timetable } from "./_components/Timetable";
+
 export default function Page() {
-  return <main></main>;
+  return (
+    <main>
+      <Timetable />
+    </main>
+  );
 }

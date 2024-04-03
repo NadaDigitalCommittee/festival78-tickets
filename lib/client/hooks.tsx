@@ -16,8 +16,8 @@ export const useRaffles = () => {
   } = useSWR<ApiResultResponse>(`/result`, {
     refreshInterval: 1 * 60 * 1000,
     revalidateIfStale: false,
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
+    revalidateOnFocus: true,
+    revalidateOnReconnect: true,
   });
   return { raffles: result?.raffle, error, mutate };
 };
@@ -28,7 +28,7 @@ export const useEvents = () => {
     error,
     mutate,
   } = useSWR<ApiEventsResponse>(`/events`, {
-    refreshInterval: 1 * 60 * 1000,
+    refreshInterval: 8 * 60 * 60 * 1000,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,

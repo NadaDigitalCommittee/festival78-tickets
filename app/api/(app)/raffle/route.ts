@@ -13,19 +13,40 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
     }
 
     const res = await request.json();
-    const safeRes = scheme.safeParse(res);
+    const data = scheme.safeParse(res);
     const events = await getEvents();
 
-    if (!safeRes.success) {
+    if (!data.success) {
       return NextResponse.json({ ok: false }, { status: 400 });
+    }
+
+    const raffleStart= new Time(9,25,0,0).start.getTime()
+    const now = Time.nowJST().getTime();
+    const eventTime = events
+      .at(data.data.eventId)
+      ?.time.at(data.data.timeId)
+      ?.start.getTime();
+
+    if ( !eventTime ||  raffleStart - eventTime  > 0) {
+      return NextResponse.json(
+        { ok: false },
+        { status: 409, statusText: "No need for raffle" }
+      );
+    }
+
+    if (!eventTime || now - eventTime > 31 * 60 * 1000) {
+      return NextResponse.json(
+        { ok: false },
+        { status: 409, statusText: "Event has already started" }
+      );
     }
 
     if (
       await prisma.raffle.findUnique({
         where: {
           unique_raffle: {
-            eventId: safeRes.data.eventId,
-            timeId: safeRes.data.timeId,
+            eventId: data.data.eventId,
+            timeId: data.data.timeId,
             userId: session.uuid,
           },
         },
@@ -42,7 +63,7 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
         userId: session.uuid,
       },
     });
-    const time = events.at(safeRes.data.eventId)?.time.at(safeRes.data.timeId);
+    const time = events.at(data.data.eventId)?.time.at(data.data.timeId);
     if (
       Time.isConflict(
         time,
@@ -57,9 +78,9 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
 
     const raffle = await prisma.raffle.create({
       data: {
-        eventId: safeRes.data.eventId,
-        participants: safeRes.data.participants,
-        timeId: safeRes.data.timeId,
+        eventId: data.data.eventId,
+        participants: data.data.participants,
+        timeId: data.data.timeId,
         userId: session.uuid,
       },
     });

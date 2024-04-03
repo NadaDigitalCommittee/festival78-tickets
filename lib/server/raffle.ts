@@ -4,6 +4,7 @@ import { getEvents } from "./cms";
 import { sendLoseEmail } from "../email/template/Lose";
 import { sendPushNotification } from "./pushNotification";
 import { ja } from "../lang/ja";
+import { solveDistribution } from "./raffleAlgo";
 
 /**
  * eventId,timeIdにそってcapacity人の当選者を決めた後、DBを更新する
@@ -58,7 +59,7 @@ async function raffleUUID(
     distribution.push(participants.filter((a) => a === i + 1).length);
   }
 
-  const result = random(distribution, capacity); // 総和がcapacityとなるような参加者の分布
+  const result = solveDistribution(distribution, capacity); // 総和がcapacityとなるような参加者の分布
 
   // 総和がcapacityとなるような参加者の分布が存在しない場合やり直し
   if (!result) {
@@ -184,48 +185,4 @@ async function pushNotification(raffleUUID: string[]) {
       });
     });
   }
-}
-
-/**
- * 配列 `distribution` に従って、`capacity` と等しい容量を満たす数値の組み合わせを再帰的に生成し、その組み合わせをすべて配列として返します。
- *
- * @param {number[]} distribution - 各インデックスにおける取り得る数値の最大値を格納した配列。
- * @param {number} capacity - 生成される組み合わせの合計が満たすべき容量。
- * @returns {number[][]} - 容量 `capacity` を満たす数値の組み合わせをすべて含む二次元配列。
- * @example
- * const combinations = solveDistribution([2, 1, 3], 5);
- * console.log(combinations); // [[1, 1, 3], [2, 3]]
- */
-function solveDistribution(distribution: number[], capacity: number) {
-  let C: number[][] = [];
-
-  function generateRecursive(index: number, currentArray: number[]) {
-    if (index === distribution.length) {
-      let sum = 0;
-      for (let i = 0; i < currentArray.length; i++) {
-        sum += currentArray[i] * (i + 1);
-      }
-      if (sum == capacity) {
-        C.push(currentArray.slice());
-      }
-      return;
-    }
-
-    for (let i = 0; i <= distribution[index]; i++) {
-      currentArray.push(i);
-      generateRecursive(index + 1, currentArray);
-      currentArray.pop();
-    }
-  }
-
-  generateRecursive(0, []);
-
-  return C;
-}
-
-function random(distribution: number[], capacity: number) {
-  const distributions = solveDistribution(distribution, capacity);
-  const randomInt = Math.floor(Math.random() * distributions.length);
-  if (distributions.length === 0) return undefined;
-  return distributions[randomInt];
 }

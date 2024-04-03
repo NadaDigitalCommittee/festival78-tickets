@@ -89,7 +89,7 @@ export default async function RootLayout({
           <Header />
           <p className="text-center text-2xl text-red-500">{`${session?.admin ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
           <div
-            className={`min-h-[100lvh] overflow-x-hidden font-zen_kaku_gothic_new`}
+            className={`min-h-[100lvh] overflow-x-clip font-zen_kaku_gothic_new`}
           >
             {children}
           </div>

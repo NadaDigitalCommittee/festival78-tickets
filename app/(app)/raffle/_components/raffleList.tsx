@@ -31,7 +31,7 @@ export const RaffleList: FC<Props> = () => {
           )}
         </>
         {raffles?.map((data) => (
-          <AccordionItem key={data.eventId}>
+          <AccordionItem key={data.eventId + data.timeId}>
             <h2>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">

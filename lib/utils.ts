@@ -20,11 +20,8 @@ export function convertEvent(event: EventSchema): Event {
     );
   }
   return {
+    ...event,
     id: event.number,
-    name: event.name,
-    capacity: event.capacity,
-    description: event.description,
-    location: event.place,
     time: time,
   };
 }

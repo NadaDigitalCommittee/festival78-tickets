@@ -10,7 +10,6 @@ Next.jsのApp Routerでフロントエンドおよびバックエンドを一つ
 
 一部UIライブラリとしてChakra UIを採用している。
 
-
 ## 目次
 
 - [抽選券システムのドキュメント](#抽選券システムのドキュメント)
@@ -25,8 +24,8 @@ Next.jsのApp Routerでフロントエンドおよびバックエンドを一つ
   - [各フォルダーの説明](#各フォルダーの説明)
     - [app](#app)
       - [(admin)](#admin)
-        - [(admin)/admin?secret={ADMIN\_SECRET}](#adminadminsecretadmin_secret)
-        - [(admin)/club?secret={CLUB\_SECRET}](#adminclubsecretclub_secret)
+        - [(admin)/admin?secret={ADMIN_SECRET}](#adminadminsecretadmin_secret)
+        - [(admin)/club?secret={CLUB_SECRET}](#adminclubsecretclub_secret)
       - [(auth)](#auth)
         - [(auth)/login](#authlogin)
         - [(auth)/register?secret={SECRET}](#authregistersecretsecret)
@@ -346,22 +345,19 @@ sessionがない場合、401を返す。
 ```ts
 //リクエストなし
 {
-  
 }
 ```
 
 ```ts
 //レスポンス200
 {
-  data:{
-    events: Array<EventSchema & MicroCMSContentId & MicroCMSDate>
+  data: {
+    events: Array<EventSchema & MicroCMSContentId & MicroCMSDate>;
   }
 }
 ```
 
 cmsから得たイベント情報を返す。クライアント側でこれを利用する。
-
-
 
 ##### (app)/raffle
 
@@ -377,7 +373,7 @@ cmsから得たイベント情報を返す。クライアント側でこれを�
 ```ts
 //レスポンス200
 {
-  data: Raffle
+  data: Raffle;
 }
 ```
 
@@ -385,6 +381,7 @@ cmsから得たイベント情報を返す。クライアント側でこれを�
 //レスポンス409
 //すでに抽選されている。もしくは時間帯が衝突している。
 ```
+
 抽選登録を行う。
 
 ##### (app)/result
@@ -392,7 +389,6 @@ cmsから得たイベント情報を返す。クライアント側でこれを�
 ```ts
 //リクエストなし
 {
-
 }
 ```
 
@@ -400,11 +396,10 @@ cmsから得たイベント情報を返す。クライアント側でこれを�
 //レスポンス200
 {
   data: {
-    raffle: Array<Raffle>
+    raffle: Array<Raffle>;
   }
 }
 ```
-
 
 ##### (app)/subscribe
 
@@ -420,7 +415,6 @@ cmsから得たイベント情報を返す。クライアント側でこれを�
 ```ts
 //レスポンス200
 {
-  
 }
 ```
 
@@ -431,7 +425,6 @@ Web Push通知を受け取るためのエンドポイントを登録する。
 ```ts
 //リクエストなし
 {
-
 }
 ```
 
@@ -458,7 +451,6 @@ Web Push通知を受け取るためのエンドポイントを登録する。
 
 メールアドレスと通知設定を変更する。
 
-
 #### (auth)
 
 ##### (auth)/login
@@ -466,7 +458,7 @@ Web Push通知を受け取るためのエンドポイントを登録する。
 ```ts
 //リクエスト
 {
-  email: string
+  email: string;
 }
 ```
 
@@ -541,7 +533,7 @@ Adobe Fontsを表示するためのローダーコンポーネント。
 
 ### lib
 
-#### client/** 
+#### client/\*\*
 
 React用。クライアント用のフックなど。
 
@@ -588,8 +580,9 @@ MicroCMSからデータを取得する。`MICROCMS_SERVICE_DOMAIN`, `MICROCMS_AP
 ##### session
 
 - validation
-  
+
   cookie「token」の値を取得し、jwtで署名されたことを確認する。クッキー「admin」=={ADMIN_SECRET}の場合、adminフラグを立てる。
+
   ```js
   {
     uuid:string,
@@ -637,11 +630,10 @@ type Session = {
 
 URLパラメータ「token」「secret」を取得する。
 
-* tokenがある場合、クッキーに「token」をセットし、ホームにリダイレクトする。
-* secret=={ADMIN_SECRET}の場合、adminクッキーに同じ値をセットする。
-* secret=={SECRET}の場合、`/register`にリダイレクトする。
-* その他の場合、`/login`にリダイレクトする。
-
+- tokenがある場合、クッキーに「token」をセットし、ホームにリダイレクトする。
+- secret=={ADMIN_SECRET}の場合、adminクッキーに同じ値をセットする。
+- secret=={SECRET}の場合、`/register`にリダイレクトする。
+- その他の場合、`/login`にリダイレクトする。
 
 ## サイトイメージ
 

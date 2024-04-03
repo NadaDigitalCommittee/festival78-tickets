@@ -10,6 +10,14 @@ const nextConfig = {
     includePaths: [join(__dirname, "styles")],
   },
   output: "standalone",
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.microcms-assets.io",
+      },
+    ],
+  },
 };
 
 module.exports = withPWA(nextConfig);

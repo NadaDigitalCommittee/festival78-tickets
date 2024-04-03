@@ -20,6 +20,12 @@ export type EventSchema = {
   place: string;
   start: TimeSchema[];
   end: TimeSchema[];
+  image: {
+    url: string;
+    width: number;
+    height: number;
+  };
+  onlyParticipants?: boolean;
 };
 
 type NewsSchema = {

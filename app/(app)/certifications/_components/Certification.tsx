@@ -16,7 +16,7 @@ export const Certification: FC<Props> = ({
       className={`mx-auto h-[160px] w-[260px] shadow-lg ${styles.bg} relative overflow-hidden rounded-lg`}
     >
       <div className="absolute z-10 w-full">
-        <p className="text-center text-2xl">{eventName}</p>
+        <p className="mx-6 text-center">{eventName}</p>
         <p className="text-center">{eventTime}</p>
         <p className="text-center font-avianosans text-5xl text-[rgb(255,210,155)]">
           ODYSSEY

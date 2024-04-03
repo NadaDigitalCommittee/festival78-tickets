@@ -54,7 +54,7 @@ export const ja = {
     no_win_history: "当選履歴がありません。",
     no_raffle_history: "抽選履歴がありません。",
     error_already_raffled_or_conflict:
-      "すでに抽選済みか、時間が被っているため登録できません。",
+      "すでに抽選済みか、時間が被っているか、すでに抽選時刻を終了しているため登録できません。",
     raffle_information: "抽選情報",
     raffle_attention:
       "以下の内容で抽選登録をします。後から取り消すことはできません。",

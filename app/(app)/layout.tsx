@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <BreadCrumbs />
         </div>
       </div>
-      <div className="mx-auto min-h-[90vh] max-w-[800px] px-9 py-6 max-md:w-[360px] md:w-[60vw]">
+      <div className="mx-auto min-h-[90vh] max-w-[800px] px-6 py-6 max-md:w-[360px] md:w-[60vw]">
         {children}
         <Link href="/">
           <div className="mt-6 w-full rounded-lg border border-theme p-2">
