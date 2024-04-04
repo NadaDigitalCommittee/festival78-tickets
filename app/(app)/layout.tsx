@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <p className="w-full text-center">{ja.word.return_to_top}</p>
           </div>
         </Link>
-        <LogoutButton />
+        {/* <LogoutButton /> */}
       </div>
     </div>
   );
