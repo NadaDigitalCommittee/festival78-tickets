@@ -1,4 +1,3 @@
-import { LogoutButton } from "@/components/LogoutButton";
 import { BreadCrumbs } from "@/components/ui/BreadCrumbs";
 import { ja } from "@/lib/lang/ja";
 import Link from "next/link";
