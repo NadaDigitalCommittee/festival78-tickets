@@ -1,6 +1,6 @@
 "use client";
 import { useEvents, useFetch } from "@/lib/client/hooks";
-import { ja } from "@/lib/lang/ja";
+
 import {
   AlertDialog,
   AlertDialogBody,
@@ -40,7 +40,7 @@ export const AdminForm: FC<Props> = () => {
   const requestRaffle = async () => {
     if (isFetching) {
       return toast({
-        title: `${ja.toast.raffling}`,
+        title: `抽選中`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -53,14 +53,14 @@ export const AdminForm: FC<Props> = () => {
     });
     if (data.ok) {
       toast({
-        title: `${ja.toast.raffle_executed}`,
+        title: `抽選が実行されました。`,
         status: "success",
         duration: 9000,
         isClosable: true,
       });
     } else {
       toast({
-        title: `${ja.toast.raffle_not_executed}`,
+        title: `抽選が実行されませんでした。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -71,7 +71,7 @@ export const AdminForm: FC<Props> = () => {
     onCloseReset();
     await fetch("/api/reset", {});
     toast({
-      title: `${ja.toast.reset_raffle}`,
+      title: `抽選情報をリセットしました。`,
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -81,7 +81,7 @@ export const AdminForm: FC<Props> = () => {
   return (
     <div className="mt-2 grid gap-3 sm:grid-cols-1 md:grid-cols-2">
       <div>
-        <p>・{ja.word.event_name}</p>
+        <p>・企画名</p>
         <select
           className="border border-black"
           onChange={(e) => {
@@ -94,7 +94,7 @@ export const AdminForm: FC<Props> = () => {
             </option>
           ))}
         </select>
-        <p>・{ja.word.period}</p>
+        <p>・時間帯</p>
         <select
           className="border border-black"
           onChange={(e) => {

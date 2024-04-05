@@ -2,7 +2,6 @@
 import { useEvents, useFetch } from "@/lib/client/hooks";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 
-import { ja } from "@/lib/lang/ja";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -80,10 +79,10 @@ export const Form: FC = () => {
     });
     if (!data?.ok) {
       toast({
-        title: `${ja.toast.error}`,
+        title: `エラー`,
         description:
           response?.status === 409
-            ? `${ja.raffle.error_already_raffled_or_conflict}`
+            ? `すでに抽選済みか、時間が被っているか、すでに抽選時刻を終了しているため登録できません。`
             : data.message,
         status: "error",
         duration: 9000,
@@ -92,8 +91,8 @@ export const Form: FC = () => {
     } else {
       mutate("/result");
       toast({
-        title: `${ja.toast.raffle_completed_short}`,
-        description: `${ja.toast.raffle_completed_long}`,
+        title: `抽選完了`,
+        description: `抽選登録が完了しました`,
         status: "success",
         duration: 6000,
         isClosable: true,
@@ -102,7 +101,7 @@ export const Form: FC = () => {
   };
   return (
     <div className="mt-2 w-full">
-      <p className="my-3 text-xl font-bold">{ja.word.form}</p>
+      <p className="my-3 text-xl font-bold">抽選フォーム</p>
       <div className="flex flex-col gap-4">
         {!events || !time ? (
           <>
@@ -117,7 +116,7 @@ export const Form: FC = () => {
           </>
         ) : (
           <>
-            <p>{ja.word.event_name}</p>
+            <p>企画名</p>
             <select
               className="w-full rounded-lg border"
               onChange={(e) => {
@@ -132,7 +131,7 @@ export const Form: FC = () => {
                 </option>
               ))}
             </select>
-            <p>{ja.word.period}</p>
+            <p>時間帯</p>
             <select
               className="w-full rounded-lg border"
               onChange={(e) => {
@@ -158,7 +157,7 @@ export const Form: FC = () => {
                 ・参加者数は<b>会場に入場される方全員</b>をカウントします。
               </p>
             )}
-            <p>{ja.word.participants_number}</p>
+            <p>参加者数</p>
             <select
               className="w-full rounded-lg border"
               onChange={(e) => {
@@ -183,7 +182,7 @@ export const Form: FC = () => {
             </div>
 
             <Button onClick={onOpen} colorScheme="orange">
-              {ja.word.raffle}
+              抽選
             </Button>
           </>
         )}
@@ -198,26 +197,20 @@ export const Form: FC = () => {
         <AlertDialogOverlay>
           <AlertDialogContent width={"80%"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {ja.raffle.raffle_information}
+              抽選情報
             </AlertDialogHeader>
 
             <AlertDialogBody flex={"flex"}>
-              {ja.raffle.raffle_attention}
+              以下の内容で抽選登録をします。後から取り消すことはできません。
               <div className="h-6" />
-              <p>
-                ・{ja.word.event}:{event?.name}
-              </p>
-              <p>
-                ・{ja.word.period}:{time?.toPeriodString()}
-              </p>
-              <p>
-                ・{ja.word.participants_number}:{participants}人
-              </p>
+              <p>・undefined</p>
+              <p>・undefined</p>
+              <p>・undefined人</p>
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                {ja.word.cancel}
+                キャンセル
               </Button>
               <Button
                 colorScheme="red"
@@ -228,7 +221,7 @@ export const Form: FC = () => {
                 ml={3}
                 isLoading={isFetching}
               >
-                {ja.word.confirmation}
+                確定
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

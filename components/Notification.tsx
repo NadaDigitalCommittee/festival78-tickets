@@ -1,6 +1,6 @@
 "use client";
 import { useFetch } from "@/lib/client/hooks";
-import { ja } from "@/lib/lang/ja";
+
 import { Button, useToast } from "@chakra-ui/react";
 import { FC } from "react";
 
@@ -28,7 +28,7 @@ export const Notification: FC<Props> = () => {
   const subscribe = async () => {
     if (!(await checkIsWebPushSupported())) {
       return toast({
-        title: `${ja.notification.error_not_supported}`,
+        title: `プッシュ通知が非対応です。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -40,7 +40,7 @@ export const Notification: FC<Props> = () => {
     }
     if (window.Notification.permission === "denied") {
       return toast({
-        title: `${ja.notification.error_notification_blocked}`,
+        title: `通知がブロックされています。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -57,7 +57,7 @@ export const Notification: FC<Props> = () => {
     const json = subscription.toJSON();
     if (json.endpoint === null || json.keys === null) {
       return toast({
-        title: `${ja.notification.error_not_supported}`,
+        title: `プッシュ通知が非対応です。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -69,7 +69,7 @@ export const Notification: FC<Props> = () => {
       const response = data.response;
       if (!response?.ok) {
         return toast({
-          title: `${ja.notification.notification_fail}`,
+          title: `プッシュ通知の購読に失敗しました。`,
           status: "error",
           duration: 9000,
           isClosable: true,
@@ -77,7 +77,7 @@ export const Notification: FC<Props> = () => {
       }
       if (response?.status === 201) {
         return toast({
-          title: `${ja.notification.notification_success}`,
+          title: `プッシュ通知を購読しました。`,
           status: "success",
           duration: 9000,
           isClosable: true,
@@ -85,7 +85,7 @@ export const Notification: FC<Props> = () => {
       }
     } catch (error) {
       return toast({
-        title: `${ja.notification.notification_fail}`,
+        title: `プッシュ通知の購読に失敗しました。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -95,7 +95,7 @@ export const Notification: FC<Props> = () => {
 
   return (
     <Button onClick={subscribe} className=" mt-12 w-full">
-      {ja.notification.button}
+      プッシュ通知を許可する
     </Button>
   );
 };

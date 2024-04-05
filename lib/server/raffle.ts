@@ -3,7 +3,6 @@ import { sendWinEmail } from "../email/template/Win";
 import { getEvents } from "./cms";
 import { sendLoseEmail } from "../email/template/Lose";
 import { sendPushNotification } from "./pushNotification";
-import { ja } from "../lang/ja";
 import { solveDistribution } from "./raffleAlgo";
 
 /**
@@ -180,8 +179,8 @@ async function pushNotification(raffleUUID: string[]) {
       })
     ).map(async (notification) => {
       sendPushNotification(notification, {
-        title: ja.meta.title,
-        body: ja.notification.body,
+        title: "抽選結果のお知らせ",
+        body: "抽選結果が発表されました！サイトまでお越しください！",
       });
     });
   }

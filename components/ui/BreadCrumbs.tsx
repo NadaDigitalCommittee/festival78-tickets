@@ -1,20 +1,19 @@
 "use client";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
-import { FC } from "react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
-import { ja } from "@/lib/lang/ja";
+import { FC } from "react";
 
 type Props = {};
 
 const pathNames = new Map<string, string>([
-  ["terms", ja.word.terms],
-  ["timetable", ja.word.timetable],
-  ["certifications", ja.word.raffle_certification],
-  ["settings", ja.word.setting],
-  ["raffle", ja.word.raffle],
-  ["events", ja.word.event_discription],
-  ["news", ja.word.news],
+  ["terms", "利用規約"],
+  ["timetable", "タイムテーブル"],
+  ["certifications", "当選証明書"],
+  ["settings", "設定"],
+  ["raffle", "抽選"],
+  ["events", "企画説明"],
+  ["news", "お知らせ"],
 ]);
 
 export const BreadCrumbs: FC<Props> = () => {
@@ -27,7 +26,7 @@ export const BreadCrumbs: FC<Props> = () => {
     <Breadcrumb spacing="8px" separator={<ChevronRightIcon color="gray.500" />}>
       <BreadcrumbItem key={0}>
         <BreadcrumbLink href="/" color={`${"GrayText"}`}>
-          {ja.word.top}
+          トップ
         </BreadcrumbLink>
       </BreadcrumbItem>
       {paths.map((p, i) => {

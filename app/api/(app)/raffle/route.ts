@@ -20,14 +20,14 @@ export const POST = validateApiHandler<Api<ApiRaffleResponse>>(
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
-    const raffleStart= new Time(9,25,0,0).start.getTime()
+    const raffleStart = new Time(9, 25, 0, 0).start.getTime();
     const now = Time.nowJST().getTime();
     const eventTime = events
       .at(data.data.eventId)
       ?.time.at(data.data.timeId)
       ?.start.getTime();
 
-    if ( !eventTime ||  raffleStart - eventTime  > 0) {
+    if (!eventTime || raffleStart - eventTime > 0) {
       return NextResponse.json(
         { ok: false },
         { status: 409, statusText: "No need for raffle" }

@@ -1,6 +1,5 @@
 "use client";
 import { useEvents, useRaffles } from "@/lib/client/hooks";
-import { FC } from "react";
 import {
   Accordion,
   AccordionButton,
@@ -8,10 +7,11 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Stack,
   Skeleton,
+  Stack,
 } from "@chakra-ui/react";
-import { ja } from "@/lib/lang/ja";
+import { FC } from "react";
+
 type Props = {};
 
 export const RaffleList: FC<Props> = () => {
@@ -20,8 +20,8 @@ export const RaffleList: FC<Props> = () => {
 
   return (
     <div className="mt-6">
-      <p className="my-3 text-xl font-bold">{ja.raffle.raffle_state}</p>
-      {raffles?.length === 0 && <p>{ja.raffle.no_raffle_history}</p>}
+      <p className="my-3 text-xl font-bold">抽選状況</p>
+      {raffles?.length === 0 && <p>当選履歴がありません。</p>}
       <Accordion>
         <>
           {!!raffles || (
@@ -41,13 +41,13 @@ export const RaffleList: FC<Props> = () => {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={2}>
-              <p>{`${ja.word.participants_number}:${data.participants}`}</p>
+              <p>{`参加者数 : ${data.participants}`}</p>
               <p>
                 {data.result === "PROCESSING"
-                  ? `${ja.word.raffling}`
+                  ? `抽選中`
                   : data.result === "WIN"
-                    ? `${ja.word.win}`
-                    : `${ja.word.lose}`}
+                    ? `当選`
+                    : `落選`}
               </p>
             </AccordionPanel>
           </AccordionItem>

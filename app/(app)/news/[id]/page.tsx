@@ -1,4 +1,3 @@
-import { ja } from "@/lib/lang/ja";
 import { fetchNews } from "@/lib/server/fetchNews";
 import { News } from "@/lib/types";
 import styles from "@/styles/news.module.scss";
@@ -13,7 +12,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main>
       {!news ? (
         <div className="flex h-full w-full items-center justify-center">
-          <p>{ja.news.no_news}</p>
+          <p>記事が見つかりませんでした。</p>
         </div>
       ) : (
         <div className={styles.content}>

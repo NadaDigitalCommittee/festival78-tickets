@@ -1,8 +1,7 @@
 "use client";
-import { FC } from "react";
 import { useFetch } from "@/lib/client/hooks";
 import { Button, useToast } from "@chakra-ui/react";
-import { ja } from "@/lib/lang/ja";
+import { FC } from "react";
 
 type Props = {
   email: string;
@@ -18,7 +17,7 @@ export const Resend: FC<Props> = ({ email }) => {
       onClick={async () => {
         await onFetch({ email: email });
         toast({
-          title: `${ja.toast.resended}`,
+          title: `再送信しました。`,
           status: "success",
           duration: 9000,
           isClosable: true,
@@ -28,7 +27,7 @@ export const Resend: FC<Props> = ({ email }) => {
       colorScheme="orange"
       className="w-full "
     >
-      {ja.word.resend}
+      再送信
     </Button>
   );
 };

@@ -3,14 +3,14 @@ import { Header } from "@/components/Header";
 import TypekitLoader from "@/components/TypeKit";
 import { SWR } from "@/lib/client/Swr";
 import { SessionProvider } from "@/lib/client/context";
-import { ja } from "@/lib/lang/ja";
+
 import { validateSession } from "@/lib/server/session";
 import { Session } from "@/lib/types";
 import "@/styles/globals.scss";
+import { ChakraProvider } from "@chakra-ui/react";
 import type { Metadata, Viewport } from "next";
 import { Inter, Zen_Kaku_Gothic_New } from "next/font/google";
 import { ReactNode } from "react";
-import { ChakraProvider } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -23,8 +23,8 @@ const zen_kaku_gothic_new = Zen_Kaku_Gothic_New({
 export const metadata: Metadata = {
   metadataBase: new URL("https://tickets.nada-sc.jp"),
   title: {
-    default: ja.meta.title,
-    template: ja.meta.title_template,
+    default: "第78回灘校文化祭 ODYSSEY",
+    template: "%s | 第78回灘校文化祭 ODYSSEY",
   },
   keywords: [
     "灘",
@@ -33,17 +33,19 @@ export const metadata: Metadata = {
     "灘校",
     "文化祭",
     "灘校文化祭",
-    ja.meta.fest_concept,
+    "ODYSSEY",
     "nada",
     "festival",
   ],
-  description: ja.meta.description,
+  description:
+    "2024年5月2日・5月3日に開催される第78回灘校文化祭「ODYSSEY」の公式ウェブサイトです。",
   openGraph: {
     type: "website",
-    title: ja.meta.title,
-    description: ja.meta.description,
+    title: "第78回灘校文化祭 ODYSSEY",
+    description:
+      "2024年5月2日・5月3日に開催される第78回灘校文化祭「ODYSSEY」の公式ウェブサイトです。",
     url: "https://tickets.nada-sc.jp",
-    siteName: ja.meta.site_name,
+    siteName: "第78回灘校文化祭 ODYSSEY",
     locale: "ja_JP",
     images: [
       {

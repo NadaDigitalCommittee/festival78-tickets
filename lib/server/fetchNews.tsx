@@ -2,7 +2,6 @@ import { getEvents, getNews } from "@/lib/server/cms";
 import { prisma } from "@/lib/server/db";
 import { Event, News } from "@/lib/types";
 import { Raffle, Result } from "@prisma/client";
-import { ja } from "../lang/ja";
 import { validateSession } from "./session";
 import { RaffleNews } from "@/components/RaffleNews";
 import { render } from "@react-email/render";
@@ -43,10 +42,10 @@ function newsRaffle(raffle: Raffle, event?: Event): News {
   if (raffle.result === Result.WIN) {
     return {
       id: raffle.uuid,
-      title: format(ja.news.win.title, event?.name),
+      title: format("「{0}」への当選のお知らせ", event?.name),
       body: render(<RaffleNews raffle={raffle} event={event} />),
       compactBody: format(
-        ja.news.win.compact_body,
+        "「{0}」(時間帯:{1})の企画に当選しましたので、お知らせします。",
         event?.name,
         event?.time.at(raffle.timeId)?.toPeriodString()
       ),
@@ -55,10 +54,10 @@ function newsRaffle(raffle: Raffle, event?: Event): News {
   } else {
     return {
       id: raffle.uuid,
-      title: format(ja.news.lose.title, event?.name),
+      title: format("「{0}」への落選のお知らせ", event?.name),
       body: render(<RaffleNews raffle={raffle} event={event} />),
       compactBody: format(
-        ja.news.lose.compact_body,
+        "厳正なる抽選の結果、誠に残念ながら「{0}」(時間帯:{1})の企画に落選となりました。",
         event?.name,
         event?.time.at(raffle.timeId)?.toPeriodString()
       ),

@@ -1,28 +1,28 @@
 "use client";
 
 import { useFetch, useUser } from "@/lib/client/hooks";
-import { ja } from "@/lib/lang/ja";
+
 import {
   Accordion,
   AccordionButton,
-  AccordionItem,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
-  Box,
-  useDisclosure,
-  Button,
   AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
-  useToast,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Box,
+  Button,
   Skeleton,
   Stack,
+  useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { useRef } from "react";
+import { useRef } from "react";
 
 export default function Page() {
   const { user } = useUser();
@@ -44,11 +44,11 @@ export default function Page() {
     onClose();
     if (!data.ok) {
       toast({
-        title: `${ja.toast.error_occured}`,
+        title: `エラーが発生しました。`,
         description:
           response?.status === 409
-            ? `${ja.toast.error_email_already_exists}`
-            : `${ja.toast.error_server}`,
+            ? `このメールアドレスはすでに登録されています。`
+            : `サーバーエラーが発生しました。`,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -68,7 +68,7 @@ export default function Page() {
         </Stack>
       ) : (
         <form>
-          <p>{ja.word.email}</p>
+          <p>メールアドレス</p>
           <input
             type="email"
             ref={emailRef}
@@ -76,21 +76,19 @@ export default function Page() {
             defaultValue={user.email ?? ""}
           />
           <p className="text-right text-sm text-blue-500">
-            <Link href={"/terms"}>{ja.settings.guide_for_terms}</Link>
+            <Link href={"/terms"}>利用規約はこちら</Link>
           </p>
-          <p className="mt-4">
-            {ja.settings.not_want_email_winning_notification}
-          </p>
+          <p className="mt-4">メールアドレスの当選通知を希望しない</p>
           <select
             className="mb-4 w-full rounded-lg border"
             defaultValue={user.notification ? "true" : "false"}
             ref={emailNotificationRef}
           >
-            <option value="true">{ja.settings.notification_ok}</option>
-            <option value="false">{ja.settings.notification_ng}</option>
+            <option value="true">メール通知を受け取る</option>
+            <option value="false">メール通知を受け取らない</option>
           </select>
           <Button colorScheme="orange" onClick={onOpen} width={"100%"}>
-            {ja.word.update}
+            変更
           </Button>
         </form>
       )}
@@ -101,7 +99,7 @@ export default function Page() {
             <h2>
               <AccordionButton>
                 <Box as="span" flex="1" textAlign="left">
-                  {ja.word.list_id}
+                  各種ID
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
@@ -122,26 +120,26 @@ export default function Page() {
         <AlertDialogOverlay>
           <AlertDialogContent width={"90%"}>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              {ja.settings.update_information_short}
+              登録情報の変更
             </AlertDialogHeader>
 
             <AlertDialogBody flex={"flex"}>
-              {ja.settings.update_information_long}
+              以下の内容に変更します。変更は取り消せません。
               <div className="h-6" />
               <p>
                 {emailRef.current?.value !== "" &&
-                  `・${ja.word.email}:${emailRef.current?.value}`}
+                  `・メールアドレス:${emailRef.current?.value}`}
               </p>
-              <p>{`${
-                emailNotificationRef.current?.value === "true"
-                  ? `・${ja.settings.notification_ok}`
-                  : `・${ja.settings.notification_ng}`
-              }`}</p>
+              <p>
+                {emailNotificationRef.current?.value === "true"
+                  ? `・メール通知を受け取る`
+                  : `・メール通知を受け取らない`}
+              </p>
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                {ja.word.cancel}
+                キャンセル
               </Button>
               <Button
                 colorScheme="red"
@@ -151,7 +149,7 @@ export default function Page() {
                 ml={3}
                 isLoading={isFetching}
               >
-                {ja.word.confirmation}
+                確定
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

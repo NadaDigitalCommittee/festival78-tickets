@@ -1,5 +1,5 @@
 import { Certification } from "@/app/(app)/certifications/_components/Certification";
-import { ja } from "@/lib/lang/ja";
+
 import { getEvents } from "@/lib/server/cms";
 import { prisma } from "@/lib/server/db";
 import { RaffleIds } from "@/lib/server/getRaffleId";
@@ -59,7 +59,7 @@ export default async function Page({
 
   return (
     <main>
-      {certificationData.length === 0 && <p>{ja.raffle.no_win_history}</p>}
+      {certificationData.length === 0 && <p>抽選履歴がありません。</p>}
       <Accordion defaultIndex={index}>
         {certificationData.map((data) => (
           <AccordionItem key={data.eventName}>

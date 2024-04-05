@@ -1,5 +1,5 @@
 import { BreadCrumbs } from "@/components/ui/BreadCrumbs";
-import { ja } from "@/lib/lang/ja";
+
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <Link href="/">
           <div className="mt-6 w-full rounded-lg border border-theme p-2">
-            <p className="w-full text-center">{ja.word.return_to_top}</p>
+            <p className="w-full text-center">トップへ戻る</p>
           </div>
         </Link>
         {/* <LogoutButton /> */}

@@ -1,4 +1,3 @@
-import { ja } from "@/lib/lang/ja";
 import { fetchNews } from "@/lib/server/fetchNews";
 import Link from "next/link";
 import { FC } from "react";
@@ -21,7 +20,7 @@ export const NewsList: FC<Props> = async ({ compact }) => {
   const raffleNews = news?.filter((n) => n.type === "win" || n.type === "lose");
   return (
     <div className="mb-6">
-      <p className="mb-2 font-bold">{ja.word.news}</p>
+      <p className="mb-2 font-bold">お知らせ</p>
       {emergencyNews?.map((n) => (
         <div key={n.id} className="mb-4 rounded-md bg-red-100 p-4">
           <div className="mb-1 flex">
@@ -33,7 +32,7 @@ export const NewsList: FC<Props> = async ({ compact }) => {
           </p>
 
           <p className="text-right text-sm text-blue-500 underline">
-            <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
+            <Link href={`/news/${n.id}`}>詳細</Link>
           </p>
         </div>
       ))}
@@ -57,7 +56,7 @@ export const NewsList: FC<Props> = async ({ compact }) => {
                 {n.compactBody}
               </p>
               <p className="text-right text-sm text-blue-500 underline">
-                <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
+                <Link href={`/news/${n.id}`}>詳細</Link>
               </p>
             </div>
           )
@@ -75,14 +74,14 @@ export const NewsList: FC<Props> = async ({ compact }) => {
                 {n.compactBody}
               </p>
               <p className="text-right text-sm text-blue-500 underline">
-                <Link href={`/news/${n.id}`}>{ja.word.description}</Link>
+                <Link href={`/news/${n.id}`}>詳細</Link>
               </p>
             </div>
           )
       )}
       {compact && (
         <p className="text-right text-blue-500">
-          <Link href={"/news"}>{ja.news.guide_for_past_news}</Link>
+          <Link href={"/news"}>過去のお知らせはこちら</Link>
         </p>
       )}
     </div>

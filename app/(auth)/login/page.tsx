@@ -5,13 +5,12 @@ import { FC, ReactNode, useRef, useState } from "react";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { z } from "zod";
 
-import { ja } from "@/lib/lang/ja";
-import { IconContext } from "react-icons/lib";
-import { SiMinutemailer } from "react-icons/si";
-import { Resend } from "../_components/Resend";
-import { HelpCard } from "../_components/HelpCard";
-import { MdEmail } from "react-icons/md";
 import { BsExclamationTriangleFill } from "react-icons/bs";
+import { IconContext } from "react-icons/lib";
+import { MdEmail } from "react-icons/md";
+import { SiMinutemailer } from "react-icons/si";
+import { HelpCard } from "../_components/HelpCard";
+import { Resend } from "../_components/Resend";
 
 const Login = () => {
   const ref = useRef<HTMLInputElement>(null);
@@ -26,7 +25,7 @@ const Login = () => {
     const result = scheme.safeParse(ref.current?.value);
     if (!result.success) {
       return toast({
-        title: `${ja.toast.error_email_scheme}`,
+        title: `メールアドレスの形式が正しくありません。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -38,7 +37,7 @@ const Login = () => {
       return setIsPosted(true);
     } else {
       toast({
-        title: `${ja.toast.error_email_not_correct}`,
+        title: `メールアドレスが正しくありません。`,
         status: "error",
         duration: 9000,
         isClosable: true,
@@ -53,24 +52,24 @@ const Login = () => {
             <IconContext.Provider value={{ size: "10em" }}>
               <SiMinutemailer />
             </IconContext.Provider>
-            <p>{ja.auth.submit_verification_email}</p>
-            <p>{ja.auth.confirm_email}</p>
+            <p>認証メールを送信しました。</p>
+            <p>メールボックスを確認してください。</p>
           </div>
-          <p className="mt-12 font-bold">{ja.auth.case_resend}</p>
+          <p className="mt-12 font-bold">認証メールが見当たらない場合</p>
           <div className="mt-2 flex w-full flex-col items-center rounded-lg border lg:w-2/3 ">
             <HelpCard
               icon={<MdEmail />}
-              title={ja.word.spam}
-              content={ja.auth.allow_email}
+              title="迷惑メール"
+              content="迷惑メールフォルダに入っている可能性があります。「festival.ticket@nada-sc.jp」からのメールの受信を許可してください。"
             />
 
             <HelpCard
               icon={<BsExclamationTriangleFill />}
-              title={ja.auth.mistyped_email}
-              content={ja.auth.mistyped_email_long}
+              title="アドレスの打ち間違い"
+              content="入力して頂いたメールアドレスが正しくない可能性があります。その場合最初からやり直してください。"
             />
           </div>
-          <p className="mb-3 mt-6 font-bold">{ja.auth.case1}</p>
+          <p className="mb-3 mt-6 font-bold">それでも解決しない場合</p>
           <Resend email={email} />
           <Button
             onClick={() => {
@@ -81,15 +80,15 @@ const Login = () => {
             className="my-6 w-full"
             variant={"outline"}
           >
-            {ja.word.return_to_top}
+            トップへ戻る
           </Button>
         </div>
       ) : (
         <div className="mt-12 flex flex-col items-center rounded bg-white px-2">
-          <p className="mt-12 text-3xl">{ja.word.tickets_system}</p>
-          <p className="mb-6 mt-2 text-2xl">{ja.word.login}</p>
+          <p className="mt-12 text-3xl">抽選券システム</p>
+          <p className="mb-6 mt-2 text-2xl">ログイン</p>
           <p className="my-2 text-base">
-            {ja.word.email}
+            メールアドレス
             <span className="text-red-600">*</span>
           </p>
           <input
@@ -106,23 +105,29 @@ const Login = () => {
             colorScheme="orange"
             isLoading={isFetching}
           >
-            {ja.word.login}
+            ログイン
           </Button>
 
           <div className="my-6 flex w-full flex-col items-center rounded-lg border">
             <LoginHelpCard
               icon={<RiQuestionnaireFill />}
-              title={ja.auth.case2}
+              title="この画面が表示された場合"
               content={
                 <div className="flex flex-col gap-3">
-                  <p>{ja.auth.solution_1}</p>
-                  <p>{ja.auth.solution_1_long}</p>
+                  <p>①登録フォームでメールアドレスをすでに登録されている方</p>
+                  <p>
+                    セッションが切れている、もしくは別のブラウザ・端末でログインしている可能性があります。もう一度登録したメールアドレスでログインしてください。
+                  </p>
                   <br />
-                  <p>{ja.auth.solution_2}</p>
-                  <p>{ja.auth.solution_2_long}</p>
+                  <p>②メールアドレスを登録されていない場合</p>
+                  <p>
+                    パンフレット内に登録リンク用のQRコードがありますので、そちらから登録をお願いします。
+                  </p>
                   <br />
-                  <p>{ja.auth.solution_3}</p>
-                  <p>{ja.auth.solution_3_long}</p>
+                  <p>③何度もこの画面が表示される方</p>
+                  <p>
+                    ブラウザの設定でCookieがオフになっている、もしくはシークレットモードで閲覧されている可能性があります。それらをオフにしたうえで再度お試しください。
+                  </p>
                 </div>
               }
             />
