@@ -19,6 +19,9 @@ export const GET = validateApiHandler<Api<ApiEventsResponse>>(
       next: {
         revalidate: 60 * 1000,
       },
+      headers:{
+        "x-secret": process.env.ADMIN_SECRET
+      }
     }).then((res) => res.json());
     const ratioArray = ratioRes.data as {
       eventId: number;

@@ -1,8 +1,11 @@
 import { getEvents } from "@/lib/server/cms";
 import { prisma } from "@/lib/server/db";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function POST(request:NextRequest) {
+ if(request.headers.get("x-secret")!==process.env.ADMIN_SECRET){
+  return NextResponse.json({ ok: false }, { status: 401 });
+ }
   const events = await getEvents();
   const result: { eventId: number; timeId: number; ratio: number }[] = [];
   const promise: Promise<void>[] = [];
