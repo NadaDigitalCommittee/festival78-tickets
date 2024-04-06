@@ -1,3 +1,4 @@
+import { extendCapacity } from "@/exception/raffleException";
 import type { Event } from "@/lib/types";
 import { FC } from "react";
 
@@ -30,7 +31,7 @@ export const EventList: FC<{
                     <td className=" w-4">{e.id}</td>
                     <td className="sm: w-32 md:w-48">{e.name}</td>
                     <td className=" w-32"> {t.toPeriodString()} </td>
-                    <td className="w-4">{e.capacity}</td>
+                    <td className="w-4">{extendCapacity(e.id,i)??e.capacity}</td>
                     <td className="w-12">
                       {raffleIds?.get(
                         JSON.stringify({

@@ -8,6 +8,7 @@ import { validateSession } from "@/lib/server/session";
 import { Session } from "@/lib/types";
 import "@/styles/globals.scss";
 import { ChakraProvider } from "@chakra-ui/react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import { Inter, Zen_Kaku_Gothic_New } from "next/font/google";
 import { ReactNode } from "react";
@@ -86,13 +87,14 @@ export default async function RootLayout({
         .map((f) => f.variable)
         .join(" ")} bg-neutral-[150]`}
     >
-      <body>
+      <body className="font-zen_kaku_gothic_new">
         <Provider session={session}>
           <Header />
           <p className="text-center text-2xl text-red-500">{`${session?.admin ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
           <div
-            className={`min-h-[100lvh] overflow-x-clip font-zen_kaku_gothic_new`}
+            className={`min-h-[100lvh] overflow-x-clip`}
           >
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GAID} />
             {children}
           </div>
           <Footer />

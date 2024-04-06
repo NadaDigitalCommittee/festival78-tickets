@@ -1,7 +1,8 @@
+import { extendCapacity } from "@/exception/raffleException";
 import { prisma } from "@/lib/server/db";
+import { sendLoseEmail } from "../email/template/Lose";
 import { sendWinEmail } from "../email/template/Win";
 import { getEvents } from "./cms";
-import { sendLoseEmail } from "../email/template/Lose";
 import { sendPushNotification } from "./pushNotification";
 import { solveDistribution } from "./raffleAlgo";
 
@@ -20,7 +21,7 @@ export async function raffle(
   const [status, winnersRaffleUUID, losersRaffleUUID] = await raffleUUID(
     eventId,
     timeId,
-    capacity
+    extendCapacity(eventId, timeId) ?? capacity
   );
   if (status !== "ok") return [status, []];
   await updateResult(eventId, timeId, winnersRaffleUUID);

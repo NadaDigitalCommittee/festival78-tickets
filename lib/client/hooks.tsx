@@ -1,12 +1,11 @@
+import { useState } from "react";
 import useSWR from "swr";
+import { convertEvent } from "../converEvent";
 import {
   ApiEventsResponse,
   ApiResultResponse,
   ApiUserResponse,
-  Event,
 } from "../types";
-import { convertEvent } from "../utils";
-import { useState } from "react";
 
 export const useRaffles = () => {
   const {
@@ -28,12 +27,12 @@ export const useEvents = () => {
     error,
     mutate,
   } = useSWR<ApiEventsResponse>(`/events`, {
-    refreshInterval: 8 * 60 * 60 * 1000,
+    refreshInterval: 60 * 1000,
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
-  const parsed: Event[] | undefined = result?.events.map(convertEvent);
+  const parsed = result?.events.map(convertEvent);
   parsed?.sort((a, b) => a.id - b.id);
   return { events: parsed, error, mutate };
 };

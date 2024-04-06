@@ -25,7 +25,7 @@ export const Timetable: FC = () => {
     <>
       <div>
         <p>
-          ・企画の<b>開始30分前</b>に登録を済ませてください。
+          ・企画の<b>開始30分前</b>に登録を済ませてください。ただし、「トイブロックで灘校机椅子を制作体験」の企画に関しては<b>開始45分前</b>に登録を済ませてください。
         </p>
         <p className="font-bold">
           ・同じ時間帯の企画を登録することはできません。
@@ -91,6 +91,7 @@ export const Timetable: FC = () => {
                       eventId={event.id}
                       timeId={i}
                       key={i + event.id}
+                      ratio={event.ratio[i]}
                     />
                   );
                 });
@@ -192,9 +193,10 @@ type CellProps = {
   event: Event;
   eventId: number;
   timeId: number;
+  ratio:number;
 };
 
-const Cell: FC<CellProps> = ({ event, eventId, timeId }) => {
+const Cell: FC<CellProps> = ({ event, eventId, timeId,ratio }) => {
   const time = event.time[timeId];
   const raffles = useContext(ResultContext);
   const events = useContext(EventContext);
@@ -278,6 +280,7 @@ const Cell: FC<CellProps> = ({ event, eventId, timeId }) => {
       <p className="mt-1">{time.toStartString()}</p>
       <p>～</p>
       <p>{time.toEndString()}</p>
+      <p>{ratio}</p>
       <Link
         className="text-xs text-blue-500 underline"
         href={`/raffle?eventId=${eventId}&timeId=${timeId}`}

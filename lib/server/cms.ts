@@ -1,6 +1,6 @@
 import { createClient } from "microcms-js-sdk";
+import { convertEvent } from "../converEvent";
 import type { Event } from "../types";
-import { convertEvent } from "../utils";
 
 const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,
@@ -46,7 +46,7 @@ export async function getEventsFromCMS() {
       endpoint: "events",
       customRequestInit: {
         next: {
-          revalidate: 60,
+          revalidate: 60*1000,
         },
       },
     })

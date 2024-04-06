@@ -177,7 +177,10 @@ export const Form: FC = () => {
               <p>・同じ時間帯の企画を同時に登録することはできません。</p>
               <p>・開始時刻が9:25までの企画は抽選券不要です。</p>
               <p>
-                ・抽選は開始時刻の約30分前に行われます。お早めに登録をお願いします。
+                ・抽選は開始時刻の<b>約30分前</b>に行われます。お早めに登録をお願いします。
+              </p>
+              <p>
+                ・ただし、「トイブロックで灘校机椅子を制作体験」の企画に関しては<b>開始45分前</b>に登録を済ませてください。
               </p>
             </div>
 
@@ -201,11 +204,11 @@ export const Form: FC = () => {
             </AlertDialogHeader>
 
             <AlertDialogBody flex={"flex"}>
-              以下の内容で抽選登録をします。後から取り消すことはできません。
+              以下の内容で抽選登録をします。<b>後から取り消すことはできません。</b>
               <div className="h-6" />
-              <p>・undefined</p>
-              <p>・undefined</p>
-              <p>・undefined人</p>
+              <p>・企画名:{event?.name}</p>
+              <p>・時間帯:{time?.toPeriodString()}</p>
+              <p>・参加者数:{participants}人</p>
             </AlertDialogBody>
 
             <AlertDialogFooter>

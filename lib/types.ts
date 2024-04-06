@@ -58,7 +58,7 @@ export type News = {
 export type NewsType = "information" | "emergency" | "win" | "lose";
 
 export type ApiEventsResponse = {
-  events: Array<EventSchema & MicroCMSContentId & MicroCMSDate>;
+  events: Array<EventSchema & MicroCMSContentId & MicroCMSDate & {ratio:number[]}>;
 };
 
 export type Session = {

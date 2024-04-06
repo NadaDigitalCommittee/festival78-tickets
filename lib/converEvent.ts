@@ -1,13 +1,11 @@
-import { EventSchema } from "./server/cms";
 import { Time } from "./time";
-import { Event } from "./types";
 
 /**
  * Converts an EventSchema object to an Event object.
  * @param event - The EventSchema object to be converted.
  * @returns The converted Event object.
  */
-export function convertEvent(event: EventSchema): Event {
+export function convertEvent<T extends Schema>(event: T): Omit<T,"start"|"end">&{id:number;time:Time[]} {
   const time: Time[] = [];
   for (let i = 0; i < event.start.length; i++) {
     time.push(
@@ -24,4 +22,11 @@ export function convertEvent(event: EventSchema): Event {
     id: event.number,
     time: time,
   };
+}
+
+
+type Schema = {
+  number: number;
+  start: { hour: number, minute: number }[];
+  end: { hour: number, minute: number }[];
 }
