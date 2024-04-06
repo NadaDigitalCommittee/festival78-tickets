@@ -13,7 +13,12 @@ export const Header: FC<Props> = () => {
     >
       <div className="flex items-center">
         <Link href={"/"}>
-          <Image src={"/img/logo1.png"} alt="ロゴ" height={100} width={100} />
+          <Image
+            src={"/img/logo1_450w.webp"}
+            alt="ロゴ"
+            height={100}
+            width={100}
+          />
         </Link>
         <Link href={"/"} className="grow">
           <p>第78回灘校文化祭</p>

@@ -46,7 +46,7 @@ export async function getEventsFromCMS() {
       endpoint: "events",
       customRequestInit: {
         next: {
-          revalidate: 60*1000,
+          revalidate: 60 * 1000,
         },
       },
     })

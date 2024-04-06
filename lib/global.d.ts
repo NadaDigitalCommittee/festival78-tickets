@@ -20,6 +20,6 @@ declare namespace NodeJS {
     readonly DISCORD_WEBHOOK_URL: string;
     readonly NEXT_PUBLIC_VAPID_PUBLIC_KEY: string;
     readonly VAPID_PRIVATE_KEY: string;
-    readonly NEXT_PUBLIC_GAID:string;
+    readonly NEXT_PUBLIC_GAID: string;
   }
 }

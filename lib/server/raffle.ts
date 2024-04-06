@@ -1,4 +1,4 @@
-import { extendCapacity } from "@/exception/raffleException";
+import { extendCapacity } from "@/extension/raffleException";
 import { prisma } from "@/lib/server/db";
 import { sendLoseEmail } from "../email/template/Lose";
 import { sendWinEmail } from "../email/template/Win";

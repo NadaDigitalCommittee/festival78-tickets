@@ -91,9 +91,7 @@ export default async function RootLayout({
         <Provider session={session}>
           <Header />
           <p className="text-center text-2xl text-red-500">{`${session?.admin ? "管理者権限でログインしているため不必要にいじらないこと。" : ""}`}</p>
-          <div
-            className={`min-h-[100lvh] overflow-x-clip`}
-          >
+          <div className={`min-h-[100lvh] overflow-x-clip`}>
             <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GAID} />
             {children}
           </div>

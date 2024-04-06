@@ -5,7 +5,9 @@ import { Time } from "./time";
  * @param event - The EventSchema object to be converted.
  * @returns The converted Event object.
  */
-export function convertEvent<T extends Schema>(event: T): Omit<T,"start"|"end">&{id:number;time:Time[]} {
+export function convertEvent<T extends Schema>(
+  event: T
+): Omit<T, "start" | "end"> & { id: number; time: Time[] } {
   const time: Time[] = [];
   for (let i = 0; i < event.start.length; i++) {
     time.push(
@@ -24,9 +26,8 @@ export function convertEvent<T extends Schema>(event: T): Omit<T,"start"|"end">&
   };
 }
 
-
 type Schema = {
   number: number;
-  start: { hour: number, minute: number }[];
-  end: { hour: number, minute: number }[];
-}
+  start: { hour: number; minute: number }[];
+  end: { hour: number; minute: number }[];
+};

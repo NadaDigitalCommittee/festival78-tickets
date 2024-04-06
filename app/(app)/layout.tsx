@@ -1,4 +1,4 @@
-import { BreadCrumbs } from "@/components/ui/BreadCrumbs";
+import { BreadCrumbs } from "@/components/BreadCrumbs";
 
 import Link from "next/link";
 import { ReactNode } from "react";
