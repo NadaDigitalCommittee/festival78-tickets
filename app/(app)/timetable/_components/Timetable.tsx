@@ -18,7 +18,7 @@ import {
 const ResultContext = createContext<Raffle[] | undefined>(undefined);
 const EventContext = createContext<Event[] | undefined>(undefined);
 
-export const Timetable: FC<{ratio:{eventId:number,timeId:number,ratio:number}[]}> = ({ratio}) => {
+export const Timetable: FC = () => {
   const { events } = useEvents();
   const { raffles } = useRaffles();
 
@@ -36,9 +36,6 @@ export const Timetable: FC<{ratio:{eventId:number,timeId:number,ratio:number}[]}
         <p>
           ・開始時刻が9:25以前の場合、<b>抽選券は不要です。</b>
           そのまま会場にお向かいください。
-        </p>
-        <p>
-          ・時間帯の下の数字は倍率となっています。
         </p>
       </div>
       <div className="sticky top-0 z-50">
@@ -97,7 +94,6 @@ export const Timetable: FC<{ratio:{eventId:number,timeId:number,ratio:number}[]}
                       eventId={event.id}
                       timeId={i}
                       key={i + event.id}
-                      ratio={ratio.find(r=>r.eventId===event.id&&r.timeId===i)?.ratio ?? 0}
                     />
                   );
                 });
@@ -199,10 +195,9 @@ type CellProps = {
   event: Event;
   eventId: number;
   timeId: number;
-  ratio: number;
 };
 
-const Cell: FC<CellProps> = ({ event, eventId, timeId, ratio }) => {
+const Cell: FC<CellProps> = ({ event, eventId, timeId }) => {
   const time = event.time[timeId];
   const raffles = useContext(ResultContext);
   const events = useContext(EventContext);
@@ -285,7 +280,6 @@ const Cell: FC<CellProps> = ({ event, eventId, timeId, ratio }) => {
       <p className="mt-1">{time.toStartString()}</p>
       <p>～</p>
       <p>{time.toEndString()}</p>
-      <p>{Math.floor(ratio*10)/10}倍</p>
       <Link
         className="text-xs text-blue-500 underline"
         href={`/raffle?eventId=${eventId}&timeId=${timeId}`}

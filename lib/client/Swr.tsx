@@ -15,7 +15,7 @@ export async function fetcher<T>(
 ): Promise<T> {
   const res = await fetch(`/api${input}`, {
     next: {
-      revalidate: 10 * 60 * 1000,
+      revalidate: 60,
     },
     ...init,
   });
