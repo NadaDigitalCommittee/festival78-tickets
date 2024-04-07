@@ -37,6 +37,9 @@ export const Timetable: FC<{ratio:{eventId:number,timeId:number,ratio:number}[]}
           ・開始時刻が9:25以前の場合、<b>抽選券は不要です。</b>
           そのまま会場にお向かいください。
         </p>
+        <p>
+          ・時間帯の下の数字は倍率となっています。
+        </p>
       </div>
       <div className="sticky top-0 z-50">
         <div className="grid grid-cols-4 gap-2 bg-white pt-2">
@@ -282,7 +285,7 @@ const Cell: FC<CellProps> = ({ event, eventId, timeId, ratio }) => {
       <p className="mt-1">{time.toStartString()}</p>
       <p>～</p>
       <p>{time.toEndString()}</p>
-      <p>{ratio}</p>
+      <p>{Math.floor(ratio*10)/10}倍</p>
       <Link
         className="text-xs text-blue-500 underline"
         href={`/raffle?eventId=${eventId}&timeId=${timeId}`}
