@@ -11,12 +11,12 @@ const getRatio=(eventId:number,timeId:number)=>unstable_cache(async()=>{
       timeId: timeId,
     },
   });
-},[`ratio_${eventId}_${timeId}`],{revalidate:60*1000})
+},[`ratio_${eventId}_${timeId}`],{revalidate:60*2})
 
 export default async function Page() {
   const events=await getEvents()
   const ratio: { eventId: number; timeId: number; ratio: number }[] = [];
-  for await (const event of events) {
+  for (const event of events) {
     for (let i = 0; i < event.time.length; i++) {
       const data=await getRatio(event.id,i)()
       console.log(event.id,i,data)
