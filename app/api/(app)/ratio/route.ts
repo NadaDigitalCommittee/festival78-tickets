@@ -25,10 +25,9 @@ export async function POST(request:NextRequest) {
       );
     }
   }
-  for (let i = 0; i < promise.length; i += 3) {
-    console.log(`ratio ${i}`,(new Date().getTime()-now)/1000);
-    await Promise.all(promise.splice(0, 3));
-  }
+  console.log(`ratio start`,(new Date().getTime()-now)/1000);
+  await Promise.all(promise);
+  console.log(`ratio end`,(new Date().getTime()-now)/1000);
 
   return NextResponse.json({ ok: true, data: result });
 }
