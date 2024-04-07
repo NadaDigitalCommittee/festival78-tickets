@@ -18,7 +18,7 @@ import {
 const ResultContext = createContext<Raffle[] | undefined>(undefined);
 const EventContext = createContext<Event[] | undefined>(undefined);
 
-export const Timetable: FC = () => {
+export const Timetable: FC<{ratio:{eventId:number,timeId:number,ratio:number}[]}> = ({ratio}) => {
   const { events } = useEvents();
   const { raffles } = useRaffles();
 
@@ -94,7 +94,7 @@ export const Timetable: FC = () => {
                       eventId={event.id}
                       timeId={i}
                       key={i + event.id}
-                      ratio={event.ratio[i]}
+                      ratio={ratio.find(r=>r.eventId===event.id&&r.timeId===i)?.ratio ?? 0}
                     />
                   );
                 });

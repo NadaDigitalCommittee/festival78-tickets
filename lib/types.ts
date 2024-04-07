@@ -59,7 +59,8 @@ export type NewsType = "information" | "emergency" | "win" | "lose";
 
 export type ApiEventsResponse = {
   events: Array<
-    EventSchema & MicroCMSContentId & MicroCMSDate & { ratio: number[] }
+    EventSchema & MicroCMSContentId & MicroCMSDate 
+    // & { ratio: number[] }
   >;
 };
 
