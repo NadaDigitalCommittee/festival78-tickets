@@ -30,7 +30,8 @@
     ".next/types/**/*.ts",
     "test.ts",
     "lib/seed.ts",
-    "next.config.js"
+    "next.config.js",
+    "scripts/login.ts"
   ],
   "exclude": ["node_modules"]
 }

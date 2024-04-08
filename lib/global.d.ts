@@ -21,5 +21,6 @@ declare namespace NodeJS {
     readonly NEXT_PUBLIC_VAPID_PUBLIC_KEY: string;
     readonly VAPID_PRIVATE_KEY: string;
     readonly NEXT_PUBLIC_GAID: string;
+    readonly TEST_EMAIL: string;
   }
 }

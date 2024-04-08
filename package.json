@@ -43,11 +43,13 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.43.0",
     "@types/node": "^20.12.3",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.23",
     "@types/web-push": "^3.6.3",
+    "dotenv": "^16.4.5",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",
     "eslint-plugin-unused-imports": "^3.1.0",

@@ -7,8 +7,8 @@ import { validateApiHandler } from "../../handler";
 import { sendVerficationTokenEmail } from "@/lib/email/template/Verification";
 
 const scheme = z.object({
-  email: z.string(),
-  secret: z.string(),
+  email: z.string().email(),
+  secret: z.string().optional(),
 });
 
 export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
@@ -25,14 +25,6 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
       return NextResponse.json(
         { ok: false },
         { status: 401, statusText: "Unauthorized" }
-      );
-    }
-
-    //emailの形式が正しくなかったら400を返す
-    if (!z.string().email().safeParse(data.email).success) {
-      return NextResponse.json(
-        { ok: false },
-        { status: 400, statusText: "Bad Request" }
       );
     }
 
