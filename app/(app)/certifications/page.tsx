@@ -59,7 +59,7 @@ export default async function Page({
 
   return (
     <main>
-      {certificationData.length === 0 && <p>抽選履歴がありません。</p>}
+      {certificationData.length === 0 && <p>当選履歴がありません。</p>}
       <Accordion defaultIndex={index}>
         {certificationData.map((data) => (
           <AccordionItem key={data.eventName}>
