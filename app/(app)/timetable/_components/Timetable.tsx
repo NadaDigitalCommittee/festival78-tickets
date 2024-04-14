@@ -81,7 +81,7 @@ export const Timetable: FC = () => {
         <div className="h-6 w-20 bg-white"></div>
       </div>
 
-      <div className="relative flex h-[930px] ">
+      <div className="relative flex h-[1170px]">
         <EventColumn events={events} />
         <BaseTimetable>
           <ResultContext.Provider value={raffles}>
@@ -125,7 +125,7 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
   }, []);
   return (
     <div
-      className="relative z-0 h-full w-[1200px] overflow-y-clip overflow-x-scroll"
+      className="relative z-0 w-[1200px] overflow-y-clip overflow-x-scroll"
       ref={ref}
     >
       <div
@@ -147,7 +147,7 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
         {Array(7)
           .fill(0)
           .map((_, i) => (
-            <div key={i} className="h-[870px] min-w-[120px]">
+            <div key={i} className="h-[1110px] min-w-[120px]">
               <div className="flex h-full w-full">
                 <div className="h-full w-1/2 border-r"></div>
                 <div className="h-full w-1/2 border-r"></div>
@@ -162,7 +162,7 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
               left: 60 + period * 2,
             }}
           >
-            <div className="h-[900px] w-1 border-l-2 border-dotted border-theme">
+            <div className="h-[1270px] w-1 border-l-2 border-dotted border-theme">
               <p className="mt-8 min-w-20 -translate-x-[50%] text-center text-theme">
                 現在時刻
               </p>
