@@ -69,7 +69,17 @@ export const AdminForm: FC<Props> = () => {
   };
   const requestReset = async () => {
     onCloseReset();
-    await fetch("/api/reset", {});
+    const res=await fetch("/api/reset", {
+      method:"POST"
+    });
+    if(!res.ok){
+      return toast({
+        title: `リセットに失敗しました。`,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
     toast({
       title: `抽選情報をリセットしました。`,
       status: "success",
