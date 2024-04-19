@@ -66,7 +66,7 @@ export const sendWinEmail = async (
       eventId={eventId}
       timeId={timeId}
     />,
-    "当選のお知らせ",
+    "抽選結果のお知らせ",
     to
   );
 };
