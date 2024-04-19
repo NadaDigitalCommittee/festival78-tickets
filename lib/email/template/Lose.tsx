@@ -48,7 +48,7 @@ export const sendLoseEmail = async (
 ) => {
   await sendMail(
     <Lose eventName={eventName} period={period} />,
-    "当選のお知らせ",
+    "抽選結果のお知らせ",
     to
   );
 };
