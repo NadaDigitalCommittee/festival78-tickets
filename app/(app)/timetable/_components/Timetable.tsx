@@ -81,7 +81,7 @@ export const Timetable: FC = () => {
         <div className="h-6 w-20 bg-white"></div>
       </div>
 
-      <div className="relative flex h-[1170px]">
+      <div className="relative flex h-[1300px]">
         <EventColumn events={events} />
         <BaseTimetable>
           <ResultContext.Provider value={raffles}>
@@ -137,9 +137,9 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
         {Array(7)
           .fill(0)
           .map((_, i) => (
-            <div key={i} className="relative min-w-[120px] bg-white">
+            <div key={i} className="relative min-w-[200px] bg-white">
               <p className="text-center text-xl font-bold">{i + 9}</p>
-              <div className="absolute h-[164px] min-w-[120px] -translate-y-[192px] bg-white"></div>
+              <div className="absolute h-[164px] min-w-[200px] -translate-y-[192px] bg-white"></div>
             </div>
           ))}
       </div>
@@ -147,7 +147,7 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
         {Array(7)
           .fill(0)
           .map((_, i) => (
-            <div key={i} className="h-[1110px] min-w-[120px]">
+            <div key={i} className="h-[1220px] min-w-[200px]">
               <div className="flex h-full w-full">
                 <div className="h-full w-1/2 border-r"></div>
                 <div className="h-full w-1/2 border-r"></div>
@@ -159,7 +159,7 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
           <div
             className="absolute -top-8"
             style={{
-              left: 60 + period * 2,
+              left: 100 + period * 3.335,
             }}
           >
             <div className="h-[1270px] w-1 border-l-2 border-dotted border-theme">
@@ -202,9 +202,9 @@ const Cell: FC<CellProps> = ({ event, eventId, timeId }) => {
   const raffles = useContext(ResultContext);
   const events = useContext(EventContext);
   function calcStyle() {
-    const bairituX = 2;
+    const bairituX = 3.335;
     const bairituY = 120;
-    const baseX = 60;
+    const baseX = 100;
     const baseY = 60;
     const dayStart = new Time(9, 0, 9, 0);
     const sa = (time.start.getTime() - dayStart.start.getTime()) / (1000 * 60);

@@ -7,14 +7,16 @@ import { log } from "./log";
 export async function job() {
   const events = await getEvents();
   const now = Time.nowJST();
+  const message:string[]=[]
   events.map((event) => {
     event.time.map(async (time, index) => {
       const value = time.start.getTime() - now.getTime();
       const minutes = value / (1000 * 60);
+      console.log(event.id,time.toPeriodString())
       if (minutes > 30 || minutes < 0) {
-        return log(event.name, time.toPeriodString(), "抽選しまsen");
+        return message.push(`${event.name} ${time.toPeriodString()} 抽選しません`)
       }
-      log(event.name, time.toPeriodString(), "抽選します");
+      message.push(`${event.name} ${time.toPeriodString()} 抽選します`)
       //30分前に抽選
       const alreadyRaffled = !!(await prisma.raffle.findFirst({
         where: {
@@ -24,10 +26,11 @@ export async function job() {
         },
       }));
       if (alreadyRaffled) {
-        return log(event.name, time.toPeriodString(), "既に抽選済み");
+        return message.push(`${event.name} ${time.toPeriodString()} 既に抽選済み`)
       }
       await raffle(event.id, index, event.capacity);
-      log(event.name, time.toPeriodString(), "抽選完了");
+      message.push(`${event.name} ${time.toPeriodString()} 抽選完了`)
     });
   });
+  await log(message.join("\n"))
 }
