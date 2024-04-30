@@ -4750,10 +4750,10 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-microcms-js-sdk@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/microcms-js-sdk/-/microcms-js-sdk-3.0.0.tgz#f75b4c633205b62f4cd05ecce335dde97819a942"
-  integrity sha512-aix+7SwXdI7tHk3IUJefB7nDfdz/5pIYtFJtDRff6q0IzdJsuOju6ReOS924q3fZnNOuKnnl4g4rm9f/WjwVBg==
+microcms-js-sdk@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/microcms-js-sdk/-/microcms-js-sdk-3.1.1.tgz#fb488f3a737fbaa0aed83536e422f975d76d6de8"
+  integrity sha512-Lh234f+r4dje/1XxWNu4sMrjCrqkMkRoc9wr/WN5wsEngTa0ZLMXLNgZm3e74vw/HHj3ipYSJeCA2HyyguN37w==
   dependencies:
     async-retry "^1.3.3"
 
