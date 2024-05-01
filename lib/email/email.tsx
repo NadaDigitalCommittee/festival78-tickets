@@ -19,7 +19,7 @@ export async function sendMail(body: ReactNode, subject: string, to: string) {
   return transporter.sendMail({
     from: {
       address: process.env.GOOGLE_USER,
-      name: "灘校文化祭 抽選券システム",
+      name: "灘校文化祭 抽選システム",
     },
     to: to,
     subject: subject,

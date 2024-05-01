@@ -165,7 +165,7 @@ export default function Page({
                     <HelpCard
                       icon={<MdMobileFriendly />}
                       title="サイト内で確認"
-                      content="抽選券サイト内で抽選結果を確認することも可能です。"
+                      content="抽選サイト内で抽選結果を確認することも可能です。"
                     />
 
                     <HelpCard

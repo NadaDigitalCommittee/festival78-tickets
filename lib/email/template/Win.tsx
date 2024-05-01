@@ -34,7 +34,7 @@ const Win: FC<Props> = ({ eventName, period, eventId, timeId,winId }) => {
             height={400}
           />
           <Text>
-            この度は、抽選券システムをご利用いただき誠に有難うございます。見事当選されましたことをご報告致します。
+            この度は、抽選システムをご利用いただき誠に有難うございます。見事当選されましたことをご報告致します。
           </Text>
           <Text className="text-xl font-bold">企画概要</Text>
           <Text>企画名: {eventName}</Text>

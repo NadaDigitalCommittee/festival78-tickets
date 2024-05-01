@@ -85,7 +85,7 @@ const Login = () => {
         </div>
       ) : (
         <div className="mt-12 flex flex-col items-center rounded bg-white px-2">
-          <p className="mt-12 text-3xl">抽選券システム</p>
+          <p className="mt-12 text-3xl">抽選システム</p>
           <p className="mb-6 mt-2 text-2xl">ログイン</p>
           <p className="my-2 text-base">
             メールアドレス
