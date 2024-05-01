@@ -31,6 +31,7 @@ export default async function App() {
           />
           <Menu title="設定" icon={IoSettingsOutline} path="/settings" />
         </div>
+        <a href="https://fest.nada-sc.jp" target="_blank"><p className="text-center my-4 text-blue-500 underline">マップ等はHPをご利用ください。</p></a>
         <Notification />
       </div>
     </div>
