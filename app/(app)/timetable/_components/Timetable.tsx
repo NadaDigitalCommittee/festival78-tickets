@@ -81,7 +81,7 @@ export const Timetable: FC = () => {
         <div className="h-6 w-20 bg-white"></div>
       </div>
 
-      <div className="relative flex h-[1300px]">
+      <div className="relative flex h-[1400px]">
         <EventColumn events={events} />
         <BaseTimetable>
           <ResultContext.Provider value={raffles}>
@@ -176,6 +176,7 @@ const BaseTimetable: FC<{ children?: ReactNode }> = ({ children }) => {
 };
 
 const EventColumn: FC<{ events?: Event[] }> = ({ events }) => {
+  console.log(events)
   return (
     <div className="relative -z-10 mt-[60px] flex flex-col gap-2 bg-white">
       {events?.map((event, i) => (

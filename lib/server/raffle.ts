@@ -5,6 +5,7 @@ import { sendWinEmail } from "../email/template/Win";
 import { getEvents } from "./cms";
 import { sendPushNotification } from "./pushNotification";
 import { solveDistribution } from "./raffleAlgo";
+import { RaffleIds } from "./getRaffleId";
 
 /**
  * eventId,timeIdにそってcapacity人の当選者を決めた後、DBを更新する
@@ -143,7 +144,7 @@ async function sendEmail(
       return;
     }
     if (type === "win") {
-      await sendWinEmail(user.email, name, time, eventId, timeId);
+      await sendWinEmail(user.email, name, time, eventId, timeId,RaffleIds.get(JSON.stringify({ eventId, timeId })));
     } else {
       await sendLoseEmail(user.email, name, time);
     }

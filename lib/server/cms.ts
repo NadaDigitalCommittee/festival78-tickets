@@ -44,6 +44,9 @@ export async function getEventsFromCMS() {
   const res = (
     await client.getList<EventSchema>({
       endpoint: "events",
+      queries:{
+        limit: 20,
+      },
       customRequestInit: {
         next: {
           revalidate: 60 * 5,

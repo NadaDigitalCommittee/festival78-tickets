@@ -16,9 +16,10 @@ type Props = {
   period: string;
   eventId: number;
   timeId: number;
+  winId?: string;
 };
 
-const Win: FC<Props> = ({ eventName, period, eventId, timeId }) => {
+const Win: FC<Props> = ({ eventName, period, eventId, timeId,winId }) => {
   const url = `${process.env.HOST}/certifications?eventId=${eventId}&timeId=${timeId}`;
   return (
     <Html lang="ja">
@@ -38,6 +39,7 @@ const Win: FC<Props> = ({ eventName, period, eventId, timeId }) => {
           <Text className="text-xl font-bold">企画概要</Text>
           <Text>企画名: {eventName}</Text>
           <Text>時間帯: {period}</Text>
+          <Text>当選ID: {winId}</Text>
           <Text className="text-xl font-bold">注意事項</Text>
           <Text>
             企画に参加される場合は当選番号が必要です。入場前にスタッフから確認がありますので、以下のURLのページをスマホで開いた上でご提示ください。
@@ -57,7 +59,8 @@ export const sendWinEmail = async (
   eventName: string,
   period: string,
   eventId: number,
-  timeId: number
+  timeId: number,
+  winId?:string
 ) => {
   await sendMail(
     <Win
@@ -65,6 +68,7 @@ export const sendWinEmail = async (
       period={period}
       eventId={eventId}
       timeId={timeId}
+      winId={winId}
     />,
     "抽選結果のお知らせ",
     to
