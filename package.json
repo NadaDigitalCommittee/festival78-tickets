@@ -21,12 +21,12 @@
     "@emotion/styled": "^11.11.5",
     "@next/third-parties": "^14.1.4",
     "@prisma/client": "^5.11.0",
-    "@react-email/components": "^0.0.15",
+    "@react-email/components": "^0.0.17",
     "@react-email/render": "^0.0.12",
     "@react-email/tailwind": "^0.0.15",
     "autoprefixer": "10.4.19",
     "framer-motion": "^11.0.24",
-    "jose": "^5.2.3",
+    "jose": "^5.2.4",
     "microcms-js-sdk": "^3.0.0",
     "next": "14.1.4",
     "next-pwa": "^5.6.0",
@@ -54,7 +54,7 @@
     "eslint-config-next": "14.1.4",
     "eslint-plugin-unused-imports": "^3.1.0",
     "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.13",
+    "prettier-plugin-tailwindcss": "^0.5.14",
     "typescript": "^5.4.3"
   }
 }
