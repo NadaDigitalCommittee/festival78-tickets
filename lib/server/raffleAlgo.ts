@@ -8,6 +8,8 @@ export function solveDistribution(distribution: number[], capacity: number) {
   return arr2;
 }
 
+console.log(solveDistribution([60,60,120,0,0],60))
+
 /**
  運ゲーアルゴリズム
  */
