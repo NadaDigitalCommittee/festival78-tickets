@@ -6,7 +6,7 @@ const refreshTokens = process.env.GOOGLE_REFRESH_TOKENS?.split(",");
 export const transports:Transporter[] = [];
 
 for (let i = 0; i < users.length; i++) {
-  transports.push(create(users[i], refreshTokens[i]));
+  transports.push(create(users[i], refreshTokens?.at(i))??"");
 }
 
 
