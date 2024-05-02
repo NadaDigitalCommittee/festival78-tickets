@@ -1,7 +1,7 @@
 import { Transporter, createTransport } from "nodemailer";
 
-export const users = process.env.GOOGLE_USERS.split(",");
-const refreshTokens = process.env.GOOGLE_REFRESH_TOKENS.split(",");
+export const users = process.env.GOOGLE_USERS?.split(",");
+const refreshTokens = process.env.GOOGLE_REFRESH_TOKENS?.split(",");
 
 export const transports:Transporter[] = [];
 
