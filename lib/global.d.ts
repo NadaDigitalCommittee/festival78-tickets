@@ -16,7 +16,7 @@ declare namespace NodeJS {
     readonly GOOGLE_CLIENT_ID: string;
     readonly GOOGLE_CLIENT_SECRET: string|undefined;
     readonly GOOGLE_REFRESH_TOKENS: string|undefined;
-    readonly GOOGLE_USERS: string;
+    readonly GOOGLE_USERS: string|undefined;
     readonly DISCORD_WEBHOOK_URL: string;
     readonly NEXT_PUBLIC_VAPID_PUBLIC_KEY: string;
     readonly VAPID_PRIVATE_KEY: string;
