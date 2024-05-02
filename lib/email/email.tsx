@@ -5,9 +5,6 @@ import { transports, users } from "./transports";
 
 export async function sendMail(transportId:number,body: ReactNode, subject: string, to: string) {
   const data = render(<Tailwind>{body}</Tailwind>);
-  if(transportId < 0 || transportId >= transports.length) {
-    return;
-  }
   return transports.at(transportId)?.sendMail({
     from: {
       address: users.at(transportId)??"",
