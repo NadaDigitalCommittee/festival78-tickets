@@ -44,9 +44,11 @@ const Lose: FC<Props> = ({ eventName, period }) => {
 export const sendLoseEmail = async (
   to: string,
   eventName: string,
-  period: string
+  period: string,
+  transportId:number
 ) => {
   await sendMail(
+    transportId,
     <Lose eventName={eventName} period={period} />,
     "抽選結果のお知らせ",
     to

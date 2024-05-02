@@ -1,24 +1,16 @@
 import { render } from "@react-email/render";
 import { Tailwind } from "@react-email/tailwind";
-import { createTransport } from "nodemailer";
 import { ReactNode } from "react";
+import { transports, users } from "./transports";
 
-const transporter = createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: process.env.GOOGLE_USER,
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-  },
-});
-
-export async function sendMail(body: ReactNode, subject: string, to: string) {
+export async function sendMail(transportId:number,body: ReactNode, subject: string, to: string) {
   const data = render(<Tailwind>{body}</Tailwind>);
-  return transporter.sendMail({
+  if(transportId < 0 || transportId >= transports.length) {
+    return;
+  }
+  return transports.at(transportId)?.sendMail({
     from: {
-      address: process.env.GOOGLE_USER,
+      address: users.at(transportId)??"",
       name: "灘校文化祭 抽選システム",
     },
     to: to,

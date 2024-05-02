@@ -60,9 +60,11 @@ export const sendWinEmail = async (
   period: string,
   eventId: number,
   timeId: number,
+  transportId:number,
   winId?:string
 ) => {
   await sendMail(
+    transportId,
     <Win
       eventName={eventName}
       period={period}

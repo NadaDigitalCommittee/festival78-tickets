@@ -52,8 +52,9 @@ const VerficationTokenEmail: FC<Props> = ({ url }) => {
   );
 };
 
-export const sendVerficationTokenEmail = async (to: string, token: string) => {
+export const sendVerficationTokenEmail = async (transportId:number,to: string, token: string) => {
   await sendMail(
+    transportId,
     VerficationTokenEmail({
       url: `${process.env.HOST}/verify?token=${token}`,
     }),
