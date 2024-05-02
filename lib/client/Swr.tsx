@@ -27,6 +27,7 @@ export async function fetcher<T>(
   return data.data as T;
 }
 
+// eslint-disable-next-line no-unused-vars
 function localStorageProvider() {
   if (typeof window === "undefined") {
     return new Map();
@@ -49,8 +50,8 @@ export const SWR: FC<Props> = ({ children }) => {
     <SWRConfig
       value={{
         fetcher: fetcher,
-        provider: localStorageProvider,
-        // provider: () => new Map(),
+        // provider: localStorageProvider,
+        provider: () => new Map(),
       }}
     >
       {children}

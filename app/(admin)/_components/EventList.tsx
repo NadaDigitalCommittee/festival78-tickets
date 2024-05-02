@@ -1,4 +1,5 @@
 import { extendCapacity } from "@/extension/raffleException";
+import { Time } from "@/lib/time";
 import type { Event } from "@/lib/types";
 import { FC } from "react";
 
@@ -6,7 +7,8 @@ export const EventList: FC<{
   events?: Event[];
   raffleIds?: Map<string, string>;
   alreadyRaffled?: { eventId: number; timeId: number }[];
-}> = ({ events, raffleIds, alreadyRaffled }) => {
+  remove:boolean;
+}> = ({ events, raffleIds, alreadyRaffled ,remove}) => {
   return (
     <div className="mx-2">
       <p>企画一覧</p>
@@ -26,31 +28,39 @@ export const EventList: FC<{
           {events?.map((e) => {
             return (
               <>
-                {e.time.map((t, i) => (
-                  <tr key={i} className="divide-x border-t border-gray-300">
-                    <td className=" w-4">{e.id}</td>
-                    <td className="sm: w-32 md:w-48">{e.name}</td>
-                    <td className=" w-32"> {t.toPeriodString()} </td>
-                    <td className="w-4">
-                      {extendCapacity(e.id, i) ?? e.capacity}
-                    </td>
-                    <td className="w-12">
-                      {raffleIds?.get(
-                        JSON.stringify({
-                          eventId: e.id,
-                          timeId: i,
-                        })
-                      )}
-                    </td>
-                    <td>
-                      {alreadyRaffled?.find(
-                        (b) => b.eventId === e.id && b.timeId === i
-                      )
-                        ? "〇"
-                        : "×"}
-                    </td>
-                  </tr>
-                ))}
+                {e.time.map((t, i) => {
+                  const interval=(t.start.getTime()-Time.nowJST().getTime());
+                  if ((!!alreadyRaffled?.find(
+                    (b) => b.eventId === e.id && b.timeId === i
+                  ))&&remove) {
+                    return <></>
+                  } else {
+                    return <tr key={i} className="divide-x border-t border-gray-300">
+                      <td className=" w-4">{e.id}</td>
+                      <td className={`sm: w-32 md:w-48 ${(interval<30*60*1000&&interval>0)&&"bg-red-500"}`}>{e.name}</td>
+                      <td className=" w-32"> {t.toPeriodString()} </td>
+                      <td className="w-4">
+                        {extendCapacity(e.id, i) ?? e.capacity}
+                      </td>
+                      <td className="w-12">
+                        {raffleIds?.get(
+                          JSON.stringify({
+                            eventId: e.id,
+                            timeId: i,
+                          })
+                        )}
+                      </td>
+                      <td>
+                        {alreadyRaffled?.find(
+                          (b) => b.eventId === e.id && b.timeId === i
+                        )
+                          ? "〇"
+                          : "×"}
+                      </td>
+                    </tr>
+                  }
+                }
+                )}
               </>
             );
           })}

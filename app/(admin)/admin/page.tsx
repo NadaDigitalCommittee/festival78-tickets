@@ -44,6 +44,7 @@ export default async function Page({
           events={events}
           raffleIds={RaffleIds}
           alreadyRaffled={alreadyRaffled}
+          remove={true}
         />
         <AdminForm />
       </div>
