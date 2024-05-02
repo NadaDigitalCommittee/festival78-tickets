@@ -9,7 +9,7 @@ export async function sendMail(uuid:string,body: ReactNode, subject: string, to:
   const transportId=getTransportId(uuid);
   return transports.at(transportId)?.sendMail({
     from: {
-      address: users.at(transportId)??"",
+      address: users?.at(transportId)??"",
       name: "灘校文化祭 抽選システム",
     },
     to: to,
