@@ -144,9 +144,9 @@ async function sendEmail(
       return;
     }
     if (type === "win") {
-      await sendWinEmail(user.email, name, time, eventId, timeId,RaffleIds.get(JSON.stringify({ eventId, timeId })));
+      await sendWinEmail(user.email, name, time, eventId, timeId,user.uuid,RaffleIds.get(JSON.stringify({ eventId, timeId })));
     } else {
-      await sendLoseEmail(user.email, name, time);
+      await sendLoseEmail(user.email, name, time,user.uuid);
     }
   }
 }

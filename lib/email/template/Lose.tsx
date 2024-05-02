@@ -45,10 +45,10 @@ export const sendLoseEmail = async (
   to: string,
   eventName: string,
   period: string,
-  transportId:number
+  uuid:string,
 ) => {
   await sendMail(
-    transportId,
+    uuid,
     <Lose eventName={eventName} period={period} />,
     "抽選結果のお知らせ",
     to

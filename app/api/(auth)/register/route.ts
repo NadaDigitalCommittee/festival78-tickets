@@ -51,7 +51,7 @@ export const POST = validateApiHandler<Api<ApiRegisterResponse>>(
 
     const token = await generateSession(user.uuid, user.email);
 
-    await sendVerficationTokenEmail(user.email, token);
+    await sendVerficationTokenEmail(user.uuid,user.email, token);
 
     return NextResponse.json({ ok: true }, { status: 201 });
   }
