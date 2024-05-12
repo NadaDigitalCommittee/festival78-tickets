@@ -1,0 +1,45 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  uuid         String   @id @default(uuid())
+  email        String   @unique
+  notification Boolean  @default(true)
+  raffle       Raffle[]
+  pushNotification PushNotification[]
+}
+
+model Raffle {
+  uuid         String @id @default(uuid())
+  eventId      Int
+  timeId       Int
+  userId       String
+  participants Int
+  result       Result @default(PROCESSING)
+  user         User   @relation(fields: [userId], references: [uuid])
+
+  @@unique([eventId, timeId, userId], name: "unique_raffle")
+}
+
+model PushNotification{
+  uuid String @id @default(uuid())
+  userId String
+  endpoint String
+  p256dh String
+  auth String
+  user User @relation(fields: [userId], references: [uuid])
+}
+
+enum Result {
+  WIN
+  LOSE
+  PROCESSING
+}
