@@ -4,8 +4,6 @@ import z from "zod";
 import { validateApiHandler } from "../../handler";
 import { raffle } from "@/lib/server/raffle";
 
-export const dynamic="force-dynamic"
-
 export const POST = validateApiHandler<Api>(async (request, session) => {
   if (!session) {
     return NextResponse.json(
