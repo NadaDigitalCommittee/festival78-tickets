@@ -30,7 +30,7 @@
     "microcms-js-sdk": "^3.0.0",
     "next": "14.1.4",
     "next-pwa": "^5.6.0",
-    "nodemailer": "^6.9.12",
+    "nodemailer": "^6.9.14",
     "postcss": "8.4.38",
     "prisma": "^5.11.0",
     "react": "18.2.0",
@@ -45,7 +45,7 @@
   "devDependencies": {
     "@playwright/test": "^1.43.0",
     "@types/node": "^20.12.3",
-    "@types/nodemailer": "^6.4.14",
+    "@types/nodemailer": "^6.4.15",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.23",
     "@types/web-push": "^3.6.3",
